@@ -10,15 +10,22 @@ from apps.users.serializers import UserSerializer
 
 # Create your views here.
 class UserInfoView(APIView):
-
+    """
+    获取用户信息
+    """
     authentication_classes =  [MyJWTAuthentication, SessionAuthentication, BasicAuthentication]
     def get(self, request):
         user = request.user
         return SuccessResponse(data=UserSerializer(user).data)
-        # return SuccessResponse(request.user)
-
 
 class UserForgetView(APIView):
-
+    """
+    忘记密码
+    """
     def post(self):
+        pass
+
+
+class UserRegisterView(APIView):
+    def post(self, request):
         pass
