@@ -192,7 +192,8 @@ export default {
           loginParams.password = md5(values.password)
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
-            .catch(err => this.requestFailed(err))
+            // TODO: 登录时的错误信息应该是从哪里处理？
+            // .catch(err => this.requestFailed(err))
             .finally(() => {
               state.loginBtn = false
             })
