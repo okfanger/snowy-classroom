@@ -19,6 +19,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView,
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("token/", include("apps.users.urls")),
+    path("auth/", include("apps.users.urls")),
     path('api-auth/', include('rest_framework.urls')),
 ]

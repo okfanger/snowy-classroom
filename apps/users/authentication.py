@@ -13,7 +13,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
     自定义登录认证，使用自有用户表
     """
-    username_field = 'code'
+    username_field = 'username'
 
     def validate(self, attrs):
         authenticate_kwargs = {self.username_field: attrs[self.username_field], 'password': attrs['password']}
@@ -26,17 +26,20 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         refresh = self.get_token(user)
 
         data = {"userId": user.id, "token": str(refresh.access_token), "refresh": str(refresh)}
-        return data
-
+        return {
+            "message": "success",
+            "status": 200,
+            "data": data
+        }
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
 class MyJWTAuthentication(JWTAuthentication):
-    '''
+    """
     修改JWT认证类，返回自定义User表对象
-    '''
+    """
     def get_user(self, validated_token):
         try:
             user_id = validated_token['user_id']

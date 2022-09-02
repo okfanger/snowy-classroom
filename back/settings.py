@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-c1nix92bljn$db(x_3((=v0%=@l8!d+_&7=+!j39pg$b36!zn5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -137,6 +137,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'apps.bases.exception.common_exception_handler',   # 配置py文件名,函数名
     # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),  # 全局默认配置过滤
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -160,5 +161,7 @@ SIMPLE_JWT = {
     # 此处id为生成token时使用自定义的用户表时会使用到，USER_ID_FIELD 是自定义用户表的id，不是id时 会报错user_id = getattr(user, api_settings.USER_ID_FIELD)
     'SIGNING_KEY': JWT_SECRET_KEY,
     'JWT_PUBLIC_KEY': JWT_SECRET_KEY,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'AUTHORIZATION',
     # 'JWT_PAYLOAD_HANDLER': "person_name"
 }
