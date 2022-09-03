@@ -8,8 +8,8 @@ class FactSchema(models.Model):
     事实表的基类
     有创建者，更新者，创建时间，更新时间
     """
-    create_user = models.CharField("创建者", max_length=50, null=True, blank=True, default='')
-    update_user = models.CharField("更新者", max_length=50, null=True, blank=True, default='')
+    # create_user = models.IntegerField("创建者", max_length=50, null=True, blank=True, default='')
+    # update_user = models.IntegerField("更新者", max_length=50, null=True, blank=True, default='')
     create_time = models.DateTimeField("创建时间", auto_now_add=True)
     update_time = models.DateTimeField("更新时间", auto_now=True)
 

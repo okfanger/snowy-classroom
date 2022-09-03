@@ -5,7 +5,7 @@ from rest_framework_simplejwt import authentication
 
 from apps.bases.response import SuccessResponse
 from apps.users.myJWTAuthentication import MyJWTAuthentication
-from apps.users.serializers import UserSerializer
+from apps.users.serializers import UserSerializer, UserRegisterSerializer
 
 
 # Create your views here.
@@ -27,5 +27,20 @@ class UserForgetView(APIView):
 
 
 class UserRegisterView(APIView):
+
+    authentication_classes = ()
+    permission_classes = ()
+    """
+    用户注册
+    """
+
     def post(self, request):
-        pass
+        serializer = UserRegisterSerializer(data=request.data)
+
+        is_vaild = serializer.is_valid(raise_exception=True)
+        if not is_vaild:
+            raise Exception("格式错误！")
+        print(serializer.validated_data)
+        serializer.save()
+
+        return SuccessResponse(msg="注册成功")

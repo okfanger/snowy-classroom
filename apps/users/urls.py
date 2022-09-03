@@ -18,7 +18,7 @@ from django.urls import path
 # from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView, TokenRefreshView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from apps.users.authentication import MyTokenObtainPairView
-from apps.users.views import UserInfoView, UserForgetView
+from apps.users.views import UserInfoView, UserForgetView, UserRegisterView
 
 urlpatterns = [
     # 获取/刷新/验证 token
@@ -36,5 +36,8 @@ urlpatterns = [
 
     # 忘记密码
     path('user/forget/', UserForgetView.as_view(), name="user_forget"),
+    # 用户信息
     path('user/info/', UserInfoView.as_view(), name='token_verify'),
+    # 注册用户
+    path('user/register/', UserRegisterView.as_view(), name="user_register")
 ]
