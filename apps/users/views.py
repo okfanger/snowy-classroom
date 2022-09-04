@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.views import APIView
@@ -44,3 +46,11 @@ class UserRegisterView(APIView):
         serializer.save()
 
         return SuccessResponse(msg="注册成功")
+
+
+class UserNavView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+
+    def get(self, request):
+        
+        return SuccessResponse()
