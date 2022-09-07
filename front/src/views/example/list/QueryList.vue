@@ -9,8 +9,8 @@
 import ATextarea from 'ant-design-vue/es/input/TextArea'
 import AInput from 'ant-design-vue/es/input/Input'
 // 动态切换组件
-import List from '@/views/list/table/List'
-import Edit from '@/views/list/table/Edit'
+import List from '@/views/example/list/table/List'
+import Edit from '@/views/example/list/table/Edit'
 
 export default {
   name: 'TableListWrapper',
