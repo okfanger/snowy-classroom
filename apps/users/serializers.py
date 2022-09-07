@@ -31,15 +31,17 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MenuRouterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MenuRouter
-        fields = '__all__'
-
-
 class MenuRouterMetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuRouterMeta
+        fields = '__all__'
+
+
+class MenuRouterSerializer(serializers.ModelSerializer):
+    meta = MenuRouterMetaSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = MenuRouter
         fields = '__all__'
 
 

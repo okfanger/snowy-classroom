@@ -49,7 +49,7 @@ class MenuRouter(FactSchema):
     hideChildrenInMenu = models.BooleanField(verbose_name='强制菜单显示为Item而不是SubItem(配合 meta.hidden)',
                                              default=False)
     meta = models.OneToOneField("MenuRouterMeta", to_field='id', on_delete=models.CASCADE)
-
+    path = models.CharField(verbose_name='路径', max_length=512)
 
 class MenuRouterMeta(FactSchema):
     title = models.CharField(verbose_name='路由标题, 用于显示面包屑, 页面标题 * 推荐设置', max_length=256)
@@ -61,3 +61,7 @@ class MenuRouterMeta(FactSchema):
         default=False)
     hiddenHeaderContent = models.BooleanField(verbose_name='隐藏PageHeader组件中的页面带的面包屑和页面标题栏',
                                               default=False)
+    hideChildren = models.BooleanField(verbose_name='是否隐藏children', default=False)
+    hideHeader = models.BooleanField(verbose_name='是否隐藏头部', default=False)
+    show = models.BooleanField(verbose_name='是否显示', default=True)
+
