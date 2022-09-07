@@ -9,7 +9,7 @@ class User(FactSchema):
     password = models.CharField(max_length=256, verbose_name='密码')
     email = models.EmailField(unique=True, verbose_name='邮箱')
     telephone = models.CharField(max_length=20, verbose_name='电话号码')
-    # role = models.IntegerField(default=1, verbose_name='权限组', choices=((1, '学生'), (2, '教师'), (3, '超级管理员')))
+    type = models.IntegerField(default=1, verbose_name='身份', choices=((1, '学生'), (2, '教师'), (3, '超级管理员')))
     role = models.ForeignKey("Role", on_delete=models.PROTECT)
 
     @property
@@ -38,6 +38,7 @@ class Role(FactSchema):
     name = models.CharField(verbose_name='角色', max_length=256)
     describe = models.CharField(verbose_name='角色描述', null=True, max_length=256)
     permissions = models.ManyToManyField(to='Permission', verbose_name='拥有的权限')
+    menu_routes = models.ManyToManyField(to='MenuRouter', verbose_name='自己的路由')
 
 
 class MenuRouter(FactSchema):

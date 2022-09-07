@@ -50,7 +50,7 @@ class UserNavView(APIView):
 
     def get(self, request):
         user = request.user
-        menu_router = MenuRouter.objects.all()
+        menu_router = user.role.menu_routes
 
         return SuccessResponse(data={
             "result": MenuRouterSerializer(menu_router, many=True).data

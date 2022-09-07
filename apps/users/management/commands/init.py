@@ -3,6 +3,7 @@ from tqdm import tqdm
 from django.core.management.base import BaseCommand
 
 from apps.users import models
+from apps.users.models import MenuRouter
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +20,8 @@ class Command(BaseCommand):
         # 管理员角色创建
 
         role = models.Role.objects.create(**{
-            'name': 'admin',
-            'describe': '管理员'
+            'name': 'example',
+            'describe': '样例页面'
         })
 
         # action
@@ -84,20 +85,117 @@ class Command(BaseCommand):
             admin_permisson_save_list.append(permission_temp)
 
         role.permissions.set(admin_permisson_save_list)
+
+        admin_route_id_list = [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            10,
+            10010,
+            10011,
+            10012,
+            10013,
+            10014,
+            10015,
+            10016,
+            10017,
+            10018,
+            10019,
+            10020,
+            10021,
+            10022,
+            10023,
+            10024,
+            10025,
+            10026,
+            10027,
+            10028,
+            10029,
+            10030,
+            10031,
+            10032,
+            10033,
+            10034,
+            10035,
+        ]
+        role.menu_routes.set(
+            MenuRouter.objects.filter(id__in=admin_route_id_list)
+        )
         role.save()
 
         models.User.objects.create(**{
             'id': 1,
-            'name': '管理员',
-            'username': 'admin',
+            'name': '样例管理员',
+            'username': 'example',
             'password': '827ccb0eea8a706c4c34a16891f84e7b',
-            'telephone': '18547756279',
-            'email': 'lovefyj616@foxmail.com',
+            'telephone': '13000000000',
+            'email': 'qq@none.com',
+            'type': 3,
             'role': role
         }).save()
 
-        logger.info("创建管理员成功！")
 
+        logger.info("创建样例成功！")
+
+    def init_teacher_user(self):
+
+        # 管理员角色创建
+
+        role = models.Role.objects.create(**{
+            'name': 'teacher',
+            'describe': '教师'
+        })
+
+        # action
+        teacher_permisson_list = [
+            {
+                'symbol': 'student_group',
+                'name': '查看学生列表权限',
+                'action': {
+
+                }
+            },
+        ]
+
+        teacher_permisson_save_list = []
+        for j in teacher_permisson_list:
+            # 部分权限
+
+            temp_action = j['action']
+            j.pop("action")
+            permission_temp = models.Permission.objects.create(**j)
+            permission_temp.save()
+
+            temp_action['permission'] = permission_temp
+            temp = models.PermissionAction.objects.create(**temp_action)
+            temp.save()
+            teacher_permisson_save_list.append(permission_temp)
+
+        role.permissions.set(teacher_permisson_save_list)
+
+        teacher_route_id_list = [
+            1,7
+        ]
+        role.menu_routes.set(
+            MenuRouter.objects.filter(id__in=teacher_route_id_list)
+        )
+        role.save()
+
+        models.User.objects.create(**{
+            'id': 2,
+            'name': '小白教师',
+            'username': 'teacher',
+            'password': '827ccb0eea8a706c4c34a16891f84e7b',
+            'telephone': '13000000000',
+            'email': 'qq@teacher.com',
+            'role': role
+        }).save()
+
+        logger.info("创建教师角色成功！")
     def init_route(self):
         default_routes = [
             {
@@ -465,6 +563,7 @@ class Command(BaseCommand):
                 'component': 'NotificationSettings'
             }
         ]
+
         logger.info("正在生成路由")
         for item in tqdm(default_routes):
             meta = models.MenuRouterMeta.objects.create(**item['meta'])
@@ -480,3 +579,5 @@ class Command(BaseCommand):
             self.init_admin_user()
         if "route" in init_name_list:
             self.init_route()
+        if "teacher" in init_name_list:
+            self.init_teacher_user()
