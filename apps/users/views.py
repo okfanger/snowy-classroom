@@ -1,13 +1,8 @@
-import json
-
-from django.shortcuts import render
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.views import APIView
-from rest_framework_simplejwt import authentication
-
 from apps.bases.response import SuccessResponse
+from apps.users.models import MenuRouter
 from apps.users.myJWTAuthentication import MyJWTAuthentication
-from apps.users.serializers import UserSerializer, UserRegisterSerializer
+from apps.users.serializers import UserSerializer, UserRegisterSerializer, MenuRouterSerializer
 
 
 # Create your views here.
@@ -15,21 +10,23 @@ class UserInfoView(APIView):
     """
     获取用户信息
     """
-    authentication_classes =  [MyJWTAuthentication, SessionAuthentication, BasicAuthentication]
+    authentication_classes = [MyJWTAuthentication]
+
     def get(self, request):
         user = request.user
         return SuccessResponse(data=UserSerializer(user).data)
+
 
 class UserForgetView(APIView):
     """
     忘记密码
     """
+
     def post(self):
         pass
 
 
 class UserRegisterView(APIView):
-
     authentication_classes = ()
     permission_classes = ()
     """
@@ -52,5 +49,9 @@ class UserNavView(APIView):
     authentication_classes = [MyJWTAuthentication]
 
     def get(self, request):
-        
-        return SuccessResponse()
+        user = request.user
+        menu_router = MenuRouter.objects.all()
+
+        return SuccessResponse(data={
+            "result": MenuRouterSerializer(menu_router, many=True).data
+        })

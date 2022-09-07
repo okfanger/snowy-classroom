@@ -1,8 +1,6 @@
-
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import exceptions
-
 
 from apps.users.models import User
 
@@ -31,6 +29,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         }
         # return data
 
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-

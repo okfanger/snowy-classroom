@@ -3,3 +3,5 @@ django-filter
 djangorestframework
 djangorestframework-simplejwt
 django-cors-headers
+# django-rest-swagger
+# drf_yasg
