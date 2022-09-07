@@ -5,7 +5,7 @@
 ### 1.1 第一次部署
 进入项目目录 
 ```bash
-cd exam-auto-judege
+cd snowy-clasroom
 ```
 
 
@@ -24,6 +24,13 @@ env\scripts\activate
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
+初始化数据
+
+```bash
+python .\scripts\reset-database-shell.py
+```
+
+
 ### 1.2 正常运行项目
 
 进入/激活 当前虚拟环境
@@ -33,7 +40,7 @@ env\scripts\activate
 
 运行项目，并绑定到 8032端口（因为前端的proxy挂的也是本地的8032端口）
 ```bash
-python manager.py runserver 127.0.0.1:8032
+python manage.py runserver 127.0.0.1:8032
 ```
 
 
@@ -42,7 +49,7 @@ python manager.py runserver 127.0.0.1:8032
 ### 2.1 第一次部署
 进入项目目录 
 ```bash
-cd exam-auto-judege
+cd snowy-clasroom
 cd front
 ```
 
