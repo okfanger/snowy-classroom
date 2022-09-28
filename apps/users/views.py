@@ -46,7 +46,7 @@ class UserRegisterView(APIView):
 
 
 class UserNavView(APIView):
-    authentication_classes = [MyJWTAuthentication]
+    authentication_classes = [ MyJWTAuthentication ]
 
     def get(self, request):
         user = request.user
@@ -55,3 +55,4 @@ class UserNavView(APIView):
         return SuccessResponse(data={
             "result": MenuRouterSerializer(menu_router, many=True).data
         })
+

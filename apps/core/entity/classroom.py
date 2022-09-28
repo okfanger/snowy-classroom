@@ -5,8 +5,9 @@ from apps.bases.models import FactSchema
 
 
 class ClassRoom(FactSchema):
-    grade = models.CharField(verbose_name="所属年级")
-    adviser = models.ForeignKey(to='User', verbose_name="", on_delete=models.PROTECT)
+    adviser = models.ForeignKey(to='Teacher', verbose_name="班主任", on_delete=models.PROTECT)
+    # students = models.ManyToManyField(to="Student", verbose_name="选课学生")
+
 
 class ClassRoomSerializer(serializers.ModelSerializer):
     class Meta:

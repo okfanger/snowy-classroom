@@ -5,11 +5,11 @@ from apps.bases.models import FactSchema
 
 
 class Question(FactSchema):
-    name = models.CharField(verbose_name='试卷名', max_length=256)
-    course = models.ForeignKey("Course", to_field='id', on_delete=models.PROTECT, verbose_name='课程')
-    start_time = models.DateTimeField(verbose_name='开始时间')
-    end_time = models.DateTimeField(verbose_name='截止时间')
+    type = models.CharField(verbose_name="题目类型", max_length=10, null=False)
+    title = models.CharField(verbose_name="题目标题", max_length=256, null=False)
+    content = models.CharField(verbose_name="题目内容", max_length=1024, null=False)
 
+    exam = models.ForeignKey(to="Exam", on_delete=models.CASCADE)
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:

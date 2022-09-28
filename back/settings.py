@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'corsheaders',  # 跨域app
-    "apps.core",
-    "apps.users",
+
     "apps.bases",
+    "apps.users",
+    "apps.core",
+
     'rest_framework',
     'rest_framework_simplejwt',  # add
 ]

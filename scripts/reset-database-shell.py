@@ -1,4 +1,4 @@
-import os, sys
+import os
 
 if os.path.exists("db.sqlite3"):
     os.remove("db.sqlite3")

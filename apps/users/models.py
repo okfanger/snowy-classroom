@@ -1,5 +1,4 @@
 from django.db import models
-
 from apps.bases.models import FactSchema
 
 
@@ -10,6 +9,7 @@ class User(FactSchema):
     email = models.EmailField(unique=True, verbose_name='邮箱')
     telephone = models.CharField(max_length=20, verbose_name='电话号码')
     type = models.IntegerField(default=1, verbose_name='身份', choices=((1, '学生'), (2, '教师'), (3, '超级管理员')))
+
     role = models.ForeignKey("Role", on_delete=models.PROTECT)
 
     @property
@@ -52,6 +52,7 @@ class MenuRouter(FactSchema):
     meta = models.OneToOneField("MenuRouterMeta", to_field='id', on_delete=models.CASCADE)
     path = models.CharField(verbose_name='路径', max_length=512)
 
+
 class MenuRouterMeta(FactSchema):
     title = models.CharField(verbose_name='路由标题, 用于显示面包屑, 页面标题 * 推荐设置', max_length=256)
     icon = models.CharField(verbose_name='路由在menu上显示的图标[string, svg]', max_length=256)
@@ -65,4 +66,3 @@ class MenuRouterMeta(FactSchema):
     hideChildren = models.BooleanField(verbose_name='是否隐藏children', default=False)
     hideHeader = models.BooleanField(verbose_name='是否隐藏头部', default=False)
     show = models.BooleanField(verbose_name='是否显示', default=True)
-
