@@ -19,6 +19,22 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView,
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("apps.users.urls")),
     path('api-auth/', include('rest_framework.urls')),
+    path("", include("apps.users.urls")),
+
+    # @author: 方宇杰
+    path("base/", include("apps.core.urls.base")),
+    path("exam/", include("apps.core.urls.exam")),
+
+    # @author: 谷志妍
+    path("attend/", include("apps.core.urls.attend")),
+    path("course/", include("apps.core.urls.course")),
+
+    # @author: 段睿丰
+    path("classroom/", include("apps.core.urls.classroom")),
+    path("innermail/", include("apps.core.urls.innermail")),
+
+    # @author: 徐欢
+    path("homework/", include("apps.core.urls.homework")),
+    path("group/", include("apps.core.urls.group")),
 ]
