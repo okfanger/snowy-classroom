@@ -19,6 +19,7 @@ python -m venv env
 env\scripts\activate
 ```
 
+
 根据依赖列表安装
 ```bash
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -58,6 +59,11 @@ cd front
 npm i -g yarn
 ```
 
+切换 yarn 镜像源（淘宝的镜像）
+```bash
+yarn config set registry https://registry.npmmirror.com/
+```
+
 使用yarn安装前端依赖
 ```bash
 yarn install
@@ -66,4 +72,12 @@ yarn install
 
 ```bash
 yarn run serve
+```
+
+## 3. 杂项
+
+
+导出目录树：
+```bash
+tree -L 5 -I "node_modules|dist|dist.zip|__pycache__|env|migrations|*.py|*.md" >tree.txt
 ```

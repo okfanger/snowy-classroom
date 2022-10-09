@@ -1,4 +1,4 @@
-路由/菜单说明
+~~路由/菜单说明
 ====
 
 
@@ -128,7 +128,7 @@ const asyncRouterMap = [
 
 附权限路由结构：
 
-![权限结构](https://static-2.loacg.com/open/static/github/permissions.png)
+!~~[权限结构](https://static-2.loacg.com/open/static/github/permissions.png)
 
 
 第二种前端路由由后端动态生成的设计，可以前往官网文档 https://pro.antdv.com/docs/authority-management 参考
