@@ -56,17 +56,17 @@ const user = {
         getInfo().then(response => {
           const result = response.data
           console.log(response)
-
-          if (result.role && result.role.permissions.length > 0) {
-            const role = result.role
-            role.permissions = result.role.permissions
-            role.permissions.map(per => {
-              if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
-                const action = per.actionEntitySet.map(action => { return action.action })
-                per.actionList = action
-              }
-            })
-            role.permissionList = role.permissions.map(permission => { return permission.id })
+          // && result.role.permissions.length > 0
+          if (result.role) {
+            // const role = result.role
+            // role.permissions = result.role.permissions
+            // role.permissions.map(per => {
+            //   if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
+            //     const action = per.actionEntitySet.map(action => { return action.action })
+            //     per.actionList = action
+            //   }
+            // })
+            // role.permissionList = role.permissions.map(permission => { return permission.id })
             commit('SET_ROLES', result.role)
             commit('SET_INFO', result)
           } else {

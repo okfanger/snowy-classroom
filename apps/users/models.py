@@ -1,4 +1,5 @@
 from django.db import models
+# from django.db.models import CharField
 from apps.bases.models import FactSchema
 
 
@@ -8,7 +9,8 @@ class User(FactSchema):
     password = models.CharField(max_length=256, verbose_name='密码')
     email = models.EmailField(unique=True, verbose_name='邮箱')
     telephone = models.CharField(max_length=20, verbose_name='电话号码')
-    type = models.IntegerField(default=1, verbose_name='身份', choices=((1, '学生'), (2, '教师'), (3, '超级管理员')))
+    type = models.IntegerField(default=1, verbose_name='身份',
+                               choices=((1, '学生'), (2, '教师'), (3, '超级管理员')))
 
     role = models.ForeignKey("Role", on_delete=models.PROTECT)
 
@@ -21,23 +23,23 @@ class User(FactSchema):
         return True
 
 
-class Permission(FactSchema):
-    symbol = models.CharField(verbose_name="权限标志", max_length=256)
-    name = models.CharField(verbose_name='权限中文名', max_length=256)
+# class Permission(FactSchema):
+#     symbol = models.CharField(verbose_name="权限标志", max_length=256)
+#     name = models.CharField(verbose_name='权限中文名', max_length=256)
 
 
-class PermissionAction(FactSchema):
-    permission = models.ForeignKey('Permission', related_name='actionEntitySet', on_delete=models.CASCADE,
-                                   verbose_name='权限子集')
-    action = models.CharField(verbose_name='操作名', max_length=256)
-    describe = models.CharField(verbose_name='操作描述', null=True, max_length=256)
-    defaultCheck = models.BooleanField(default=False, verbose_name='默认操作')
+# class PermissionAction(FactSchema):
+#     permission = models.ForeignKey('Permission', related_name='actionEntitySet', on_delete=models.CASCADE,
+#                                    verbose_name='权限子集')
+#     action = models.CharField(verbose_name='操作名', max_length=256)
+#     describe = models.CharField(verbose_name='操作描述', null=True, max_length=256)
+#     defaultCheck = models.BooleanField(default=False, verbose_name='默认操作')
 
 
 class Role(FactSchema):
     name = models.CharField(verbose_name='角色', max_length=256)
     describe = models.CharField(verbose_name='角色描述', null=True, max_length=256)
-    permissions = models.ManyToManyField(to='Permission', verbose_name='拥有的权限')
+    # permissions = models.ManyToManyField(to='Permission', verbose_name='拥有的权限')
     menu_routes = models.ManyToManyField(to='MenuRouter', verbose_name='自己的路由')
 
 

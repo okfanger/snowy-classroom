@@ -1,11 +1,20 @@
+import datetime
 import logging
+import os.path
+
 from tqdm import tqdm
 from django.core.management.base import BaseCommand
 
+from apps.core.entity.classroom import ClassRoom
+from apps.core.entity.student import Student
 from apps.users import models
-from apps.users.models import MenuRouter
+from apps.users.models import MenuRouter, User, Role
+
+import pandas as pd
+from back.settings import BASE_DIR
 
 logger = logging.getLogger(__name__)
+
 
 class Command(BaseCommand):
     """
@@ -18,11 +27,12 @@ class Command(BaseCommand):
     def init_admin_user(self):
 
         # 管理员角色创建
-
         role = models.Role.objects.create(**{
             'name': 'example',
             'describe': '样例页面'
         })
+
+        # action
 
         # action
         admin_permisson_list = [
@@ -138,47 +148,46 @@ class Command(BaseCommand):
             'role': role
         }).save()
 
-
         logger.info("创建样例成功！")
 
     def init_teacher_user(self):
 
         # 管理员角色创建
-
         role = models.Role.objects.create(**{
             'name': 'teacher',
             'describe': '教师'
         })
 
-        # action
-        teacher_permisson_list = [
-            {
-                'symbol': 'student_group',
-                'name': '查看学生列表权限',
-                'action': {
 
-                }
-            },
-        ]
-
-        teacher_permisson_save_list = []
-        for j in teacher_permisson_list:
-            # 部分权限
-
-            temp_action = j['action']
-            j.pop("action")
-            permission_temp = models.Permission.objects.create(**j)
-            permission_temp.save()
-
-            temp_action['permission'] = permission_temp
-            temp = models.PermissionAction.objects.create(**temp_action)
-            temp.save()
-            teacher_permisson_save_list.append(permission_temp)
-
-        role.permissions.set(teacher_permisson_save_list)
+        # # action
+        # teacher_permisson_list = [
+        #     {
+        #         'symbol': 'student_group',
+        #         'name': '查看学生列表权限',
+        #         'action': {
+        #
+        #         }
+        #     },
+        # ]
+        #
+        # teacher_permisson_save_list = []
+        # for j in teacher_permisson_list:
+        #     # 部分权限
+        #
+        #     temp_action = j['action']
+        #     j.pop("action")
+        #     permission_temp = models.Permission.objects.create(**j)
+        #     permission_temp.save()
+        #
+        #     temp_action['permission'] = permission_temp
+        #     temp = models.PermissionAction.objects.create(**temp_action)
+        #     temp.save()
+        #     teacher_permisson_save_list.append(permission_temp)
+        #
+        # role.permissions.set(teacher_permisson_save_list)
 
         teacher_route_id_list = [
-            1,7
+            1, 7
         ]
         role.menu_routes.set(
             MenuRouter.objects.filter(id__in=teacher_route_id_list)
@@ -196,6 +205,7 @@ class Command(BaseCommand):
         }).save()
 
         logger.info("创建教师角色成功！")
+
     def init_route(self):
         default_routes = [
             {
@@ -248,7 +258,7 @@ class Command(BaseCommand):
                 'id': 10,
                 'meta': {
                     'icon': 'form',
-                    'title': 'menu.form'
+                    'title': 'menu.django_sessionform'
                 },
                 'redirect': '/form/base-form',
                 'component': 'RouteView'
@@ -564,6 +574,21 @@ class Command(BaseCommand):
             }
         ]
 
+        default_routes.extend([
+            {
+                'name': 'dashboard',
+                'parentId': 0,
+                'id': 2000,
+                'meta': {
+                    'title': 'menu.dashboard',
+                    'icon': 'dashboard',
+                    'show': True
+                },
+                'component': 'student/dashboard',
+                'redirect': ''
+            }
+        ])
+
         logger.info("正在生成路由")
         for item in tqdm(default_routes):
             meta = models.MenuRouterMeta.objects.create(**item['meta'])
@@ -573,6 +598,73 @@ class Command(BaseCommand):
         logger.info("生成完毕")
         pass
 
+    def init_student_user(self):
+
+        # 生成学生角色
+        role = models.Role.objects.create(**{
+            'name': 'student',
+            'describe': '学生'
+        })
+
+        # action
+        student_permisson_list = [
+            {
+                'symbol': 'student_group',
+                'name': '查看学生列表权限',
+                'action': {
+
+                }
+            },
+        ]
+
+        # student_permisson_save_list = []
+        # for j in student_permisson_list:
+        #     # 部分权限
+        #
+        #     temp_action = j['action']
+        #     j.pop("action")
+        #     permission_temp = models.Permission.objects.create(**j)
+        #     permission_temp.save()
+        #
+        #     temp_action['permission'] = permission_temp
+        #     temp = models.PermissionAction.objects.create(**temp_action)
+        #     temp.save()
+        #     student_permisson_save_list.append(permission_temp)
+        #
+        # role.permissions.set(student_permisson_save_list)
+
+        student_route_id_list = [
+            2000
+        ]
+        role.menu_routes.set(
+            MenuRouter.objects.filter(id__in=student_route_id_list)
+        )
+        role.save()
+
+        # 建立班级
+        ClassRoom.objects.create(**{
+            "adviser": None
+        })
+
+        # 导入计科3
+        df = pd.read_excel(os.path.join(BASE_DIR, "docs", "data", "计科三班学生信息.xls"), sheet_name=0)
+        for row in df.itertuples():
+            user_create = User.objects.create(**{
+                "name": getattr(row, "姓名"),
+                "username": getattr(row, "学号"),
+                "password": "827ccb0eea8a706c4c34a16891f84e7b",
+                "email": f'{getattr(row, "学号")}@qq.com',
+                "type": 1,
+                "role_id": role
+            })
+
+            student_create = Student.objects.create(**{
+                "grade": 3,
+                "attend_date": datetime.datetime(2020, 9, 1, 0, 0, 0),
+            })
+
+        print(df)
+
     def handle(self, *args, **options):
         init_name_list = options['init_name']
         if "admin" in init_name_list:
@@ -581,3 +673,5 @@ class Command(BaseCommand):
             self.init_route()
         if "teacher" in init_name_list:
             self.init_teacher_user()
+        if "student" in init_name_list:
+            self.init_student_user()
