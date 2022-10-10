@@ -11,8 +11,8 @@ class Course(FactSchema):
     open_time = models.DateTimeField(verbose_name="开设时间", null=True)
     completed = models.BooleanField(verbose_name="完成情况", null=True, default=True)
 
-    students = models.ManyToManyField(to='Student', verbose_name='选课学生')
-    teachers = models.ManyToManyField(to='Teacher', verbose_name="教师")
+    # students = models.ManyToManyField(to='Student', verbose_name='选课学生')
+    # teachers = models.ManyToManyField(to='Teacher', verbose_name="教师")
 
 
 class CourseSerializer(serializers.ModelSerializer):

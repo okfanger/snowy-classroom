@@ -13,10 +13,8 @@ class StudentCourseLeave(FactSchema):
     start_time = models.DateTimeField(verbose_name="开始时间")
     end_time = models.DateTimeField(verbose_name="结束时间")
 
-    student = models.ForeignKey(to="Student",verbose_name="学生", on_delete=models.CASCADE)
-    course = models.ForeignKey(to="Course",verbose_name="课程", on_delete=models.CASCADE)
-
-
+    student = models.ForeignKey(to="Student", verbose_name="学生", on_delete=models.CASCADE)
+    course = models.ForeignKey(to="Course", verbose_name="课程", on_delete=models.CASCADE)
 
 
 class StudentCourseLeaveSerializer(serializers.ModelSerializer):
