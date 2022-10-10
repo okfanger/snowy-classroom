@@ -125,13 +125,18 @@ class Command(BaseCommand):
             course_obj.teacher_set.add(User.objects.get(pk=int(teacher_id)).teacher_binder)
 
         # 生成 路由表
-        from data.routes import default_routes
+        from data.routes import default_routes, teacher_role_routes, student_role_routes, admin_role_routes
 
         for item in tqdm(default_routes):
             meta = models.MenuRouterMeta.objects.create(**item['meta'])
             meta.save()
             item['meta'] = meta
             models.MenuRouter.objects.create(**item).save()
+
+        # 赋予各个角色的路由
+        student_role.menu_routes.set(student_role_routes)
+        teacher_role.menu_routes.set(teacher_role_routes)
+        admin_role.menu_routes.set(admin_role_routes)
 
     def handle(self, *args, **options):
         init_name_list = options['init_name']
