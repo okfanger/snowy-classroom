@@ -1,26 +1,26 @@
 default_routes = [
-    {
-        'name': 'dashboard',
-        'parentId': 0,
-        'id': 1,
-        'meta': {
-            'title': 'menu.dashboard',
-            'icon': 'dashboard',
-            'show': True
-        },
-        'component': 'RouteView',
-        'redirect': '/dashboard/workplace'
-    },
-    {
-        'name': 'workplace',
-        'parentId': 1,
-        'id': 7,
-        'meta': {
-            'title': 'menu.dashboard.monitor',
-            'show': True
-        },
-        'component': 'Workplace'
-    },
+    # {
+    #     'name': 'dashboard',
+    #     'parentId': 0,
+    #     'id': 1,
+    #     'meta': {
+    #         'title': 'menu.dashboard',
+    #         'icon': 'dashboard',
+    #         'show': True
+    #     },
+    #     'component': 'RouteView',
+    #     'redirect': '/dashboard/workplace'
+    # },
+    # {
+    #     'name': 'workplace',
+    #     'parentId': 1,
+    #     'id': 7,
+    #     'meta': {
+    #         'title': 'menu.dashboard.monitor',
+    #         'show': True
+    #     },
+    #     'component': 'Workplace'
+    # },
     # {
     #     'name': 'monitor',
     #     'path': 'https://www.baidu.com/',
@@ -364,11 +364,3 @@ default_routes = [
         'component': 'NotificationSettings'
     }
 ]
-
-account_role_routes = [_["id"] for _ in default_routes]
-
-teacher_role_routes = [*account_role_routes, *[
-
-]]
-student_role_routes = [*account_role_routes]
-admin_role_routes = [*account_role_routes]
