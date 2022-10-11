@@ -10,11 +10,11 @@
           <div class="header">
             <a href="/">
               <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
+              <span class="title">雪课堂</span>
             </a>
           </div>
           <div class="desc">
-            {{ $t('layouts.userLayout.title') }}
+            {{ $t('layouts.userLayout.title') }} <br />
           </div>
         </div>
 
@@ -22,12 +22,12 @@
 
         <div class="footer">
           <div class="links">
-            <a href="_self">帮助</a>
-            <a href="_self">隐私</a>
-            <a href="_self">条款</a>
+<!--            <a href="_self">帮助</a>-->
+<!--            <a href="_self">隐私</a>-->
+<!--            <a href="_self">条款</a>-->
           </div>
           <div class="copyright">
-            Copyright &copy; 2018 vueComponent
+            Copyright &copy; 2022 snowy-classroom
           </div>
         </div>
       </div>

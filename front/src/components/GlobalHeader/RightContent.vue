@@ -8,6 +8,7 @@
 <script>
 import AvatarDropdown from './AvatarDropdown'
 import SelectLang from '@/components/SelectLang'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'RightContent',
@@ -35,8 +36,8 @@ export default {
   },
   data () {
     return {
-      showMenu: true,
-      currentUser: {}
+      showMenu: true
+      // currentUser: {}
     }
   },
   computed: {
@@ -45,14 +46,14 @@ export default {
         'ant-pro-global-header-index-right': true,
         [`ant-pro-global-header-index-${(this.isMobile || !this.topMenu) ? 'light' : this.theme}`]: true
       }
-    }
+    },
+    ...mapGetters({
+        // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
+        currentUser: 'userInfo'
+      })
   },
   mounted () {
-    setTimeout(() => {
-      this.currentUser = {
-        name: 'Serati Ma'
-      }
-    }, 1500)
+
   }
 }
 </script>

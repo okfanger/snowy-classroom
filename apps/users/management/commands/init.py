@@ -28,6 +28,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def init_default():
+
         DATA_PATH = os.path.join(BASE_DIR, "data")
 
         # 读取数据
@@ -72,6 +73,18 @@ class Command(BaseCommand):
                 "desc": getattr(row, "简介"),
                 "user": user_create
             }).save()
+
+        # 生成 管理员
+        User.objects.create(**{
+            'id': 666,
+            'name': "张丽",
+            'username': "admin",
+            'password': "827ccb0eea8a706c4c34a16891f84e7b",
+            'telephone': "100010",
+            'email': "lili@qq.com",
+            'type': 3,
+            'role': admin_role
+        })
 
         # 生成班级
         for row in classrooms_df.itertuples():
@@ -140,6 +153,7 @@ class Command(BaseCommand):
         student_role.menu_routes.set([_["id"] for _ in [*student_role_routes, *default_routes]])
         teacher_role.menu_routes.set([_["id"] for _ in [*teacher_role_routes, *default_routes]])
         admin_role.menu_routes.set([_["id"] for _ in [*admin_role_routes, *default_routes]])
+
 
     def handle(self, *args, **options):
         init_name_list = options['init_name']
