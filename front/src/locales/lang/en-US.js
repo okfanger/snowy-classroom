@@ -11,6 +11,8 @@ import form from './en-US/form'
 import result from './en-US/result'
 import account from './en-US/account'
 import basketball from './en-US/basketball'
+import ikun from './en-US/ikun'
+
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',
@@ -32,5 +34,6 @@ export default {
   ...form,
   ...result,
   ...account,
-  ...basketball
+  ...basketball,
+  ...ikun
 }
