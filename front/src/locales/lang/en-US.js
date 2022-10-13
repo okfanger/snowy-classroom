@@ -10,7 +10,7 @@ import dashboard from './en-US/dashboard'
 import form from './en-US/form'
 import result from './en-US/result'
 import account from './en-US/account'
-
+import basketball from './en-US/basketball'
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',
@@ -31,5 +31,6 @@ export default {
   ...dashboard,
   ...form,
   ...result,
-  ...account
+  ...account,
+  ...basketball
 }
