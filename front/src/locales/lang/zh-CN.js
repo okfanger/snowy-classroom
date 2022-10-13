@@ -9,6 +9,9 @@ import dashboard from './zh-CN/dashboard'
 import form from './zh-CN/form'
 import result from './zh-CN/result'
 import account from './zh-CN/account'
+import basketball from './zh-CN/basketball'
+import apple from './zh-CN/apple_student'
+import ikun from '@/locales/lang/zh-CN/ikun'
 
 const components = {
   antLocale: antd,
@@ -18,7 +21,6 @@ const components = {
 
 export default {
   message: '-',
-
   'layouts.usermenu.dialog.title': '信息',
   'layouts.usermenu.dialog.content': '您确定要注销吗？',
   'layouts.userLayout.title': '作者：方宇杰 & 谷志妍 & 段睿丰 & 徐欢',
@@ -30,5 +32,6 @@ export default {
   ...dashboard,
   ...form,
   ...result,
-  ...account
+  ...account,
+  ...basketball
 }
