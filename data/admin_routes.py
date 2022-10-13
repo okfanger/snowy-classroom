@@ -13,4 +13,17 @@ admin_role_routes = [
         'component': 'admin/dashboard/index.vue',
         'redirect': ''
     },
+{
+    'name': 'overall',
+    'parentId': 0,
+    'id': 71002,
+    "path": "/overall",
+    'meta': {
+        'title': 'menu.overall',
+        'icon': 'dribbble',
+        'show': True,
+    },
+    'component': 'admin/overall/index.vue',
+    'redirect': ''
+},
 ]
