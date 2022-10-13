@@ -11,6 +11,7 @@ import result from './zh-CN/result'
 import account from './zh-CN/account'
 import basketball from './zh-CN/basketball'
 import apple from './zh-CN/apple_student'
+import ikun from '@/locales/lang/zh-CN/ikun'
 
 const components = {
   antLocale: antd,
@@ -32,6 +33,5 @@ export default {
   ...form,
   ...result,
   ...account,
-  ...basketball,
-  ...apple
+  ...basketball
 }
