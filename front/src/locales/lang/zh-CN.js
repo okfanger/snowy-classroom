@@ -12,6 +12,7 @@ import account from './zh-CN/account'
 import basketball from './zh-CN/basketball'
 import apple from './zh-CN/apple_student'
 import ikun from '@/locales/lang/zh-CN/ikun'
+import overall from "@/views/admin/overall";
 
 const components = {
   antLocale: antd,
@@ -33,5 +34,8 @@ export default {
   ...form,
   ...result,
   ...account,
-  ...basketball
+  ...basketball,
+  ...ikun,
+  ...apple,
+  ...overall
 }

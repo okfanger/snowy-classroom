@@ -13,7 +13,7 @@ import account from './en-US/account'
 import basketball from './en-US/basketball'
 import apple from './en-US/apple_student'
 import ikun from './en-US/ikun'
-
+import overall from "@/views/admin/overall";
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',
@@ -35,5 +35,9 @@ export default {
   ...form,
   ...result,
   ...account,
-  ...basketball
+  ...basketball,
+  ...ikun,
+  ...apple,
+  ...overall
+
 }
