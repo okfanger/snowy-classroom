@@ -12,7 +12,6 @@ import result from './en-US/result'
 import account from './en-US/account'
 import basketball from './en-US/basketball'
 import apple from './en-US/apple_student'
-
 import ikun from './en-US/ikun'
 
 const components = {
