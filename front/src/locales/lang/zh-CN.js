@@ -9,17 +9,16 @@ import dashboard from './zh-CN/dashboard'
 import form from './zh-CN/form'
 import result from './zh-CN/result'
 import account from './zh-CN/account'
-import basketball from './zh-CN/basketball'
-import apple from './zh-CN/apple_student'
-import ikun from '@/locales/lang/zh-CN/ikun'
-import overall from '@/views/admin/overall'
+import fyj from './zh-CN/fyj'
+import gzy from './zh-CN/gzy'
+import drf from './zh-CN/drf'
+import xh from './zh-CN/xh'
 
 const components = {
   antLocale: antd,
   momentName: 'zh-cn',
   momentLocale: momentCN
 }
-
 export default {
   message: '-',
   'layouts.usermenu.dialog.title': '信息',
@@ -34,8 +33,8 @@ export default {
   ...form,
   ...result,
   ...account,
-  ...basketball,
-  ...ikun,
-  ...apple,
-  ...overall
+  ...fyj,
+  ...gzy,
+  ...drf,
+  ...xh
 }

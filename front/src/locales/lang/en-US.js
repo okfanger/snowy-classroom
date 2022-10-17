@@ -10,16 +10,15 @@ import dashboard from './en-US/dashboard'
 import form from './en-US/form'
 import result from './en-US/result'
 import account from './en-US/account'
-import basketball from './en-US/basketball'
-import apple from './en-US/apple_student'
-import ikun from './en-US/ikun'
-import overall from '@/views/admin/overall'
+import fyj from './en-US/fyj'
+import gzy from './en-US/gzy'
+import drf from './en-US/drf'
+import xh from './en-US/xh'
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',
   momentLocale: momentEU
 }
-
 export default {
   message: '-',
 
@@ -35,9 +34,8 @@ export default {
   ...form,
   ...result,
   ...account,
-  ...basketball,
-  ...ikun,
-  ...apple,
-  ...overall
-
+  ...fyj,
+  ...gzy,
+  ...drf,
+  ...xh
 }
