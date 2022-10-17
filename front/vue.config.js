@@ -117,8 +117,16 @@ const vueConfig = {
         target: 'http://127.0.0.1:8032/',
         ws: false,
         changeOrigin: true,
-        pathRewrite: {
+        pathRewrite: { // 重写
           '^/api': ''
+        }
+      },
+      '/tenapi': {
+        target: 'https://tenapi.cn/',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/tenapi': ''
         }
       }
     }
