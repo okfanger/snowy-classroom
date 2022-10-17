@@ -1,11 +1,67 @@
 <template>
-  <div>我是APPLE的一个页面</div>
+  <div>
+    <div style="background:#ECECEC; padding:30px">
+      <a-card title="历史上的今天" :bordered="false" style="width: 500px">
+        {{ history }}
+      </a-card>
+    </div>
+    <div>
+      <a-descriptions
+        title="手机号归属地查询"
+        bordered
+        :column="{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }"
+      >
+        <a-descriptions-item label="电话号码">
+          {{ tel.tel }}
+        </a-descriptions-item>
+        <a-descriptions-item label="号码段">
+          {{ tel.duan }}
+        </a-descriptions-item>
+        <a-descriptions-item label="归属地">
+          {{ tel.local }}
+        </a-descriptions-item>
+        <a-descriptions-item label="通信标准">
+          {{ tel.bz }}
+        </a-descriptions-item>
+        <a-descriptions-item label="卡类型">
+          {{ tel.type }}
+        </a-descriptions-item>
+        <a-descriptions-item label="运营商">
+          {{ tel.yys }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Code">
+          {{ tel.code }}
+        </a-descriptions-item>
+      </a-descriptions>
+    </div>
+
+  </div>
 
 </template>
 
 <script>
+import { getHistory, getTel } from '@/api/test'
 export default {
-  name: 'StudentAppleIndex'
+  name: 'StudentAppleIndex',
+  data () {
+    return {
+      history: undefined,
+      wether: undefined
+    }
+  },
+  created () {
+    getHistory().then((res) => {
+      const history = res.data
+      console.log('历史', history)
+      this.history = history
+    })
+
+    getTel().then((res) => {
+      const tel = res.data
+      console.log('电话号码', tel)
+      this.tel = tel
+    })
+  }
 }
 </script>
 
