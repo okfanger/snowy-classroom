@@ -4,19 +4,18 @@ export const getWeather = () => {
     url: '/tenapi/yiyan/?format=json',
     method: 'GET',
     data: {
-
     }
   })
 }
+
 export const getHistory = () => {
   return request({
-    url: '/tenapi/lishi/',
+    url: '/tenapi/lishi/?format=json',
     method: 'GET',
-    data: {
-
-    }
+    data: {}
   })
 }
+
 export const getTel = () => {
   return request({
     url: '/tenapi/tel/?tel=18888888888',
