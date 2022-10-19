@@ -25,3 +25,12 @@ export const getTel = () => {
     }
   })
 }
+export const getHotNews = () => {
+  return request({
+    url: '/tenapi/resou/',
+    method: 'GET',
+    data: {
+
+    }
+  })
+}
