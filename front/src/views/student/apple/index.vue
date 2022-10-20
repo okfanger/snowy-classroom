@@ -1,4 +1,5 @@
 <template>
+  <!--
   <div>
     <div style="background:#ECECEC; padding:30px">
       <a-card title="历史上的今天" :bordered="false" style="width: 500px">
@@ -38,15 +39,26 @@
     </div>
 
   </div>
+-->
+  <div>
+    <a-tag :color="color">
+      {{ color }}
+    </a-tag>
+    <a-button @click="handleChangeColor">change(GET)</a-button>
+    <a-button @click="showColorWarn">change(POST)</a-button>
+  </div>
 
 </template>
 
 <script>
-import { getHistory, getTel } from '@/api/test'
+// import { getHistory, getTel } from '@/api/test'
+import { getColorChange, getColorWarn } from '@/api/test-back'
 export default {
   name: 'StudentAppleIndex',
   data () {
     return {
+      color: 'blue'
+      /*
       history: '',
       telephone: '18547756279',
       tel: {
@@ -57,18 +69,34 @@ export default {
         type: '',
         yys: '',
         code: ''
-      }
+      },
+      */
     }
   },
-methods: {
+  methods: {
+    /*
     fetchTel () {
       getTel(this.telephone).then((res) => {
         const tel = res.data
         this.tel = tel
       })
     }
+    */
+    handleChangeColor () {
+        getColorChange().then((res) => {
+        this.color = res.data.color
+      })
+    },
+
+    showColorWarn () {
+        getColorWarn().then((res) => {
+          this.color = res.data.color
+          console.log(res)
+        })
+    }
   },
   created () {
+    /*
     getHistory().then((res) => {
       const history = res.data
       console.log('历史', history)
@@ -80,6 +108,8 @@ methods: {
       console.log('电话号码', tel)
       this.tel = tel
     })
+    */
+    // this.handleChangeColor()
   }
 }
 </script>

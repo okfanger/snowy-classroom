@@ -87,6 +87,26 @@ class BaseRandomTeam(APIView):
         return ErrorResponse(data="你通过 POST 请求访问到我", msg="我知道你错了")
 
 
+color_set = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple']
+
+class BaseChangeColor(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsStudent]
+
+    def get(self, request):
+        return SuccessResponse(data={
+            "color": random.choice(color_set)
+        })
+
+    def post(self, request: Request):
+        if (random.choice(color_set)) == 'red':
+            return ErrorResponse(msg="有危险")
+        else:
+            return SuccessResponse(data={
+                "color": random.choice(color_set)
+            })
+
+
 # 1. 起名字
 # 2. 继承 APIView 这个类
 # 3. 重写 get(), post()... 方法
