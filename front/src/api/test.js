@@ -17,10 +17,20 @@ export const getHistory = () => {
     }
   })
 }
-export const getTel = () => {
+export const getTel = (tel) => {
   return request({
-    url: '/tenapi/tel/?tel=18888888888',
+    url: `/tenapi/tel/`,
     method: 'GET',
+    params: {
+      tel: tel
+    }
+  })
+}
+
+export const getTelPost = (tel) => {
+  return request({
+    url: `/tenapi/tel/`,
+    method: 'POST',
     data: {
 
     }

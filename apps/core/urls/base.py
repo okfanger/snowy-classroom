@@ -15,5 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from apps.core.views.base import BaseRandomTeam, BaseVisitUsPercentView
+
 urlpatterns = [
+    path('random-team/', BaseRandomTeam.as_view(), name='随机队伍'),
+    path("visit-us-percent/", BaseVisitUsPercentView.as_view(), name="呼叫庄老师")
 ]

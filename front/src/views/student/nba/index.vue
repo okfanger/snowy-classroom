@@ -11,19 +11,41 @@
         {{ oneSentence.source }}
       </a-button>
     </a-popover>
-
+    <a-button type="danger" @click="handleRandomTeam">
+      点我随机队伍 POST
+    </a-button>
+    <a-button type="danger" @click="handleRandTeamGet">
+      点我随机队伍 GET
+    </a-button>
   </div>
 
 </template>
 
 <script>
 import { getWeather } from '@/api/test'
+import { getRandomTeam, getRandomTeamGet } from '@/api/test-back'
 export default {
   name: 'StudentNBAIndex',
   data () {
     return {
-      oneSentence: undefined
+      oneSentence: {
+        hitokoto: '',
+        catname: '',
+        source: ''
+      }
     }
+  },
+methods: {
+    handleRandomTeam () {
+      getRandomTeam().then((res) => {
+        console.log(res)
+      })
+    },
+handleRandTeamGet () {
+    getRandomTeamGet().then((res) => {
+      console.log(res)
+    })
+  }
   },
   created () {
     getWeather().then((res) => {

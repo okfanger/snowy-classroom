@@ -6,6 +6,8 @@
       </a-card>
     </div>
     <div>
+      <a-input v-model="telephone"></a-input>
+      <a-button @click="fetchTel">查询归属地</a-button>
       <a-descriptions
         title="手机号归属地查询"
         bordered
@@ -45,8 +47,25 @@ export default {
   name: 'StudentAppleIndex',
   data () {
     return {
-      history: undefined,
-      wether: undefined
+      history: '',
+      telephone: '18547756279',
+      tel: {
+        tel: '18547756279',
+        duan: '',
+        local: '',
+        bz: '',
+        type: '',
+        yys: '',
+        code: ''
+      }
+    }
+  },
+methods: {
+    fetchTel () {
+      getTel(this.telephone).then((res) => {
+        const tel = res.data
+        this.tel = tel
+      })
     }
   },
   created () {
@@ -56,7 +75,7 @@ export default {
       this.history = history
     })
 
-    getTel().then((res) => {
+    getTel(this.telephone).then((res) => {
       const tel = res.data
       console.log('电话号码', tel)
       this.tel = tel

@@ -18,8 +18,12 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView, TokenRefreshView
 
 urlpatterns = [
+    # django自带的 == 不用管
     path("admin/", admin.site.urls),
+    # django-rest-framework == 不用管
     path('api-auth/', include('rest_framework.urls')),
+
+    # 系统鉴权用的 url
     path("", include("apps.users.urls")),
 
     # @author: 方宇杰
