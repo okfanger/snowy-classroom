@@ -99,11 +99,14 @@ class BaseChangeColor(APIView):
         })
 
     def post(self, request: Request):
-        if (random.choice(color_set)) == 'red':
-            return ErrorResponse(msg="有危险")
+        final_color = random.choice(color_set)
+        if final_color == 'red':
+            return ErrorResponse(data={
+                "color": final_color
+            },msg="有危险")
         else:
             return SuccessResponse(data={
-                "color": random.choice(color_set)
+                "color": final_color
             })
 
 
