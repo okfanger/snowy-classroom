@@ -29,3 +29,20 @@ export const callMissZhuang = (msg) => {
     }
   })
 }
+
+export const getColorChange = () => {
+  return request({
+    url: '/base/color-change/',
+    method: 'GET'
+  })
+}
+
+export const getColorWarn = (msg) => {
+  return request({
+    url: '/base/color-change/',
+    method: 'POST',
+    data: {
+      'msg': msg
+    }
+  })
+}

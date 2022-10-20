@@ -8,6 +8,7 @@ export const getWeather = () => {
     }
   })
 }
+/*
 export const getHistory = () => {
   return request({
     url: '/tenapi/lishi/',
@@ -26,6 +27,7 @@ export const getTel = (tel) => {
     }
   })
 }
+*/
 
 export const getTelPost = (tel) => {
   return request({
