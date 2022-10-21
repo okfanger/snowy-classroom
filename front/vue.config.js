@@ -130,7 +130,6 @@ const vueConfig = {
         }
       }
     }
-
   },
 
   // disable source map in production

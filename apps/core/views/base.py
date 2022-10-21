@@ -31,6 +31,7 @@ def ret_team():
 
 zhuang_percent = 0
 
+
 class BaseVisitUsPercentView(APIView):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsTeacher]
@@ -53,7 +54,7 @@ class BaseVisitUsPercentView(APIView):
 
         if zhuang_percent >= 99:
             return ErrorResponse(msg="好的")
-        zhuang_percent += random.randint(1,10)
+        zhuang_percent += random.randint(1, 10)
         return SuccessResponse(data="很快")
 
 
@@ -89,6 +90,7 @@ class BaseRandomTeam(APIView):
 
 color_set = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple']
 
+
 class BaseChangeColor(APIView):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsStudent]
@@ -103,21 +105,63 @@ class BaseChangeColor(APIView):
         if final_color == 'red':
             return ErrorResponse(data={
                 "color": final_color
-            },msg="有危险")
+            }, msg="有危险")
         else:
             return SuccessResponse(data={
                 "color": final_color
             })
 
 
+ikun_purity = 0
+
+
+class BashIsIkun(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def get(self, request):
+        return SuccessResponse(data={
+            "ikun_purity": ikun_purity
+        })
+
+    def post(self, request: Request):
+        global ikun_purity
+        data = request.data
+        print(data)
+        height = data["height"]
+        weight = data["weight"]
+        constellation = data["constellation"]
+        blood_type = data["bloodType"]
+        hobby = data["hobby"]
+        if height == "184":
+            ikun_purity += 20
+            print("1", ikun_purity)
+        if weight == "60":
+            ikun_purity += 20
+            print("2", ikun_purity)
+        if constellation == "金牛座":
+            ikun_purity += 20
+            print("3", ikun_purity)
+        if blood_type == "A":
+            ikun_purity += 20
+            print("4", ikun_purity)
+        if hobby == "打篮球":
+            ikun_purity += 20
+            print("5", ikun_purity)
+
+        if ikun_purity <= 80:
+            return ErrorResponse(msg="坤度不纯")
+        return SuccessResponse(data="你最好是")
+
+
 # 1. 起名字
+
 # 2. 继承 APIView 这个类
 # 3. 重写 get(), post()... 方法
 # 4. 记得留一个形参 request
 # 5. return 响应
 
 # 6. 响应的选择: SuccessResponse 成功时的响应, ErrorResponse 失败时的响应
-
 
 if __name__ == "__main__":
     ret_team()

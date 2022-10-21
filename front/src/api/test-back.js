@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+
 export const getRandomTeam = () => {
   return request({
     url: '/base/random-team/',
@@ -43,6 +44,27 @@ export const getColorWarn = (msg) => {
     method: 'POST',
     data: {
       'msg': msg
+    }
+  })
+}
+
+export const getIkunPurity = () => {
+  return request({
+    url: '/base/ikun_purity/',
+    method: 'GET'
+  })
+}
+
+export const testIkunPurity = (height, weight, constellation, bloodType, hobby) => {
+  return request({
+    url: '/base/ikun_purity/',
+    method: 'POST',
+    data: {
+      'height': height,
+      'weight': weight,
+      'constellation': constellation,
+      'bloodType': bloodType,
+      'hobby': hobby
     }
   })
 }
