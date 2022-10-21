@@ -7,6 +7,8 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from apps.bases.response import SuccessResponse, ErrorResponse
+from apps.core.entity.student import Student
+from apps.users.models import User
 from apps.users.myJWTAuthentication import MyJWTAuthentication
 from apps.users.permissions import IsStudent, IsTeacher, IsAdmin
 
@@ -152,6 +154,110 @@ class BashIsIkun(APIView):
         if ikun_purity <= 80:
             return ErrorResponse(msg="坤度不纯")
         return SuccessResponse(data="你最好是")
+
+
+class BaseDatabaseTestView(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request: Request):
+        # 查
+
+        # 1. 找到 models的类
+        # 2. 调这个类的objects属性
+        # 3. 进行一系列的操作
+
+        # 查询所有的用户
+        # all_users = User.objects.all()
+
+        # 根据单个属性精确查询
+        # one_user = User.objects.get(id=104)
+
+        # 筛选（筛选包含的）
+        all_users = User.objects.filter(type=2)
+        ## 模糊查询（大于/小于/在...里(contains)/xxx）
+        ## 格式： "字段__操作" 比如：id__in=[100, 200]
+        ## __in 用于读取区间，= 号后面为列表 。
+        ## __gt 大于号 ，= 号后面为数字。
+        ## __gte 大于等于，= 号后面为数字。
+        ## __lt 小于，=号后面为数字。
+        ## __lte 小于等于，= 号后面为数字。
+        ## __contains 包含，= 号后面为字符串。
+        ## __icontains 不区分大小写的包含，= 号后面为字符串。
+        ## __startswith 以指定字符开头，= 号后面为字符串。
+        ## __endswith 以指定字符结尾，= 号后面为字符串。
+        ## ----------------------------------------
+        ## __year 是 DateField 数据类型的年份，= 号后面为数字。
+        ## __month 是DateField 数据类型的月份，= 号后面为数字。
+        ## __day 是DateField 数据类型的天数，= 号后面为数字。
+        all_users = User.objects.filter(id__in=[104, 105])
+
+
+        # 筛选（筛选不包含的）
+        # all_users = User.objects.exclude(name="方宇杰")
+
+        # 排序
+        # 降序为在字段前面加个负号 -。
+        # 升序不需要加
+        # all_users = User.objects.order_by("-id")
+        # 链式编程
+
+        # 反转 reverse()
+        # all_users = all_users.order_by("id")
+
+        # 数量
+        print(all_users.count())
+
+        # 打印第一个、最后一个
+        print(all_users.first())
+        print(all_users.last())
+
+        # 查询是否存在
+        print(User.objects.filter(name="齐天大圣").exists())
+
+        # 如果不指定 values()，默认是查询所有字段
+        # select * from ....
+        # 在一开始就指定要查询字段的？
+
+        values_list = User.objects.values("id")
+        # select id from users_user
+        print(values_list)
+
+        # distinct （用不了）
+
+
+
+        res_set = []
+        for i in all_users:
+            name = i.name
+            tel = i.telephone
+            pid = i.username
+            res_set.append({
+                "id": i.id,
+                "name": name,
+                "tel": tel,
+                "pid": pid
+            })
+
+        return SuccessResponse(data=res_set)
+
+    def post(self, request: Request):
+        data = request.data
+        action = data["action"]
+
+        # 删 改 增
+        if action == "增":
+            pass
+        elif action == "删":
+            pass
+        elif action == "改":
+            pass
+
+        return SuccessResponse(data="POST")
+
+
+
 
 
 # 1. 起名字

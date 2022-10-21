@@ -17,13 +17,20 @@
     <a-button type="danger" @click="handleRandTeamGet">
       点我随机队伍 GET
     </a-button>
+
+    <div>
+
+      <a-button @click="databaseTestGet">数据库测试 GET </a-button>
+      <a-button @click="databaseTestGet">数据库测试 POST </a-button>
+
+    </div>
   </div>
 
 </template>
 
 <script>
 import { getWeather } from '@/api/test'
-import { getRandomTeam, getRandomTeamGet } from '@/api/test-back'
+import { databaseTestGet, databaseTestPost, getRandomTeam, getRandomTeamGet } from '@/api/test-back'
 export default {
   name: 'StudentNBAIndex',
   data () {
@@ -45,6 +52,16 @@ handleRandTeamGet () {
     getRandomTeamGet().then((res) => {
       console.log(res)
     })
+  },
+  databaseTestGet () {
+    databaseTestGet().then((res) => {
+      console.log(res)
+    })
+  },
+databaseTestPost () {
+  databaseTestPost().then((res) => {
+    console.log(res)
+  })
   }
   },
   created () {

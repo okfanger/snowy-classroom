@@ -47,7 +47,6 @@
     <a-button @click="handleChangeColor">change(GET)</a-button>
     <a-button @click="showColorWarn">change(POST)</a-button>
   </div>
-
 </template>
 
 <script>
@@ -83,7 +82,7 @@ export default {
     }
     */
     handleChangeColor () {
-        getColorChange().then((res) => {
+      getColorChange().then((res) => {
         this.color = res.data.color
       })
     },

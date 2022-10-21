@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from apps.core.views.base import BaseRandomTeam, BaseVisitUsPercentView, BaseChangeColor, BashIsIkun
+from apps.core.views.base import BaseRandomTeam, BaseVisitUsPercentView, BaseChangeColor, BashIsIkun, \
+    BaseDatabaseTestView
 
 urlpatterns = [
     path('random-team/', BaseRandomTeam.as_view(), name='随机队伍'),
     path("visit-us-percent/", BaseVisitUsPercentView.as_view(), name="呼叫庄老师"),
     path('color-change/', BaseChangeColor.as_view(), name='改变颜色'),
-    path('ikun_purity/', BashIsIkun.as_view(), name="坤度")
+    path('ikun_purity/', BashIsIkun.as_view(), name="坤度"),
+
+    path('database-test/', BaseDatabaseTestView.as_view(), name="数据库测试")
 ]

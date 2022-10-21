@@ -68,3 +68,17 @@ export const testIkunPurity = (height, weight, constellation, bloodType, hobby) 
     }
   })
 }
+
+export const databaseTestGet = () => {
+  return request({
+    url: '/base/database-test/',
+    method: 'GET'
+  })
+}
+
+export const databaseTestPost = () => {
+  return request({
+    url: '/base/database-test/',
+    method: 'POST'
+  })
+}
