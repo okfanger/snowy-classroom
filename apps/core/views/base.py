@@ -169,13 +169,13 @@ class BaseDatabaseTestView(APIView):
         # 3. 进行一系列的操作
 
         # 查询所有的用户
-        # all_users = User.objects.all()
+        all_users = User.objects.all()
 
         # 根据单个属性精确查询
         # one_user = User.objects.get(id=104)
 
         # 筛选（筛选包含的）
-        all_users = User.objects.filter(type=2)
+        # all_users = User.objects.filter(type=2)
         ## 模糊查询（大于/小于/在...里(contains)/xxx）
         ## 格式： "字段__操作" 比如：id__in=[100, 200]
         ## __in 用于读取区间，= 号后面为列表 。
@@ -191,7 +191,7 @@ class BaseDatabaseTestView(APIView):
         ## __year 是 DateField 数据类型的年份，= 号后面为数字。
         ## __month 是DateField 数据类型的月份，= 号后面为数字。
         ## __day 是DateField 数据类型的天数，= 号后面为数字。
-        all_users = User.objects.filter(id__in=[104, 105])
+        # all_users = User.objects.filter(id__in=[104, 105])
 
 
         # 筛选（筛选不包含的）
