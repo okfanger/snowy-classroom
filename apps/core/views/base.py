@@ -157,7 +157,6 @@ class BashIsIkun(APIView):
 
 
 class BaseDatabaseTestView(APIView):
-
     authentication_classes = []
     permission_classes = []
 
@@ -193,7 +192,6 @@ class BaseDatabaseTestView(APIView):
         ## __day 是DateField 数据类型的天数，= 号后面为数字。
         # all_users = User.objects.filter(id__in=[104, 105])
 
-
         # 筛选（筛选不包含的）
         # all_users = User.objects.exclude(name="方宇杰")
 
@@ -226,8 +224,6 @@ class BaseDatabaseTestView(APIView):
 
         # distinct （用不了）
 
-
-
         res_set = []
         for i in all_users:
             name = i.name
@@ -248,16 +244,94 @@ class BaseDatabaseTestView(APIView):
 
         # 删 改 增
         if action == "增":
+            # 增加
+            # 1. 找到 models的类
+            # 2. 调这个类的objects属性
+            # 3. 继续调 create 方法
+            # 4. 调.save()
+
+            s = [
+                {"id":1,"name":"a", "email": "xxx1@qq.com"},
+                {"id":2,"name":"b", "email": "xxx2@qq.com"},
+                {"id":3,"name":"c", "email": "xxx3@qq.com"},
+            ]
+
+            for i in s:
+                User.objects.create(**i).save()
+
+            User.objects.create(id=9999,
+                                name="xiaofang",
+                                email="fang@cr.cx",
+                                telephone="10086",
+                                ).save()
+
+            User.objects.create(**{
+                "id": 1,
+                "name": "a",
+                "email": "xxx1@qq.com"
+            }).save()
+
+
             pass
         elif action == "删":
+            # 删
+
+            # 1. 找到 models的类
+            # 2. 调这个类的objects属性
+            """
+            方式一：使用模型类的 对象.delete()。
+            返回值：元组，第一个元素为受影响的行数。
+            primary key (pk) => id
+            pk == id
+            books=models.Book.objects.filter(pk=8).first().delete()
+            """
+
+            wanglei = User.objects.filter(username="2020122104599").first()
+            wanglei.delete()
+
+            wanglei2 = User.objects.get(username="2020122104599")
+            wanglei2.delete()
+
+            """
+            方式二：使用 QuerySet 类型数据.delete()(推荐)
+            返回值：元组，第一个元素为受影响的行数。
+            books=models.Book.objects.filter(pk__in=[1,2]).delete()
+            """
+
+            user_set1 = User.objects.filter(pk__in=[110, 111, 112])
+            user_set1.delete()
             pass
+
         elif action == "改":
+            # 改
+
+            # 1. 找到 models的类
+            # 2.调这个类的objects属性
+
+
+            """
+            方式一：
+            模型类的对象.属性 = 更改的属性值
+            模型类的对象.save()
+            """
+            fang = User.objects.get(pk=104)
+            fang.name = "方小杰"
+            fang.save()
+
+            """
+            方式二：QuerySet 类型数据.update(字段名=更改的数据)（推荐）
+            返回值：整数，受影响的行数
+            """
+
+            fang_sets = User.objects.filter(pk=104)
+            fang_sets.update(name="方小杰")
+
+
+
+
             pass
 
         return SuccessResponse(data="POST")
-
-
-
 
 
 # 1. 起名字
