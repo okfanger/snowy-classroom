@@ -1,1 +1,4 @@
-export default { 'menu.apple': 'Apple' }
+export default {
+    'menu.apple': 'Apple',
+    'menu.course': 'Course'
+}
