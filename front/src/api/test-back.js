@@ -82,3 +82,10 @@ export const databaseTestPost = () => {
     method: 'POST'
   })
 }
+
+export const courseGet = () => {
+  return request({
+    url: '/base/course-manage/',
+    method: 'GET'
+  })
+}

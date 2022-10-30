@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from apps.core.views.base import BaseRandomTeam, BaseVisitUsPercentView, BaseChangeColor, BashIsIkun, \
-    BaseDatabaseTestView
+    BaseDatabaseTestView, BaseManageCourse
 
 urlpatterns = [
     path('random-team/', BaseRandomTeam.as_view(), name='随机队伍'),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('color-change/', BaseChangeColor.as_view(), name='改变颜色'),
     path('ikun_purity/', BashIsIkun.as_view(), name="坤度"),
 
-    path('database-test/', BaseDatabaseTestView.as_view(), name="数据库测试")
+    path('database-test/', BaseDatabaseTestView.as_view(), name="数据库测试"),
+    path('course-manage/', BaseManageCourse.as_view(), name="课程管理"),
+
 ]

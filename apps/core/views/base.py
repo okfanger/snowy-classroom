@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 from apps.bases.response import SuccessResponse, ErrorResponse
 from apps.core.entity.student import Student
+from apps.core.entity.course import Course
 from apps.users.models import User
 from apps.users.myJWTAuthentication import MyJWTAuthentication
 from apps.users.permissions import IsStudent, IsTeacher, IsAdmin
@@ -251,9 +252,9 @@ class BaseDatabaseTestView(APIView):
             # 4. 调.save()
 
             s = [
-                {"id":1,"name":"a", "email": "xxx1@qq.com"},
-                {"id":2,"name":"b", "email": "xxx2@qq.com"},
-                {"id":3,"name":"c", "email": "xxx3@qq.com"},
+                {"id": 1, "name": "a", "email": "xxx1@qq.com"},
+                {"id": 2, "name": "b", "email": "xxx2@qq.com"},
+                {"id": 3, "name": "c", "email": "xxx3@qq.com"},
             ]
 
             for i in s:
@@ -270,7 +271,6 @@ class BaseDatabaseTestView(APIView):
                 "name": "a",
                 "email": "xxx1@qq.com"
             }).save()
-
 
             pass
         elif action == "删":
@@ -308,7 +308,6 @@ class BaseDatabaseTestView(APIView):
             # 1. 找到 models的类
             # 2.调这个类的objects属性
 
-
             """
             方式一：
             模型类的对象.属性 = 更改的属性值
@@ -326,12 +325,33 @@ class BaseDatabaseTestView(APIView):
             fang_sets = User.objects.filter(pk=104)
             fang_sets.update(name="方小杰")
 
-
-
-
             pass
 
         return SuccessResponse(data="POST")
+
+
+class BaseManageCourse(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsStudent]
+
+    def get(self, request: Request):
+        course_set = []
+        all_courses = Course.objects.all()
+        for i in all_courses:
+            name = i.name
+            open_time = i.open_time
+            completed = i.completed
+            course_set.append({
+                "name": name,
+                "open_time": open_time,
+                "completed": completed
+
+            })
+
+        return SuccessResponse(data=course_set)
+
+    def post(self, request: Request):
+        pass
 
 
 # 1. 起名字
