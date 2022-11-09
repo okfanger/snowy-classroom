@@ -83,9 +83,11 @@ export const databaseTestPost = () => {
   })
 }
 
-export const courseGet = () => {
+// js 函数默认值
+export const courseGet = (queryParams) => {
   return request({
     url: '/base/course-manage/',
-    method: 'GET'
+    method: 'GET',
+    params: queryParams
   })
 }

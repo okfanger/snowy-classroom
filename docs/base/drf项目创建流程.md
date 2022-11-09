@@ -84,3 +84,6 @@ $ python manage.py runserver
 $ python manage.py runserver 8080
 $ python manage.py runserver 127.0.0.1:8080
 ```
+
+
+https://blog.csdn.net/anchenhe9360/article/details/102247811

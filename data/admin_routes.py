@@ -21,7 +21,7 @@ admin_role_routes = [
     'meta': {
         'title': 'menu.overall',
         'icon': 'dribbble',
-        'show': True,
+        'show': False,
     },
     'component': 'admin/overall/index.vue',
     'redirect': ''

@@ -6,9 +6,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
+from apps.bases.pagination import MyPageNumberPagination
 from apps.bases.response import SuccessResponse, ErrorResponse
 from apps.core.entity.student import Student
-from apps.core.entity.course import Course
+from apps.core.entity.course import Course, CourseSerializer
 from apps.users.models import User
 from apps.users.myJWTAuthentication import MyJWTAuthentication
 from apps.users.permissions import IsStudent, IsTeacher, IsAdmin
@@ -335,20 +336,31 @@ class BaseManageCourse(APIView):
     permission_classes = [IsStudent]
 
     def get(self, request: Request):
-        course_set = []
-        all_courses = Course.objects.all()
-        for i in all_courses:
-            name = i.name
-            open_time = i.open_time
-            completed = i.completed
-            course_set.append({
-                "name": name,
-                "open_time": open_time,
-                "completed": completed
+        # 纯python实现
+        # course_set = []
+        # all_courses = Course.objects.all()
+        # for i in all_courses:
+        #     name = i.name
+        #     open_time = i.open_time
+        #     completed = i.completed
+        #     course_set.append({
+        #         "name": name,
+        #         "open_time": open_time,
+        #         "completed": completed
+        #     })
 
-            })
+        # 序列化器
+        # CourseSerializer
+        # courses = Course.objects.all() # 多个
 
-        return SuccessResponse(data=course_set)
+        # 从用户的请求中拿数据
+        keyword = request.query_params["keyword"]
+        courses = Course.objects.filter(name__contains=keyword)
+
+        pager = MyPageNumberPagination()
+        # xxxxxSerializer(QuerySet结果集/xxxx实例, many=False).data
+        res = pager.paginate_queryset(courses, request, self)
+        return pager.get_paginated_response(CourseSerializer(res, many=True).data)
 
     def post(self, request: Request):
         pass
