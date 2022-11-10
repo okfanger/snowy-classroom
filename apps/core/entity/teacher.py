@@ -2,6 +2,7 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
+from apps.users.serializers import UserSerializer
 
 
 class Teacher(FactSchema):
@@ -18,3 +19,9 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = '__all__'
+
+class TeacherNoCourseSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True, many=False)
+    class Meta:
+        model = Teacher
+        exclude = ['courses']

@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-urlpatterns = [
 
+from apps.core.views.course import CourseStudentFindAll
+
+urlpatterns = [
+    path('all/', CourseStudentFindAll.as_view())
 ]

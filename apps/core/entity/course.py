@@ -4,6 +4,7 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
+from apps.core.entity.teacher import TeacherSerializer, TeacherNoCourseSerializer
 
 
 class Course(FactSchema):
@@ -21,3 +22,11 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = '__all__'
         # fields = ['create_time', 'update_time']
         # exclude = ['create_time', 'update_time']
+
+
+class CourseHasTeacherSerializer(serializers.ModelSerializer):
+    teacher_set = TeacherNoCourseSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Course
+        fields = '__all__'
