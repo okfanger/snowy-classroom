@@ -362,5 +362,17 @@ default_routes = [
             'show': False
         },
         'component': 'NotificationSettings'
+    },
+    {
+        'name': 'innerMessage',
+        'path': '/account/message',
+        'parentId': 0,
+        'id': 11001,
+        'meta': {
+            'title': 'account.message',
+            'show': True,
+            'icon': 'message'
+        },
+        'component': 'example/account/message/index.vue'
     }
 ]
