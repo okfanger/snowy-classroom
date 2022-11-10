@@ -13,7 +13,7 @@
       广告代码 真实项目中请移除
       production remove this Ads
     -->
-    <ads v-if="isProPreviewSite && !collapsed"/>
+    <!--    <ads v-if="isProPreviewSite && !collapsed"/>-->
     <!-- Ads end -->
 
     <!-- 1.0.0+ 版本 pro-layout 提供 API，
@@ -95,7 +95,8 @@ export default {
         fixedHeader: defaultSettings.fixedHeader,
         fixSiderbar: defaultSettings.fixSiderbar,
         colorWeak: defaultSettings.colorWeak,
-
+        siderWidth: defaultSettings.siderWidth,
+        openKeys: defaultSettings.openKeys,
         hideHintAlert: false,
         hideCopyButton: false
       },
@@ -115,6 +116,8 @@ export default {
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
+    this.settings.openKeys = this.menus.filter((item) => item.children !== undefined).map((item2) => item2.name)
+    console.log(this.openKeys)
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)
@@ -181,4 +184,10 @@ export default {
 
 <style lang="less">
 @import "./BasicLayout.less";
+
+.ant-pro-basicLayout {
+  ::v-deep aside {
+    width: 100px;
+  }
+}
 </style>
