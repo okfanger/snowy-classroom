@@ -7,3 +7,13 @@ export const getStudentAll = (queryParams = {}) => {
     params: queryParams
   })
 }
+
+export const getStudentOne = (id) => {
+  return request({
+    url: '/course/one/',
+    method: 'GET',
+    params: {
+      id: id
+    }
+  })
+}

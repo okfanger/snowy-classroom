@@ -1,3 +1,5 @@
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from apps.bases.pagination import MyPageNumberPagination
@@ -8,7 +10,7 @@ from apps.users.myJWTAuthentication import MyJWTAuthentication
 from apps.users.permissions import IsStudent
 
 
-class CourseStudentFindAll(APIView):
+class CourseStudentFindAllView(APIView):
     """
         显示当前所在用户所有的课程信息
     """
@@ -17,7 +19,7 @@ class CourseStudentFindAll(APIView):
 
     def get(self, request):
         # keyword = request.query_params["keyword"]
-        student_binder : Student = request.user.student_binder
+        student_binder: Student = request.user.student_binder
         # courses = student_binder.courses.filter(name__contains=keyword)
         courses = student_binder.courses
         courses_ser = CourseHasTeacherSerializer(courses, many=True)
@@ -25,3 +27,12 @@ class CourseStudentFindAll(APIView):
         return SuccessResponse(data={
             "result": courses_ser.data
         })
+
+
+class CourseFindOneView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request):
+        id = request.query_params['id']
+        return SuccessResponse(data=CourseHasTeacherSerializer(Course.objects.get(pk=id)).data)
