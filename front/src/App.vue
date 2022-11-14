@@ -23,6 +23,10 @@ export default {
 
       return this.$i18n.getLocaleMessage(this.$store.getters.lang).antLocale
     }
+  },
+created () {
+},
+  mounted () {
   }
 }
 </script>

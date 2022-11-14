@@ -1,178 +1,83 @@
 <template>
   <div>
     <div>
-      <a-space>
+      <!--      <a-space>-->
 
-        <a-button >
-          创建考试
-        </a-button>
+      <!--        <a-button >-->
+      <!--          创建考试-->
+      <!--        </a-button>-->
 
-      </a-space>
+      <!--      </a-space>-->
     </div>
     <div style="height: 10px"></div>
-    <a-table :data-source="data" :columns="columns">
-      <div
-        slot="filterDropdown"
-        slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
-        style="padding: 8px"
-      >
-        <a-input
-          v-ant-ref="c => (searchInput = c)"
-          :placeholder="`Search ${column.dataIndex}`"
-          :value="selectedKeys[0]"
-          style="width: 188px; margin-bottom: 8px; display: block;"
-          @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
-          @pressEnter="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
-        />
-        <a-button
-          type="primary"
-          icon="search"
-          size="small"
-          style="width: 90px; margin-right: 8px"
-          @click="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
-        >
-          Search
-        </a-button>
-        <a-button size="small" style="width: 90px" @click="() => handleReset(clearFilters)">
-          Reset
-        </a-button>
-      </div>
-      <a-icon
-        slot="filterIcon"
-        slot-scope="filtered"
-        type="search"
-        :style="{ color: filtered ? '#108ee9' : undefined }"
-      />
-      <template slot="customRender" slot-scope="text, record, index, column">
-        <span v-if="searchText && searchedColumn === column.dataIndex">
-          <template
-            v-for="(fragment, i) in text
-              .toString()
-              .split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i'))"
-          >
-            <mark
-              v-if="fragment.toLowerCase() === searchText.toLowerCase()"
-              :key="i"
-              class="highlight"
-            >{{ fragment }}</mark
-            >
-            <template v-else>{{ fragment }}</template>
-          </template>
-        </span>
-        <template v-else>
-          {{ text }}
-        </template>
-      </template>
+    <a-table :columns="columns" :data-source="examList">
+      <template slot="type" slot-scope="type">      <a-tag :color="type === '线上'?'green':'orange'">{{ type }}</a-tag></template>
+      <template slot="start_time" slot-scope="start_time">{{ moment(start_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
+      <template slot="end_time" slot-scope="end_time">{{ moment(end_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
+      <template slot="action" slot-scope=""><a-button>进入考试</a-button></template>
     </a-table>
   </div>
 </template>
 
 <script>
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park'
-  },
-  {
-    key: '2',
-    name: 'Joe Black',
-    age: 42,
-    address: 'London No. 1 Lake Park'
-  },
-  {
-    key: '3',
-    name: 'Jim Green',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park'
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  }
-]
-
+import { getExamByCourse } from '@/api/exam'
+import moment from 'moment'
 export default {
+  props: {
+    'courseId': {
+      type: Number,
+      default: -1
+    }
+  },
   data () {
     return {
-      data,
+      moment,
+      examList: [],
       searchText: '',
       searchInput: null,
       searchedColumn: '',
       columns: [
         {
-          title: 'Name',
+          title: '考试名',
           dataIndex: 'name',
-          key: 'name',
-          scopedSlots: {
-            filterDropdown: 'filterDropdown',
-            filterIcon: 'filterIcon',
-            customRender: 'customRender'
-          },
-          onFilter: (value, record) =>
-            record.name
-              .toString()
-              .toLowerCase()
-              .includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus()
-              }, 0)
-            }
-          }
+          key: 'name'
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-          scopedSlots: {
-            filterDropdown: 'filterDropdown',
-            filterIcon: 'filterIcon',
-            customRender: 'customRender'
-          },
-          onFilter: (value, record) =>
-            record.age
-              .toString()
-              .toLowerCase()
-              .includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus()
-              })
-            }
-          }
+          title: '考试类型',
+          dataIndex: 'type',
+          key: 'type',
+          scopedSlots: { customRender: 'type' }
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-          scopedSlots: {
-            filterDropdown: 'filterDropdown',
-            filterIcon: 'filterIcon',
-            customRender: 'customRender'
-          },
-          onFilter: (value, record) =>
-            record.address
-              .toString()
-              .toLowerCase()
-              .includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus()
-              })
-            }
-          }
+          title: '开始时间',
+          dataIndex: 'start_time',
+          key: 'start_time',
+          scopedSlots: { customRender: 'start_time' }
+        }, {
+          title: '结束时间',
+          dataIndex: 'end_time',
+          key: 'end_time',
+          scopedSlots: { customRender: 'end_time' }
+        },
+        {
+          title: '操作',
+          dataIndex: 'action',
+          key: 'action',
+          scopedSlots: { customRender: 'action' }
         }
-      ]
+        ]
     }
   },
+created () {
+    this.fetchData()
+  },
   methods: {
+    fetchData () {
+      getExamByCourse(this.courseId).then((res) => {
+        this.examList = res.data
+        console.log(res)
+      })
+    },
     handleSearch (selectedKeys, confirm, dataIndex) {
       confirm()
       this.searchText = selectedKeys[0]

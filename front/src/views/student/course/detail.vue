@@ -1,13 +1,13 @@
 <template>
   <div>
     <a-card
-      :key="teacher.id"
+      :key="course.id"
       hoverable
-      :class="['card',`card-style${teacher.id%4}`]"
+      :class="['card',`card-style${$route.query.id%4}`]"
     >
       <a-card-meta>
         <template #title>
-          <span class="card-title">{{ teacher.name }}</span>
+          <span class="card-title">{{ course.name }}</span>
 
         </template>
 
@@ -19,7 +19,7 @@
         <!--        </template>-->
       </a-card-meta>
       <div class="card-mask">
-        <img height="100%" :src="style2mask[`${teacher.id%4}`]" alt="mark"></div>
+        <img height="100%" :src="style2mask[`${course.id%4}`]" alt="mark"></div>
 
     </a-card>
     <!--    <div style="height: 20px"></div>-->
@@ -32,15 +32,14 @@
           Content of tab 2
         </a-tab-pane>
         <a-tab-pane key="3" tab="成员">
-          Content of tab 3
+          <Member :course-id="$route.query['id']"> </Member>
         </a-tab-pane>
-
         <a-tab-pane key="4" tab="考试">
-          <Exam></Exam>
+          <Exam :course-id="$route.query['id']"></Exam>
         </a-tab-pane>
       </a-tabs>
     </div>
-    {{ teacher }}
+    <!--    {{ teacher }}-->
 
   </div>
 
@@ -52,15 +51,17 @@ import { style2mask } from '@/utils/custom'
 import moment from 'moment'
 
 const examComponent = () => import('./exam')
+const memberComponent = () => import('./member')
 // import examComponent from '@/views/student/course/exam'
 export default {
   name: 'StudentCourseDetail',
   components: {
-    'Exam': examComponent
+    'Exam': examComponent,
+    'Member': memberComponent
   },
   data () {
     return {
-      teacher: {
+      course: {
 
       },
       style2mask,
@@ -71,7 +72,7 @@ export default {
   created () {
     getStudentOne(this.$route.query['id']).then((res) => {
       console.log(res.data)
-      this.teacher = res.data
+      this.course = res.data
     })
   }
 }

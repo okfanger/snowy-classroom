@@ -2,7 +2,7 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
-
+from apps.users.serializers  import UserSerializer
 
 class Student(FactSchema):
     attend_date = models.DateTimeField(verbose_name="入学日期")
@@ -15,6 +15,7 @@ class Student(FactSchema):
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
     class Meta:
         model = Student
         fields = '__all__'

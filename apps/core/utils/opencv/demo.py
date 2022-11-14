@@ -5,7 +5,7 @@ import cv2
 import imutils
 import numpy as np
 
-CV_SHOW = True
+CV_SHOW = False
 # 设置参数
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,

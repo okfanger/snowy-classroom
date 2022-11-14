@@ -1,4 +1,4 @@
-import T from 'ant-design-vue/es/table/Table'
+import T from 'ant-design-vue/es/table/Table.js'
 import get from 'lodash.get'
 
 export default {

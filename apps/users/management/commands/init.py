@@ -7,6 +7,7 @@ from django.core.management.base import BaseCommand
 
 from apps.core.entity.classroom import ClassRoom
 from apps.core.entity.course import Course
+from apps.core.entity.exam import Exam
 from apps.core.entity.student import Student
 from apps.core.entity.teacher import Teacher
 from apps.users import models
@@ -38,7 +39,7 @@ class Command(BaseCommand):
         classrooms_df = pd.read_csv(os.path.join(DATA_PATH, "table_classroom.csv"))
         studentCourse_df = pd.read_csv(os.path.join(DATA_PATH, "table_student_course.csv"))
         teacherCourse_df = pd.read_csv(os.path.join(DATA_PATH, "table_teacher_course.csv"))
-
+        exam_df = pd.read_csv(os.path.join(DATA_PATH, "table_exam.csv"))
         # 生成角色
         admin_role = models.Role.objects.create(**{
             'name': 'admin',
@@ -153,6 +154,19 @@ class Command(BaseCommand):
         student_role.menu_routes.set([_["id"] for _ in [*student_role_routes, *default_routes]])
         teacher_role.menu_routes.set([_["id"] for _ in [*teacher_role_routes, *default_routes]])
         admin_role.menu_routes.set([_["id"] for _ in [*admin_role_routes, *default_routes]])
+
+        # 生成 考试信息
+        for row in exam_df.itertuples():
+            Exam.objects.create(**{
+                "id": getattr(row, "id"),
+                "name": getattr(row, "name"),
+                "type": getattr(row, "type"),
+                "start_time": timezone.now(),
+                "end_time": timezone.now(),
+                "course": Course.objects.get(pk=getattr(row, "course_id"))
+            })
+
+
 
 
     def handle(self, *args, **options):

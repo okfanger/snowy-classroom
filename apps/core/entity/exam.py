@@ -16,8 +16,14 @@ class Exam(FactSchema):
     
 
 class ExamSerializer(serializers.ModelSerializer):
-    questions = QuestionOptionSerializer(many=True)
+    # questions = QuestionOptionSerializer(many=True)
 
     class Meta:
         model = Exam
         fields = '__all__'
+
+class ExamPlainSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Exam
+        # excludes = ['questions']

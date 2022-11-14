@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from apps.core.views.course import CourseStudentFindAllView, CourseFindOneView
+from apps.core.views.course import CourseFindAllView, CourseFindOneView, CourseGetStudentsView
 
 urlpatterns = [
-    path('all/', CourseStudentFindAllView.as_view()),
-    path('one/', CourseFindOneView.as_view())
+    path('all/', CourseFindAllView.as_view()),
+    path('one/', CourseFindOneView.as_view()),
+    path('students-by-id/', CourseGetStudentsView.as_view())
 ]

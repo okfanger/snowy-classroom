@@ -85,4 +85,33 @@ student_role_routes = [
         'component': 'student/course/detail.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
         'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
     },
+
+    {
+        'name': 'classroomIndex',  # 路由名
+        'parentId': 0,  # 父菜单ID，如果没有父菜单就写0
+        'id': 61007,  # 路由ID
+        "path": "classroom",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.classroom.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'usergroup-add',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'student/classroom/index.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'onlineJudgeIndex',  # 路由名
+        'parentId': 0,  # 父菜单ID，如果没有父菜单就写0
+        'id': 61008,  # 路由ID
+        "path": "onlinejudge",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.onlineJudge.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'code',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'student/onlinejudge/index.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
 ]
