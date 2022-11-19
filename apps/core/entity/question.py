@@ -2,6 +2,7 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
+from apps.core.entity.questionoption import QuestionOptionSerializer, QuestionOptionNoAnswerSerializer
 
 
 class Question(FactSchema):
@@ -11,7 +12,14 @@ class Question(FactSchema):
 
     exam = models.ForeignKey(to="Exam", on_delete=models.CASCADE)
 
+
 class QuestionSerializer(serializers.ModelSerializer):
+    options = QuestionOptionSerializer(many=True)
+    class Meta:
+        model = Question
+        fields = '__all__'
+class QuestionNoAnswerSerializer(serializers.ModelSerializer):
+    options = QuestionOptionNoAnswerSerializer(many=True)
     class Meta:
         model = Question
         fields = '__all__'

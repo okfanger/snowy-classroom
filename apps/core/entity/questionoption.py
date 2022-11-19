@@ -5,13 +5,16 @@ from apps.bases.models import FactSchema
 
 
 class QuestionOption(FactSchema):
-    type = models.CharField(verbose_name="题目类型", max_length=10, null=False)
     right = models.BooleanField(verbose_name="是否正确", null=False)
     content = models.CharField(verbose_name="题目内容", max_length=1024)
     
-    question = models.ForeignKey("Question", to_field='id', on_delete=models.CASCADE, verbose_name='问题')
+    question = models.ForeignKey("Question", to_field='id', on_delete=models.CASCADE, verbose_name='问题', related_name="options")
     exam = models.ForeignKey("Exam", to_field='id', on_delete=models.CASCADE, verbose_name="试卷")
 
+class QuestionOptionNoAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionOption
+        exclude = ['right']
 class QuestionOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionOption
