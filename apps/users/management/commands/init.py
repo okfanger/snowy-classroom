@@ -1,19 +1,22 @@
+import datetime
 import logging
 import os.path
 
 from django.utils import timezone
 from tqdm import tqdm
 from django.core.management.base import BaseCommand
-
+import pandas as pd
+import os
 from apps.core.entity.classroom import ClassRoom
 from apps.core.entity.course import Course
 from apps.core.entity.exam import Exam
+from apps.core.entity.question import Question
+from apps.core.entity.questionoption import QuestionOption
 from apps.core.entity.student import Student
 from apps.core.entity.teacher import Teacher
 from apps.users import models
 from apps.users.models import User
 
-import pandas as pd
 from back.settings import BASE_DIR
 
 logger = logging.getLogger(__name__)
@@ -82,7 +85,7 @@ class Command(BaseCommand):
             'username': "admin",
             'password': "827ccb0eea8a706c4c34a16891f84e7b",
             'telephone': "100010",
-            'email': "lili@qq.com",
+            'email': "lili1@qq.com",
             'type': 3,
             'role': admin_role
         })
@@ -166,10 +169,49 @@ class Command(BaseCommand):
                 "course": Course.objects.get(pk=getattr(row, "course_id"))
             })
 
-
+        Command.exam_gen()
+    @staticmethod
+    def exam_gen():
+        workspace = os.path.join(BASE_DIR, "data", "exam")
+        base_dir = os.listdir(workspace)
+        from_count = 100
+        current_course = Course.objects.get(name="软件工程概论")
+        for xls in base_dir:
+            each_exam = Exam.objects.create(**{
+                "id": from_count,
+                "name": xls,
+                "type": "线上" if from_count % 2 == 0 else "线下",
+                "start_time": timezone.now(),
+                "end_time": timezone.now() + datetime.timedelta(hours=10),
+                "course": current_course
+            })
+            each_exam.save()
+            df = pd.read_excel(os.path.join(workspace, xls), sheet_name=0)
+            df = df[df["题型"] == "单选题"]
+            for row in df.itertuples():
+                title = getattr(row, "题目")
+                ops = [ getattr(row, f"选项{_}").strip() for _ in range(1,5+1) if not pd.isnull(getattr(row, f"选项{_}")) ]
+                right_answer = getattr(row, "正确答案")
+                each_ques = Question.objects.create(**{
+                    "type": getattr(row, "题型"),
+                    "title": title,
+                    "content": title,
+                    "exam": each_exam
+                })
+                each_ques.save()
+                for idx, op in enumerate(ops):
+                    QuestionOption.objects.create(**{
+                        "content": op,
+                        "right": right_answer == chr(idx + ord('A')),
+                        "exam": each_exam,
+                        "question": each_ques,
+                    }).save()
+            from_count += 1
 
 
     def handle(self, *args, **options):
         init_name_list = options['init_name']
         if "default" in init_name_list:
             self.init_default()
+        if "exam" in init_name_list:
+            self.exam_gen()

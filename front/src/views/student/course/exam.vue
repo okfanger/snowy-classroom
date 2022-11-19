@@ -14,7 +14,7 @@
       <template slot="type" slot-scope="type">      <a-tag :color="type === '线上'?'green':'orange'">{{ type }}</a-tag></template>
       <template slot="start_time" slot-scope="start_time">{{ moment(start_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
       <template slot="end_time" slot-scope="end_time">{{ moment(end_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
-      <template slot="action" slot-scope=""><a-button>进入考试</a-button></template>
+      <template slot="action" slot-scope="id"><a-button @click="entryExam(id)">进入考试</a-button></template>
     </a-table>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
         },
         {
           title: '操作',
-          dataIndex: 'action',
+          dataIndex: 'id',
           key: 'action',
           scopedSlots: { customRender: 'action' }
         }
@@ -87,6 +87,14 @@ created () {
     handleReset (clearFilters) {
       clearFilters()
       this.searchText = ''
+    },
+    entryExam (id) {
+      this.$router.push({
+        path: '/exam/live',
+        query: {
+          id
+        }
+      })
     }
   }
 }

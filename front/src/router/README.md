@@ -94,7 +94,7 @@ const asyncRouterMap = [
       {
         path: '/result',
         name: 'result',
-        component: PageView,
+        component:   PageView,
         redirect: '/result/success',
         meta: { title: '结果页', icon: 'check-circle-o', permission: [ 'result' ] },
         children: [

@@ -9,3 +9,13 @@ export const getExamByCourse = (id) => {
     }
   })
 }
+
+export const getExamDetailById = (examId) => {
+  return request({
+    url: '/exam/one/',
+    method: 'GET',
+    params: {
+      id: examId
+    }
+  })
+}
