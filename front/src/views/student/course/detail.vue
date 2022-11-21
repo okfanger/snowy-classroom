@@ -32,10 +32,10 @@
           Content of tab 2
         </a-tab-pane>
         <a-tab-pane key="3" tab="成员">
-          <Member :course-id="$route.query['id']"> </Member>
+          <Member :course-id="parseInt($route.query['id'])"> </Member>
         </a-tab-pane>
         <a-tab-pane key="4" tab="考试">
-          <Exam :course-id="$route.query['id']"></Exam>
+          <Exam :course-id="parseInt($route.query['id'])"></Exam>
         </a-tab-pane>
       </a-tabs>
     </div>

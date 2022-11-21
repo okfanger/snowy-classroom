@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from apps.core.views.exam import ExamByCourseView, ExamDetailById
+from apps.core.views.exam import ExamByCourseView, ExamDetailById, ExamLiveSubmitView
 
 urlpatterns = [
     path("all-by-course/", ExamByCourseView.as_view()),
-    path("one/", ExamDetailById.as_view())
+    path("one/", ExamDetailById.as_view()),
+    path("live/submit/", ExamLiveSubmitView.as_view())
 ]

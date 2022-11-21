@@ -179,7 +179,7 @@ class Command(BaseCommand):
         for xls in base_dir:
             each_exam = Exam.objects.create(**{
                 "id": from_count,
-                "name": xls,
+                "name": xls.replace("_题目+答案.xlsx", ""),
                 "type": "线上" if from_count % 2 == 0 else "线下",
                 "start_time": timezone.now(),
                 "end_time": timezone.now() + datetime.timedelta(hours=10),

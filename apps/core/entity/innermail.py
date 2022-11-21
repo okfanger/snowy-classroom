@@ -10,6 +10,7 @@ class InnerMail(FactSchema):
     title = models.CharField(verbose_name="发件标题", max_length=255)
     send_date = models.DateTimeField(verbose_name="发送日期")
     receive_date = models.DateTimeField(verbose_name="接收日期")
+    is_read = models.BooleanField(verbose_name="是否已读", default=False)
 
     from_user = models.ForeignKey(verbose_name="发送方", to="users.User", on_delete=models.CASCADE, related_name="send_emails")
     to_user = models.ForeignKey(verbose_name="接收方", to="users.User", on_delete=models.CASCADE, related_name="receive_emails")
