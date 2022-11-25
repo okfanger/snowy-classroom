@@ -33,8 +33,8 @@
 
       </template>
 
-      <div v-show="courseList.length === 0" class="card">没有匹配的课程
-
+      <div v-show="courseList.length === 0" class="card">
+        没有匹配的课程
       </div>
     </div>
 
@@ -73,7 +73,7 @@ export default {
     fetchData () {
       getTeacherAll().then((res) => {
         this.courseListBak = res.data.result
-    })
+      })
     }
   },
   created () {

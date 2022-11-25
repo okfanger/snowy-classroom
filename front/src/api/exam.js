@@ -19,3 +19,35 @@ export const getExamDetailById = (examId) => {
     }
   })
 }
+
+export const getExamStudentStateById = (examId) => {
+  return request({
+    url: '/exam/state/',
+    method: 'GET',
+    params: {
+      exam_id: examId
+    }
+  })
+}
+
+export const generateExamByExamId = (examId) => {
+  return request({
+    url: '/exam/generate/',
+    method: 'POST',
+    data: {
+      examId: examId
+    }
+  })
+}
+
+export const sumbitQuestionRecordAsync = (questionId, answer, examAttendId) => {
+  return request({
+    url: '/exam/generate',
+    method: 'POST',
+    data: {
+      questionId: questionId,
+      answer: answer,
+      examAttendId: examAttendId
+    }
+  })
+}

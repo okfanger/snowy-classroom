@@ -9,6 +9,7 @@ import dashboard from './zh-CN/dashboard'
 import form from './zh-CN/form'
 import result from './zh-CN/result'
 import account from './zh-CN/account'
+
 import fyj from './zh-CN/fyj'
 import gzy from './zh-CN/gzy'
 import drf from './zh-CN/drf'

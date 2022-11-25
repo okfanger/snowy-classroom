@@ -22,5 +22,5 @@ from apps.core.views.course import CourseFindAllView, CourseFindOneView, CourseG
 urlpatterns = [
     path('all/', CourseFindAllView.as_view()),
     path('one/', CourseFindOneView.as_view()),
-    path('students-by-id/', CourseGetStudentsView.as_view())
+    path('students-by-id/', CourseGetStudentsView.as_view()),
 ]
