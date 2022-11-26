@@ -71,26 +71,43 @@
           </a-col>
           <a-col :sm="24" :md="16" :style="{ height: `${clientHeight - 180}px`, overflow: 'scroll'}">
             <template v-for="(item, idx1) in exam.question_set">
-              <a-card :key="item.id" size="small" :title="`${idx1 + 1}. ${item.title}`" style="">
-                <a slot="extra" href="#"><a-tag>{{ item.type }}</a-tag></a>
-                <a-radio-group v-model="user_answer[`${item.id}`]">
-                  <a-radio style="display: block" v-for="(item2, idx2) in item.options" :key="item2.id" :value="item2.id">
-                    {{ String.fromCharCode(idx2 + 'A'.charCodeAt()) }}: {{ item2.content }}
-                  </a-radio>
-                </a-radio-group>
-              </a-card>
+              <a-spin :key="item.id" :spinning="user_spin[`${item.id}`] || false">
+                <a-card :key="item.id" size="small" :title="`${idx1 + 1}. ${item.title}`" style="">
+                  <a slot="extra" href="#"><a-tag>{{ item.type }}</a-tag></a>
+                  <a-radio-group @change="syncSubmit(item)" v-model="user_answer[`${item.id}`]">
+                    <a-radio style="display: block" v-for="(item2, idx2) in item.options" :key="item2.id" :value="item2.id">
+                      {{ String.fromCharCode(idx2 + 'A'.charCodeAt()) }}: {{ item2.content }}
+                    </a-radio>
+                  </a-radio-group>
+
+                </a-card>
+              </a-spin>
               <div :key="item.id" style="height: 20px"></div>
             </template>
           </a-col>
         </a-row>
       </a-spin>
     </div>
-
+    <div v-if="state === 203">
+      <a-result status="200" title="交卷提示" sub-title="您已交卷，考试结果请在考试结束后查看">
+        <template #extra>
+          <a-button type="primary" @click="$router.push('/')">
+            返回主页
+          </a-button>
+        </template>
+      </a-result>
+    </div>
   </div>
 </template>
 
 <script>
-import { getExamDetailById, getExamStudentStateById, generateExamByExamId } from '@/api/exam'
+import {
+  getExamDetailById,
+  getExamStudentStateById,
+  generateExamByExamId,
+  sumbitQuestionRecordAsync,
+  overExam
+} from '@/api/exam'
 import moment from 'moment'
 import { calcState, ruleText } from '@/utils/custom'
 export default {
@@ -111,7 +128,9 @@ export default {
       clientHeight: 600,
       total_percent: 0,
       state: 404,
-      user_answer: {}
+      user_answer: {},
+      user_spin: {},
+      attend_id: null
     }
   },
 watch: {
@@ -132,13 +151,16 @@ methods: {
 handleRoleModelOk () {
     this.roleModelconfirmLoading = true
     generateExamByExamId(this.exam.id).then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
       this.roleModelconfirmLoading = false
       this.initState()
     })
 },
     handleSubmitExam () {
-
+      overExam(this.attend_id).then((res) => {
+        console.log('over', res.data)
+        this.initState()
+      })
     },
 handleStartExam () {
     this.roleModelVisible = true
@@ -146,7 +168,11 @@ handleStartExam () {
 initState () {
   const id = this.$route.query['id'] || undefined
     getExamStudentStateById(id).then((res) => {
-      this.state = res.data
+      this.state = res.data['code']
+      if (this.state === 201) {
+        this.attend_id = res.data['attend_id']
+        // console.log('attend', res.data['attend_id'])
+      }
     })
     getExamDetailById(id).then((res) => {
       this.exam = res.data
@@ -155,11 +181,23 @@ initState () {
     }).then(() => {
       this.interval = setInterval(() => {
         this.dyState = calcState(this.exam.start_time, this.exam.end_time)
-        // console.log('update')
+        // console.log('update')x
       }, 1000)
     }).finally(() => {
       this.spinning = false
     })
+  },
+syncSubmit (item) {
+    const itemId = item.id
+    const ans = this.user_answer[itemId]
+    this.user_spin[itemId] = true
+  sumbitQuestionRecordAsync(itemId, ans, this.attend_id).then((res) => {
+    console.log(res.data)
+  }).finally(() => {
+    this.user_spin[itemId] = false
+  })
+
+    // console.log(ans)
   }
   },
   created () {

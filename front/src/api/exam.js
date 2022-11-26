@@ -42,11 +42,21 @@ export const generateExamByExamId = (examId) => {
 
 export const sumbitQuestionRecordAsync = (questionId, answer, examAttendId) => {
   return request({
-    url: '/exam/generate',
+    url: '/exam/live/submit/',
     method: 'POST',
     data: {
       questionId: questionId,
       answer: answer,
+      examAttendId: examAttendId
+    }
+  })
+}
+
+export const overExam = (examAttendId) => {
+  return request({
+    url: '/exam/over/',
+    method: 'POST',
+    data: {
       examAttendId: examAttendId
     }
   })
