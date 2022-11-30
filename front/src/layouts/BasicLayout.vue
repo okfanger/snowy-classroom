@@ -117,7 +117,7 @@ export default {
     const routes = this.mainMenu.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
     this.settings.openKeys = this.menus.filter((item) => item.children !== undefined).map((item2) => item2.name)
-
+    // console.log('openKeys', this.settings.openKeys)
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)

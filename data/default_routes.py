@@ -363,9 +363,11 @@ default_routes = [
         },
         'component': 'NotificationSettings'
     },
+    # 内邮
     {
-        'name': 'innerMessage',
-        'path': '/account/message',
+        'name': 'message',
+        # 'path': '/account',
+        'path': 'message',
         'parentId': 0,
         'id': 11001,
         'meta': {
@@ -373,6 +375,43 @@ default_routes = [
             'show': True,
             'icon': 'message'
         },
-        'component': 'example/account/message/index.vue'
-    }
+        'component': 'RouteView',
+        'redirect': '/message/sendMail'
+    },
+    {
+        'name': 'sendMail',
+        'path': 'sendMail',
+        'parentId': 11001,
+        'id': 11002,
+        'meta': {
+            'title': 'account.message.sendMail',
+            'show': True,
+            'icon': 'message'
+        },
+        'component': 'example/account/message/send.vue',
+    },
+    {
+        'name': 'receiveMail',
+        'path': 'receiveMail',
+        'parentId': 11001,
+        'id': 11003,
+        'meta': {
+            'title': 'account.message.receiveMail',
+            'show': True,
+            'icon': 'message'
+        },
+        'component': 'example/account/message/receive.vue',
+    },
+    {
+        'name': 'mailDetail',
+        'path': 'mailDetail',
+        'parentId': 11001,
+        'id': 11004,
+        'meta': {
+            'title': 'account.message.receiveMail.detail',
+            'show': False,
+            'icon': 'message'
+        },
+        'component': 'example/account/message/receiveDetail.vue',
+    },
 ]

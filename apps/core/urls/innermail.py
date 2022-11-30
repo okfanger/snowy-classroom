@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [
+from apps.core.views.innermail import SendMail, ReceiveMail
 
+urlpatterns = [
+    path("send_mail/", SendMail.as_view(), name="发送邮件"),
+    path("receive_mail/", ReceiveMail.as_view(), name="接收邮件")
 ]

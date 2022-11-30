@@ -34,7 +34,6 @@ export const getTelPost = (tel) => {
     url: `/tenapi/tel/`,
     method: 'POST',
     data: {
-
     }
   })
 }

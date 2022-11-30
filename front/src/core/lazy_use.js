@@ -44,6 +44,7 @@ import {
   Statistic,
   Descriptions,
   Space,
+  Timeline,
   message,
   notification
 } from 'ant-design-vue'
@@ -58,6 +59,7 @@ import PermissionHelper from '@/core/permission/permission'
 import './directives/action'
 
 Vue.use(ConfigProvider)
+Vue.use(Timeline)
 Vue.use(Layout)
 Vue.use(Input)
 Vue.use(InputNumber)
