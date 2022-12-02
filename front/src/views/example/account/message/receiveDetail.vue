@@ -2,8 +2,7 @@
   <div>
     <a-page-header
       class="page-header"
-      :title="mail.title"
-      :sub-title="'发布时间 : '+mail.receive_date"
+      :sub-title=" mail.title+ ' | ' +'发布时间 : '+ mail.receive_date"
       @back="() => this.$router.go(-1)"
     />
     <div class="detail_back">

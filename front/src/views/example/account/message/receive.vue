@@ -1,6 +1,10 @@
 <template>
   <div>
+    <div v-show="mail.length === 0">
+      <a-empty />
+    </div>
     <div
+      v-show="mail.length > 0"
       v-for="item in mail"
       :key="item.index"
       class="receive-div">
@@ -51,7 +55,8 @@ export default {
     ReceiveMail () {
       ReceiveMail().then((res) => {
         this.mail = res.data
-        console.log(this.mail.length)
+        console.log(this.mail === 0)
+        // console.log(this.mail.length)
       })
     },
 

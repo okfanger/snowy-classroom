@@ -45,6 +45,8 @@ import {
   Descriptions,
   Space,
   Timeline,
+  Empty,
+  Mentions,
   message,
   notification
 } from 'ant-design-vue'
@@ -59,7 +61,11 @@ import PermissionHelper from '@/core/permission/permission'
 import './directives/action'
 
 Vue.use(ConfigProvider)
+// 手动加的组件
 Vue.use(Timeline)
+Vue.use(Empty)
+Vue.use(Mentions)
+
 Vue.use(Layout)
 Vue.use(Input)
 Vue.use(InputNumber)

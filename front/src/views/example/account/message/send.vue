@@ -3,11 +3,18 @@
     <div class="send-back">
       <div class="send-div">
         <div class="send-p-div"><p class="send-p">收件人</p></div>
-        <div class="send-input-div"><a-input class="send-input" placeholder="收件人" v-model="toUser"/></div>
+        <div class="send-input-div">
+          <a-input class="send-input" placeholder="收件人" v-model="toUser"/>
+          <div v-show="isShow">
+            <p v-for="item in selectUsers" :key="item">{{ item }}</p>
+          </div>
+        </div>
       </div>
       <div class="send-div">
         <div class="send-p-div"><p class="send-p">主题</p></div>
-        <div class="send-input-div"><a-input class="send-input" placeholder="主题" v-model="title"/></div>
+        <div class="send-input-div">
+          <a-input class="send-input" placeholder="主题" v-model="title"/>
+        </div>
       </div>
       <div class="send-div">
         <div class="send-p-div send-content"><p class="send-p">内容</p></div>
@@ -32,8 +39,17 @@ export default {
       toUser: '',
       title: '',
       content: ''
+      // isShow: true,
+      // users: [
+      //   '2020122109031',
+      //   '2020122104563',
+      //   '2020122101835',
+      //   '2020122104617'
+      // ],
+      // selectUsers: []
     }
   },
+
   methods: {
     SendMail () {
       SendMail(this.toUser, this.title, this.content).then((res) => {
@@ -41,6 +57,7 @@ export default {
           message: res.data
         })
       })
+      this.cancel()
     },
     cancel () {
       this.toUser = ''
@@ -48,6 +65,22 @@ export default {
       this.content = ''
     }
   },
+  // watch: {
+  //   toUser: function (val) {
+  //     if (val.length === 0) {
+  //       this.isShow = false
+  //     } else {
+  //       this.isShow = true
+  //       var users = []
+  //       this.users.forEach((item, index) => {
+  //         if (item.indexOf(val) >= 0) {
+  //           users.unshift(item)
+  //         }
+  //       })
+  //       this.selectUsers = users
+  //     }
+  //   }
+  // },
   computed: {
     ...mapGetters(['userInfo'])
   }

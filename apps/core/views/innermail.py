@@ -9,7 +9,7 @@ from apps.users.myJWTAuthentication import MyJWTAuthentication
 
 
 # 发送邮件
-class SendMail(APIView,serializers.ModelSerializer):
+class SendMail(APIView, serializers.ModelSerializer):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -24,8 +24,10 @@ class SendMail(APIView,serializers.ModelSerializer):
         # 从 token中拿：
         # current_user: User = request.user
         # from_user = current_user.pk  # 这样拿
-        from_user = User.objects.get(id=request.user.id)
-        to_user = User.objects.get(id=request.data['to_user'])
+
+        from_user = User.objects.get(id=request.user.pk)
+        to_user = User.objects.get(username=request.data['to_user'])
+        print(title, content, from_user, to_user)
         if title is None or title == '':
             return ErrorResponse(data="标题不能为空")
         elif to_user is None or to_user == '':
@@ -33,7 +35,6 @@ class SendMail(APIView,serializers.ModelSerializer):
         elif content is None or content == '':
             return ErrorResponse(data="内容不能为空")
         else:
-            print(title, content, from_user, to_user)
             # 发送邮件(等价于在内邮数据库中加一条数据)
             InnerMail.objects.create(content=content, title=title, send_date=send_date,
                                      receive_date=receive_date,
@@ -74,3 +75,6 @@ class ReceiveMail(APIView):
         this_mail_id = InnerMail.objects.get(id=request.data['this_mail_id'])
         this_mail_id.is_read = 1
         this_mail_id.save()
+
+
+
