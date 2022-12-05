@@ -49,14 +49,6 @@ export default {
       title: '',
       content: '',
       form: this.$form.createForm(this, { name: 'coordinated' })
-      // isShow: true,
-      // users: [
-      //   '2020122109031',
-      //   '2020122104563',
-      //   '2020122101835',
-      //   '2020122104617'
-      // ],
-      // selectUsers: []
     }
   },
 
@@ -76,22 +68,6 @@ export default {
       this.content = ''
     }
   },
-  // watch: {
-  //   toUser: function (val) {
-  //     if (val.length === 0) {
-  //       this.isShow = false
-  //     } else {
-  //       this.isShow = true
-  //       var users = []
-  //       this.users.forEach((item, index) => {
-  //         if (item.indexOf(val) >= 0) {
-  //           users.unshift(item)
-  //         }
-  //       })
-  //       this.selectUsers = users
-  //     }
-  //   }
-  // },
   computed: {
     ...mapGetters(['userInfo'])
   }
