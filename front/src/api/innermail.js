@@ -16,9 +16,7 @@ export const SendMail = (toUser, title, content) => {
 export const ReceiveMail = () => {
   return request({
     url: '/innermail/receive_mail/',
-    method: 'GET',
-    data: {
-    }
+    method: 'GET'
   })
 }
 
