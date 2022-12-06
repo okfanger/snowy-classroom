@@ -28,9 +28,6 @@
           <a-button type="primary" html-type="submit" style="margin-right:40px;">
             发送
           </a-button>
-          <a-button type="danger" @click="cancel">
-            取消
-          </a-button>
         </a-form-item>
       </a-form>
     </div>
@@ -51,21 +48,17 @@ export default {
       form: this.$form.createForm(this, { name: 'coordinated' })
     }
   },
-
   methods: {
     handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          SendMail(values.toUser, values.title, values.content)
+          SendMail(values.toUser, values.title, values.content).then(() => {
+            this.$message.success('发送成功')
+            this.form.resetFields()
+          })
         }
-        this.cancel()
       })
-    },
-    cancel () {
-      this.toUser = ''
-      this.title = ''
-      this.content = ''
     }
   },
   computed: {
