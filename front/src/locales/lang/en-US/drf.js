@@ -5,5 +5,6 @@ export default {
   'account.message.receiveMail': 'receiveMail',
   'account.message.receiveMail.detail': 'checkDetail',
   'menu.classroom.leave.index': 'leave',
-  'menu.classroom.MyNote.index': 'MyNote'
+  'menu.classroom.MyNote.index': 'MyNote',
+  'menu.classroom.notice.index': 'notice'
 }

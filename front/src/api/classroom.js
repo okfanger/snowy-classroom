@@ -49,3 +49,25 @@ export const TeacherApproval = (leaveId, status) => {
     }
   })
 }
+// 老师获取自己带的所有课程
+export const publishNotice = (teacher) => {
+  return request({
+    url: '/classroom/teacher_publish_notice/',
+    method: 'GET',
+    data: {
+      'teacher': teacher
+    }
+  })
+}
+// 老师发布通知
+export const sendNotice = (course, title, content) => {
+  return request({
+    url: '/classroom/teacher_publish_notice/',
+    method: 'POST',
+    data: {
+      'course': course,
+      'title': title,
+      'content': content
+    }
+  })
+}

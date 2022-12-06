@@ -3,9 +3,12 @@ from rest_framework.views import APIView
 from rest_framework import serializers
 from rest_framework.request import Request
 from apps.bases.response import SuccessResponse, ErrorResponse
+from apps.core.entity.course import Course
 from apps.core.entity.innermail import InnerMail
+from apps.core.entity.student import Student
 from apps.users.models import User
 from apps.users.myJWTAuthentication import MyJWTAuthentication
+from datetime import datetime
 
 
 # 发送邮件
@@ -15,30 +18,27 @@ class SendMail(APIView, serializers.ModelSerializer):
 
     # 发送邮件
     def post(self, request: Request):
-        from datetime import datetime
         content = request.data['content']
         title = request.data['title']
         send_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         receive_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
-        # from_user = request.data['from_user'] #这里不应该交给用户，万一用户选个别的人的号就bug了
-        # 从 token中拿：
-        # current_user: User = request.user
-        # from_user = current_user.pk  # 这样拿
-
         from_user = User.objects.get(id=request.user.pk)
-        to_user = User.objects.get(username=request.data['to_user'])
-        print(title, content, from_user, to_user)
-        if title is None or title == '':
-            return ErrorResponse(data="标题不能为空")
-        elif to_user is None or to_user == '':
-            return ErrorResponse(data="收件人不能为空")
-        elif content is None or content == '':
-            return ErrorResponse(data="内容不能为空")
-        else:
-            # 发送邮件(等价于在内邮数据库中加一条数据)
+        if from_user.type == 1:
+            to_user = User.objects.get(username=request.data['to_user'])
+
             InnerMail.objects.create(content=content, title=title, send_date=send_date,
                                      receive_date=receive_date,
                                      from_user=from_user, to_user=to_user, is_read=False).save()
+            return SuccessResponse(data="发送成功")
+
+        if from_user.type == 2:
+            course = Course.objects.get(name=request.data['to_user'])
+            students = Student.objects.filter(courses=course)
+            for j in students:
+                stu_user_id = User.objects.get(id=j.user.id)
+                InnerMail.objects.create(title=title, content=content, send_date=send_date,
+                                         receive_date=receive_date,
+                                         from_user=from_user, to_user=stu_user_id, is_read=False).save()
             return SuccessResponse(data="发送成功")
 
 
@@ -75,6 +75,3 @@ class ReceiveMail(APIView):
         this_mail_id = InnerMail.objects.get(id=request.data['this_mail_id'])
         this_mail_id.is_read = 1
         this_mail_id.save()
-
-
-
