@@ -90,7 +90,9 @@ export default {
       })
     },
     TeacherApproval (leaveId, status) {
-      TeacherApproval(leaveId, status)
+      TeacherApproval(leaveId, status).then(() => {
+        this.$message.success('操作成功')
+      })
       this.TeaCheckLeave()
     }
   }

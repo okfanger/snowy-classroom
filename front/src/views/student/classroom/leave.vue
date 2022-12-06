@@ -11,7 +11,7 @@
         <a-form-item label="请假课程">
           <a-select
             v-decorator="['course',{ rules: [{ required: true, message: '请选择课程' }] }]"
-            placeholder="请选择请假类型">
+            placeholder="请选择课程">
             <a-select-option v-for="item in all_course" :key="item">
               {{ item }}
             </a-select-option>
@@ -32,7 +32,8 @@
         <a-form-item label="请假理由">
           <a-input
             v-decorator="['reason', { rules: [{ required: true, message: '请输入请假理由' }] }]"
-          />
+            placeholder="请输入请假理由">
+          </a-input>
         </a-form-item>
         <a-form-item label="开始时间">
           <a-date-picker
@@ -82,10 +83,17 @@ export default {
       this.form.validateFields((err, values) => {
         values.start_time = values['start_time'].format('YYYY-MM-DD HH:mm')
         values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
-        if (!err) {
-          console.log('Received values of form: ', values)
-          StudentLeave(values.student, values.course, values.leave_type, values.reason,
-            values.start_time, values.end_time)
+        if (values.end_time > values.start_time) {
+          if (!err) {
+            console.log('Received values of form: ', values)
+            StudentLeave(values.student, values.course, values.leave_type, values.reason,
+              values.start_time, values.end_time).then(() => {
+              this.$message.success('提交成功')
+              this.form.resetFields()
+            })
+          }
+        } else {
+          this.$message.error('结束时间要在开始时间之后')
         }
       })
     },
