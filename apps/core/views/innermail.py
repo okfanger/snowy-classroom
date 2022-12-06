@@ -62,7 +62,7 @@ class ReceiveMail(APIView):
             msg_set.append({
                 "content": content,
                 "title": title,
-                "receive_date": receive_date,
+                "receive_date": str(receive_date),
                 "is_read": is_read,
                 "this_mail_id": this_mail_id,
                 "from_user": from_user

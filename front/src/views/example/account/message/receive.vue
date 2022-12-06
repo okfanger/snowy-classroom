@@ -1,31 +1,37 @@
 <template>
   <div>
-    <div v-show="mail.length === 0">
-      <a-empty />
-    </div>
-    <div
-      v-show="mail.length > 0"
-      v-for="item in mail"
-      :key="item.index"
-      class="receive-div">
-      <a-card class="receive-time-card">
-        <span class="receive-time">{{ item.receive_date }}</span>
-      </a-card>
-      <a-card class="receive-title-card">
-        <a @click="noticeActive(item.this_mail_id,item.is_read,item)">
-          <h2 class="receive-card-h2">{{ item.title }}</h2>
-        </a>
-      </a-card>
-      <a-card class="is_read_card">
-        <span class="is_read_span" v-if="item.is_read === true">
-          <img class="is_read_img" src="../../../../assets/innerMail/yes.png">
-          已读
-        </span>
-        <span class="is_read_span" v-if="item.is_read === false">
-          <img class="is_read_img" src="../../../../assets/innerMail/no.png">
-          未读
-        </span>
-      </a-card>
+    <div class="mail_back">
+      <a-list
+        class="mail_list"
+        :data-source="mail"
+      >
+        <a-list-item slot="renderItem" slot-scope="item" style="padding: 0">
+          <span class="mail_log_span">
+            <img class="mail_log" src="../../../../assets/notice/notice.png">
+          </span>
+          <div class="mail_list_item">
+            <a-list-item-meta
+              :description="item.receive_date">
+              <a slot="title" @click="noticeActive(item.this_mail_id,item.is_read,item)">
+                <h2 style="font-size: 23px;font-weight: bold;">
+                  {{ item.title }}
+                </h2>
+              </a>
+            </a-list-item-meta>
+          </div>
+          <a-divider type="vertical" style="height: 40px"/>
+          <div style="margin-right: 25px">
+            <span class="is_read_span" v-if="item.is_read === true">
+              <img class="is_read_img" src="../../../../assets/innerMail/yes.png">
+              已读
+            </span>
+            <span class="is_read_span" v-if="item.is_read === false">
+              <img class="is_read_img" src="../../../../assets/innerMail/no.png">
+              未读
+            </span>
+          </div>
+        </a-list-item>
+      </a-list>
     </div>
   </div>
 </template>
@@ -55,8 +61,6 @@ export default {
     ReceiveMail () {
       ReceiveMail().then((res) => {
         this.mail = res.data
-        console.log(this.mail === 0)
-        // console.log(this.mail.length)
       })
     },
 
@@ -79,44 +83,23 @@ export default {
 </script>
 
 <style scoped>
-.receive-div{
-  width: 100%;
-  height: auto;
-  display: flex;
-  margin-bottom: 20px;
+.mail_back{
+  width: 80%;
+  margin: 0 auto;
+  background: white;
+  overflow:auto;
 }
-.receive-title-card{
-  width: 85%;
-  height: 100px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+.mail_list_item{
+  margin: 15px 30px 15px 25px;
+  width: 80%;
 }
-.receive-card-h2{
-  font-size: 23px;
-  font-weight: bold;
-}
-.receive-time-card{
-  width: 15%;
-  height: 100px;
-  text-align: center;
-  border-radius: 10px;
-  margin-right: 10px;
-}
-.receive-time{
-  font-size: 15px;
-  font-weight: normal;
-}
-.is_read_card{
-  height: 100px;
-  width: 150px;
-  float: right;
-  display: table;
-  text-align: center;
-}
-.is_read_img{
-  height: 29px;
+.is_read_img,.mail_log{
+  height: 30px;
   width: 30px;
   display: table-cell;
   margin: 0 auto;
+}
+.mail_log_span{
+  margin-left:30px;
 }
 </style>
