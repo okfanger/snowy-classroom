@@ -22,7 +22,7 @@ export const getAllCourse = () => {
   })
 }
 
-// 获取全部课程
+// 学生查看假条
 export const StuCheckLeave = () => {
   return request({
     url: '/classroom/student_check_leave/',
