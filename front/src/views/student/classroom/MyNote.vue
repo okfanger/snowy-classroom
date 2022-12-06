@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="note_div">
+    <div v-if="leave.length === 0">
+      <a-empty />
+    </div>
+    <div class="note_div" v-else>
       <a-descriptions class="note_descriptions" bordered v-for="(item,id) in this.leave" :key="id">
         <a-descriptions-item label="请假课程">
           {{ item.course }}

@@ -7,5 +7,7 @@ export default {
   'account.message.receiveMail.detail': '查看详情',
   'menu.classroom.leave.index': '请假',
   'menu.classroom.MyNote.index': '我的假条',
-  'menu.classroom.notice.index': '发布通知'
+  'menu.classroom.notice.index': '发布通知',
+  'menu.classroom.myNotice.index': '我发布的',
+  'menu.classroom.myNoticeDetail.index': '查看详情'
 }

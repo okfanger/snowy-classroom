@@ -59,15 +59,13 @@ export const publishNotice = (teacher) => {
     }
   })
 }
-// 老师发布通知
-export const sendNotice = (course, title, content) => {
+// 老师获取自己带的所有课程
+export const CheckNotice = (teacher) => {
   return request({
-    url: '/classroom/teacher_publish_notice/',
-    method: 'POST',
+    url: '/classroom/teacher_check_notice/',
+    method: 'GET',
     data: {
-      'course': course,
-      'title': title,
-      'content': content
+      'teacher': teacher
     }
   })
 }
