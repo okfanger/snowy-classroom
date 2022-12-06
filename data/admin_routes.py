@@ -26,4 +26,5 @@ admin_role_routes = [
     'component': 'admin/overall/index.vue',
     'redirect': ''
 },
+
 ]
