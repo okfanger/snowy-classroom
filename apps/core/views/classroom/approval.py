@@ -61,4 +61,4 @@ class TeacherApproval(APIView):
         approval = StudentCourseLeave.objects.get(id=leave_id)
         approval.status = status
         approval.save()
-        return SuccessResponse()
+        return SuccessResponse(data="审批成功")
