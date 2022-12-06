@@ -8,7 +8,9 @@ class StudentCourseLeave(FactSchema):
     reason = models.CharField(verbose_name="请假理由", max_length=1024, null=True)
     type = models.CharField(verbose_name="请假类型", max_length=128)
     remark = models.CharField(verbose_name="审批备注", max_length=1024)
-    status = models.BooleanField(verbose_name="审批状态")
+    # status = models.BooleanField(verbose_name="审批状态")
+    status = models.IntegerField(verbose_name="审批状态", default=0,
+                                 choices=((0, '正在审批'), (1, '通过'), (2, '未通过'), (3, '已销假')))
 
     start_time = models.DateTimeField(verbose_name="开始时间")
     end_time = models.DateTimeField(verbose_name="结束时间")

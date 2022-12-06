@@ -28,7 +28,7 @@
           <a-button type="primary" html-type="submit" style="margin-right:40px;">
             发送
           </a-button>
-          <a-button type="danger" @click="cancel()">
+          <a-button type="danger" @click="cancel">
             取消
           </a-button>
         </a-form-item>
