@@ -16,6 +16,7 @@
       <template slot="start_time" slot-scope="start_time">{{ moment(start_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
       <template slot="end_time" slot-scope="end_time">{{ moment(end_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
       <template slot="state" slot-scope="state">
+
         {{ calcState(state.start_time, state.end_time) }}
       </template>
       <template slot="action" slot-scope="id"><a-button @click="entryExam(id)">进入考试</a-button></template>

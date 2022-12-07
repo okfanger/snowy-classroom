@@ -26,7 +26,7 @@
     <div class="tab-container" style="background: white">
       <a-tabs default-active-key="4">
         <a-tab-pane key="1" tab="作业" size="large">
-          Content of tab 1
+          <Homework></Homework>
         </a-tab-pane>
         <a-tab-pane key="2" tab="考勤" size="large">
           Content of tab 1
@@ -50,14 +50,18 @@ import { getStudentOne } from '@/api/course'
 import { style2mask } from '@/utils/custom'
 import moment from 'moment'
 
+// 懒加载
+const homeworkComponent = () => import('./homework.vue')
 const examComponent = () => import('./exam')
 const memberComponent = () => import('./member')
+
 // import examComponent from '@/views/student/course/exam'
 export default {
   name: 'StudentCourseDetail',
   components: {
     'Exam': examComponent,
-    'Member': memberComponent
+    'Member': memberComponent,
+    'Homework': homeworkComponent
   },
   data () {
     return {
