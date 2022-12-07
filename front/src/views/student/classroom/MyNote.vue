@@ -1,5 +1,11 @@
 <template>
   <div>
+    <a-date-picker
+      @change="StuCheckLeave"
+      class="note_search"
+      v-model="searchTime"
+      placeholder="请选择申请时间"
+    />
     <div v-if="leave.length === 0">
       <a-empty />
     </div>
@@ -39,6 +45,7 @@
 <script>
 import { StuCheckLeave } from '@/api/classroom'
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'MyLeave',
@@ -52,17 +59,20 @@ export default {
         reason: '',
         status: '',
         createTime: ''
-      }
+      },
+      searchTime: ''
     }
   },
   created () {
-      StuCheckLeave().then((res) => {
-        this.leave = res.data
-        console.log(res.data)
-      })
+    this.StuCheckLeave()
   },
   methods: {
-
+    StuCheckLeave () {
+      const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
+      StuCheckLeave(searchTime).then((res) => {
+        this.leave = res.data
+      })
+    }
   },
   computed: {
     ...mapGetters(['userInfo'])
@@ -71,12 +81,17 @@ export default {
 </script>
 
 <style scoped>
-.note_div{
+.note_search {
+  margin-left: 10%;
+  width: 200px;
+}
+.note_div {
   width: 80%;
   background: white;
   margin: 0 auto;
 }
-.note_descriptions{
+
+.note_descriptions {
   margin-bottom: 50px;
   background: #E0FFFF;
 }

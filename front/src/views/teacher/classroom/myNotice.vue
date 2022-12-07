@@ -1,5 +1,11 @@
 <template>
   <div>
+    <a-input-search
+      class="main_search"
+      placeholder="请输入要搜索的公告"
+      enter-button
+      v-model="searchMsg"
+      @search="CheckNotice" />
     <div class="notice_back">
       <a-list
         class="notice_list"
@@ -41,19 +47,20 @@ export default {
       loading: true,
       loadingMore: false,
       showLoadingMore: true,
-      data: []
+      data: [],
+      searchMsg: ''
     }
   },
   created () {
     this.CheckNotice()
   },
   methods: {
-    CheckNotice () {
-      CheckNotice().then((res) => {
-        this.notices = res.data
-        console.log(this.notices)
-      })
-    },
+    // CheckNotice () {
+    //   CheckNotice().then((res) => {
+    //     this.notices = res.data
+    //     console.log(this.notices)
+    //   })
+    // },
     go (thisNotice) {
       console.log(thisNotice)
       this.$router.push({
@@ -62,12 +69,23 @@ export default {
           thisNotice
         }
       })
+    },
+    CheckNotice () {
+      const searchMsg = this.searchMsg
+      CheckNotice(searchMsg).then((res) => {
+          this.notices = res.data
+          console.log(this.notices)
+      })
     }
   }
 }
 </script>
 
 <style scoped>
+.main_search {
+  margin-left: 10%;
+  width: 300px;
+}
 .notice_back{
   width: 80%;
   margin: 0 auto;

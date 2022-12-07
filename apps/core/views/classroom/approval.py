@@ -19,12 +19,16 @@ class TeacherApproval(APIView):
     def get(self, request: Request):
         # 根据当前登录用户获得其所教的课程
         courses = request.user.teacher_binder.courses.all()
-        # courses = Teacher.objects.get(user_id=request.user).courses.all()
+        search_time = request.query_params['search_time']
+        print(search_time)
         msg_set = []
         # 遍历课程
         for i in courses:
             # 根据课程id获取对应的假条(返回的是一个集合)
-            stu_leave = StudentCourseLeave.objects.filter(course_id=i.id)
+            if search_time == 'Invalid date':
+                stu_leave = StudentCourseLeave.objects.filter(course_id=i.id)
+            else:
+                stu_leave = StudentCourseLeave.objects.filter(course_id=i.id,create_time__contains=search_time)
             if stu_leave.__len__() > 0:
                 # 如果对应课程有假条，则进行下面的操作。
                 for j in range(0, len(stu_leave)):

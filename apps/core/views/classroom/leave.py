@@ -49,10 +49,17 @@ class CheckLeave(APIView):
 
     def get(self, request: Request):
         student = Student.objects.get(user_id=request.user).pk
-        print(request.user)
-        print(student)
+        search_time = request.query_params['search_time']
+        print(search_time)
         msg_set = []
-        stu_leave = StudentCourseLeave.objects.filter(student_id=student)
+        if search_time == 'Invalid date':
+            stu_leave = StudentCourseLeave.objects.filter(student_id=student)
+            print("1")
+            print(stu_leave)
+        else:
+            stu_leave = StudentCourseLeave.objects.filter(student_id=student, create_time__contains=search_time)
+            print("2")
+            print(stu_leave)
         for i in stu_leave:
             msg_set.append({
                 'course': Course.objects.get(id=i.course.id).name,
@@ -63,5 +70,4 @@ class CheckLeave(APIView):
                 'status': i.status,
                 'createTime': str(i.create_time.__format__('%Y-%m-%d %H:%M'))
             })
-
         return SuccessResponse(data=msg_set)

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <a-date-picker
+      @change="TeaCheckLeave"
+      class="note_search"
+      v-model="searchTime"
+      placeholder="请选择申请时间"
+    />
     <div>
       <a-empty v-show="stu_leave.length === 0"/>
     </div>
@@ -60,6 +66,7 @@
 
 <script>
 import { TeaCheckLeave, TeacherApproval } from '@/api/classroom'
+import moment from 'moment/moment'
 
 export default {
   name: 'Approval',
@@ -78,13 +85,15 @@ export default {
         reason: '',
         status: '',
         createTime: ''
-      }
+      },
+      searchTime: ''
     }
   },
 
   methods: {
     TeaCheckLeave () {
-      TeaCheckLeave().then((res) => {
+      const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
+      TeaCheckLeave(searchTime).then((res) => {
         this.stu_leave = res.data
         console.log(res.data)
       })
@@ -101,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.note_search {
+  margin-left: 10%;
+  width: 200px;
+}
 .note_div{
   width: 80%;
   background: white;

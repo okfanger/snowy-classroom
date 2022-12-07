@@ -23,18 +23,24 @@ export const getAllCourse = () => {
 }
 
 // 学生查看假条
-export const StuCheckLeave = () => {
+export const StuCheckLeave = (searchTime) => {
   return request({
     url: '/classroom/student_check_leave/',
-    method: 'GET'
+    method: 'GET',
+    params: {
+      'search_time': searchTime
+    }
   })
 }
 
 // 老师获取自己所带课程的全部假条
-export const TeaCheckLeave = () => {
+export const TeaCheckLeave = (searchTime) => {
   return request({
     url: '/classroom/teacher_approval/',
-    method: 'GET'
+    method: 'GET',
+    params: {
+      'search_time': searchTime
+    }
   })
 }
 
@@ -49,23 +55,46 @@ export const TeacherApproval = (leaveId, status) => {
     }
   })
 }
+
 // 老师获取自己带的所有课程
-export const publishNotice = (teacher) => {
+export const CheckCourse = () => {
   return request({
     url: '/classroom/teacher_publish_notice/',
-    method: 'GET',
+    method: 'GET'
+  })
+}
+
+// 老师发布公告
+export const publishNotice = (course, title, content) => {
+  return request({
+    url: '/classroom/teacher_publish_notice/',
+    method: 'POST',
     data: {
-      'teacher': teacher
+      'course': course,
+      'title': title,
+      'content': content
     }
   })
 }
-// 老师获取自己带的所有课程
-export const CheckNotice = (teacher) => {
+
+// 老师查看公告
+export const CheckNotice = (searchMsg) => {
   return request({
     url: '/classroom/teacher_check_notice/',
     method: 'GET',
-    data: {
-      'teacher': teacher
+    params: {
+      'search_msg': searchMsg
     }
   })
 }
+//
+// // 老师搜索公告
+// export const searchNotice = (searchMsg) => {
+//   return request({
+//     url: '/classroom/teacher_check_notice/',
+//     method: 'GET',
+//     params: {
+//       'search_msg': searchMsg
+//     }
+//   })
+// }

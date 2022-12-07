@@ -51,7 +51,7 @@
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
           <a-button type="primary" html-type="submit">
-            提交
+            申请
           </a-button>
         </a-form-item>
       </a-form>
@@ -88,7 +88,7 @@ export default {
             console.log('Received values of form: ', values)
             StudentLeave(values.student, values.course, values.leave_type, values.reason,
               values.start_time, values.end_time).then(() => {
-              this.$message.success('提交成功')
+              this.$message.success('申请成功')
               this.form.resetFields()
             })
           }
