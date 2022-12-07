@@ -1,5 +1,11 @@
 <template>
   <div>
+    <a-input-search
+      class="notice_search"
+      placeholder="请输入要搜索的邮件"
+      enter-button
+      v-model="searchMsg"
+      @search="ReceiveMail" />
     <div class="mail_back">
       <a-list
         class="mail_list"
@@ -19,7 +25,7 @@
               </a>
             </a-list-item-meta>
           </div>
-          <a-divider type="vertical" style="height: 40px"/>
+          <a-divider type="vertical" style="height: 40px" />
           <div style="margin-right: 25px">
             <span class="is_read_span" v-if="item.is_read === true">
               <img class="is_read_img" src="../../../../assets/innerMail/yes.png">
@@ -53,17 +59,17 @@ export default {
         from_user: '',
         is_read: '',
         this_mail_id: ''
-      }
+      },
+      searchMsg: ''
     }
   },
 
   methods: {
-    ReceiveMail () {
-      ReceiveMail().then((res) => {
-        this.mail = res.data
-      })
-    },
-
+    // ReceiveMail () {
+    //   ReceiveMail().then((res) => {
+    //     this.mail = res.data
+    //   })
+    // },
     noticeActive (mailId, isRead, thisMail) {
       console.log(mailId)
       if (isRead === false) {
@@ -76,6 +82,13 @@ export default {
           thisMail
         }
       })
+    },
+    ReceiveMail () {
+      const searchMsg = this.searchMsg
+      ReceiveMail(searchMsg).then((res) => {
+          this.mail = res.data
+          console.log(this.mail)
+      })
     }
   }
 }
@@ -83,23 +96,30 @@ export default {
 </script>
 
 <style scoped>
-.mail_back{
+.notice_search {
+  margin-left: 10%;
+  width: 300px;
+}
+.mail_back {
   width: 80%;
   margin: 0 auto;
   background: white;
-  overflow:auto;
+  overflow: auto;
 }
-.mail_list_item{
+
+.mail_list_item {
   margin: 15px 30px 15px 25px;
   width: 80%;
 }
-.is_read_img,.mail_log{
+
+.is_read_img, .mail_log {
   height: 30px;
   width: 30px;
   display: table-cell;
   margin: 0 auto;
 }
-.mail_log_span{
-  margin-left:30px;
+
+.mail_log_span {
+  margin-left: 30px;
 }
 </style>

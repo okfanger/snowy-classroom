@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
 
-from apps.core.views.innermail import SendMail, ReceiveMail
+from apps.core.views.innermail import SendMail, ReceiveMail, SearchMain
 
 urlpatterns = [
     path("send_mail/", SendMail.as_view(), name="发送邮件"),
-    path("receive_mail/", ReceiveMail.as_view(), name="接收邮件")
+    path("receive_mail/", ReceiveMail.as_view(), name="接收邮件"),
+    path("search_mail/", SearchMain.as_view(), name="查找邮件")
 ]
