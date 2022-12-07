@@ -39,8 +39,7 @@
 </template>
 
 <script>
-import { publishNotice } from '@/api/classroom'
-import { SendMail } from '@/api/innermail'
+import { CheckCourse, publishNotice } from '@/api/classroom'
 
 export default {
   name: 'Notice',
@@ -51,22 +50,22 @@ export default {
     }
   },
   created () {
-    this.publishNotice()
+    this.CheckCourse()
   },
   methods: {
     handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          SendMail(values.course, values.title, values.content).then(() => {
+          publishNotice(values.course, values.title, values.content).then(() => {
             this.$message.success('发布成功')
             this.form.resetFields()
           })
         }
       })
     },
-    publishNotice () {
-      publishNotice().then((res) => {
+    CheckCourse () {
+      CheckCourse().then((res) => {
         this.courses = res.data
         console.log(this.courses)
       })
