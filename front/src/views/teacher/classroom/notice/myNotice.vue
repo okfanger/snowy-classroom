@@ -13,7 +13,7 @@
       >
         <a-list-item slot="renderItem" slot-scope="item" style="padding: 0">
           <span class="notice_log_span">
-            <img class="notice_log" src="../../../assets/notice/notice.png">
+            <img class="notice_log" src='../../../../assets/notice/notice.png'>
           </span>
           <div class="notice_list_item">
             <a-list-item-meta

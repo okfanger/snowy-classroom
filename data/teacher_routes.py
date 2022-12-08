@@ -1,4 +1,3 @@
-
 # 教师的路由id格式：以5开头的5位数字 5xxxx
 teacher_role_routes = [
     {
@@ -53,6 +52,76 @@ teacher_role_routes = [
             'show': True,  # 是否显示
         },
         'component': 'teacher/course/sendHomework.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'classroom',  # 路由名
+        'parentId': 0,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51005,  # 路由ID
+        "path": "classroom",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.classroom.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'usergroup-add',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'RouteView',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'approvalIndex',  # 路由名
+        'parentId': 51005,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51006,  # 路由ID
+        "path": "approvalIndex",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.classroom.leave.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'usergroup-add',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/classroom/ApprovalLeave/approval.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'notice',  # 路由名
+        'parentId': 51005,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51007,  # 路由ID
+        "path": "notice",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.classroom.notice.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'usergroup-add',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/classroom/notice/notice.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'myNotice',  # 路由名
+        'parentId': 51005,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51008,  # 路由ID
+        "path": "myNotice",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.classroom.myNotice.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'usergroup-add',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/classroom/notice/myNotice.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'myNoticeDetail',  # 路由名
+        'parentId': 51005,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51009,  # 路由ID
+        "path": "myNoticeDetail",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.classroom.myNoticeDetail.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'usergroup-add',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': False,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/classroom/notice/myNoticeDetail.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
         'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
     },
 ]

@@ -28,7 +28,7 @@ class TeacherApproval(APIView):
             if search_time == 'Invalid date':
                 stu_leave = StudentCourseLeave.objects.filter(course_id=i.id)
             else:
-                stu_leave = StudentCourseLeave.objects.filter(course_id=i.id,create_time__contains=search_time)
+                stu_leave = StudentCourseLeave.objects.filter(course_id=i.id, create_time__contains=search_time)
             if stu_leave.__len__() > 0:
                 # 如果对应课程有假条，则进行下面的操作。
                 for j in range(0, len(stu_leave)):
