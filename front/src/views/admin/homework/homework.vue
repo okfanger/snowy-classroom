@@ -2,7 +2,40 @@
   <div>
     <a-table :columns="columns" :dataSource="dataSource">
 
-      <template slot="operation" slot-scope="id"><a-button @click="entryWork(id)">查看作业</a-button></template>
+      <template slot="operation">
+        <a-button type="primary" @click="showModal">
+          查看作业
+        </a-button>
+        <a-modal
+          title="作业"
+          :visible="visible"
+          :confirm-loading="confirmLoading"
+          @ok="handleCancel"
+          @cancel="handleCancel"
+        >
+          <div>
+            <a-card title="第一次作业" style="width:100%">
+              <p>
+                今天的作业是XXXXX，写完后提交到平台。
+              </p>
+              <p>
+                今天的作业是XXXXX，写完后提交到平台。
+              </p>
+              <p>
+                今天的作业是XXXXX，写完后提交到平台。
+              </p>
+              <p>
+                今天的作业是XXXXX，写完后提交到平台。
+              </p>
+              <p>
+                今天的作业是XXXXX，写完后提交到平台。
+              </p>
+            </a-card>
+
+          </div>
+        </a-modal>
+        <div>
+        </div></template>
 
     </a-table>
 
@@ -18,6 +51,8 @@ export default {
     const month = data.getMonth() + 1
     const day = data.getDate()
     return {
+      visible: false,
+      confirmLoading: false,
       dataSource: [
         {
 
@@ -61,7 +96,24 @@ export default {
     }
   },
   methods: {
-
+    showModal () {
+      this.visible = true
+    },
+    //  handleOk (e) {
+    //   this.ModalText = 'The modal will be closed after two seconds'
+    //   this.confirmLoading = true
+    //   setTimeout(() => {
+    //     this.visible = false
+    //     this.confirmLoading = false
+    //   }, 2000)
+    // },
+    handleCancel (e) {
+      console.log('Clicked cancel button')
+      this.visible = false
+    },
+    onChange (date, dateString) {
+      console.log(date, dateString)
+    }
   }
 }
 
