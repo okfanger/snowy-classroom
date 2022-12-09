@@ -9,5 +9,7 @@ export default {
   'menu.classroom.MyNote.index': 'MyNote',
   'menu.classroom.notice.index': 'notice',
   'menu.classroom.myNotice.index': 'myNotice',
-  'menu.classroom.myNoticeDetail.index': 'checkDetail'
+  'menu.classroom.myNoticeDetail.index': 'checkDetail',
+  'menu.classroom.PickMonitor.index': 'pickMonitor',
+  'menu.classroom.checkMonitor.index': 'checkMonitor'
 }

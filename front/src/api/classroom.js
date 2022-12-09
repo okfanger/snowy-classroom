@@ -87,14 +87,31 @@ export const CheckNotice = (searchMsg) => {
     }
   })
 }
-//
-// // 老师搜索公告
-// export const searchNotice = (searchMsg) => {
-//   return request({
-//     url: '/classroom/teacher_check_notice/',
-//     method: 'GET',
-//     params: {
-//       'search_msg': searchMsg
-//     }
-//   })
-// }
+
+// 返回所有学生
+export const CheckStudents = (searchMsg) => {
+  return request({
+    url: '/classroom/teacher_pick_monitor/',
+    method: 'GET',
+    params: {
+      'search_msg': searchMsg
+    }
+  })
+}
+
+// 返回选择班委
+export const PickMonitor = (stuId) => {
+  return request({
+    url: '/classroom/teacher_pick_monitor/',
+    method: 'POST',
+    data: {
+      'stu_id': stuId
+    }
+  })
+}
+export const CheckMonitor = () => {
+  return request({
+    url: '/classroom/student_check_monitor/',
+    method: 'GET'
+  })
+}

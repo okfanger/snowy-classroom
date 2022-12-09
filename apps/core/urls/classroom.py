@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
+from apps.core.views.classroom.PickMonitor import PickMonitor, CheckMonitor
 from apps.core.views.classroom.approval import TeacherApproval
 from apps.core.views.classroom.leave import StudentLeave, CheckLeave
 from apps.core.views.classroom.publishNotice import PublishNotice, CheckNotice
@@ -22,7 +23,9 @@ from apps.core.views.classroom.publishNotice import PublishNotice, CheckNotice
 urlpatterns = [
     path("student_leave/", StudentLeave.as_view(), name="学生请假"),
     path("student_check_leave/", CheckLeave.as_view(), name="学生查看假条"),
+    path("student_check_monitor/", CheckMonitor.as_view(), name="学生查看班委"),
     path("teacher_approval/", TeacherApproval.as_view(), name="老师审批"),
     path("teacher_publish_notice/", PublishNotice.as_view(), name="发布公告"),
     path("teacher_check_notice/", CheckNotice.as_view(), name="老师查看公告"),
+    path("teacher_pick_monitor/", PickMonitor.as_view(), name="老师设立班委"),
 ]
