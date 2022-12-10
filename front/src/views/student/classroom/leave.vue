@@ -37,6 +37,7 @@
         </a-form-item>
         <a-form-item label="开始时间">
           <a-date-picker
+            :disabled-date="disabledDate"
             v-decorator="['start_time', { rules: [{ required: true, message: '请选择开始时间' }] }]"
             show-time
             format="YYYY-MM-DD HH:mm"
@@ -44,6 +45,7 @@
         </a-form-item>
         <a-form-item label="结束时间">
           <a-date-picker
+            :disabled-date="disabledDate"
             v-decorator="['end_time', { rules: [{ required: true, message: '请选择结束时间' }] }]"
             show-time
             format="YYYY-MM-DD HH:mm"
@@ -61,6 +63,7 @@
 
 <script>
 import { getAllCourse, StudentLeave } from '@/api/classroom'
+import moment from 'moment'
 
 export default {
   name: 'Leave',
@@ -85,7 +88,7 @@ export default {
         values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
         if (values.end_time > values.start_time) {
           if (!err) {
-            console.log('Received values of form: ', values)
+            // console.log('Received values of form: ', values)
             StudentLeave(values.student, values.course, values.leave_type, values.reason,
               values.start_time, values.end_time).then(() => {
               this.$message.success('申请成功')
@@ -101,6 +104,10 @@ export default {
       getAllCourse().then((res) => {
         this.all_course = res.data
       })
+    },
+    disabledDate (current) {
+      // 不能选择过去的日期
+      return current && current < moment().add(-1, 'd')
     }
   }
 
