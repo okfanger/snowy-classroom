@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { CheckMonitorStudent } from '@/api/classroom'
+import { CheckMonitorAdmin } from '@/api/classroom'
 
 export default {
   name: 'CheckMonitor',
@@ -70,11 +70,11 @@ export default {
     }
   },
   created () {
-    this.CheckMonitorStudent()
+    this.CheckMonitorAdmin()
   },
   methods: {
-    CheckMonitorStudent () {
-      CheckMonitorStudent().then((res) => {
+    CheckMonitorAdmin () {
+      CheckMonitorAdmin().then((res) => {
         this.monitor = res.data
       })
     }

@@ -75,17 +75,7 @@ export default {
   },
   data () {
     return {
-      stu_leave: {
-        id: '',
-        name: '',
-        course: '',
-        leave_type: '',
-        start_time: '',
-        end_time: '',
-        reason: '',
-        status: '',
-        createTime: ''
-      },
+      stu_leave: [],
       searchTime: ''
     }
   },

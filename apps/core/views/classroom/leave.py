@@ -43,7 +43,7 @@ class StudentLeave(APIView):
 
 
 # 学生查看假条
-class CheckLeave(APIView):
+class CheckLeaveStudent(APIView):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsStudent]
 

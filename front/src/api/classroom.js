@@ -109,9 +109,34 @@ export const PickMonitor = (stuId) => {
     }
   })
 }
-export const CheckMonitor = () => {
+// 学生查看班委
+export const CheckMonitorStudent = () => {
   return request({
     url: '/classroom/student_check_monitor/',
+    method: 'GET'
+  })
+}
+
+// 管理员查看假条
+export const CheckLeaveAdmin = () => {
+  return request({
+    url: '/classroom/admin_check_leave/',
+    method: 'GET'
+  })
+}
+
+// 管理员查看假条
+export const CheckMonitorAdmin = () => {
+  return request({
+    url: '/classroom/admin_check_monitor/',
+    method: 'GET'
+  })
+}
+
+// 管理员查看公告
+export const CheckNoticeAdmin = () => {
+  return request({
+    url: '/classroom/admin_check_notice/',
     method: 'GET'
   })
 }

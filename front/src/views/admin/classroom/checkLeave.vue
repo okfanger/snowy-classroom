@@ -1,16 +1,13 @@
 <template>
   <div>
-    <a-date-picker
-      @change="StuCheckLeave"
-      class="note_search"
-      v-model="searchTime"
-      placeholder="请选择申请时间"
-    />
-    <div v-if="leave.length === 0">
+    <div v-if="leaveList.length === 0">
       <a-empty />
     </div>
     <div class="note_div" v-else>
-      <a-descriptions class="note_descriptions" bordered v-for="(item,id) in this.leave" :key="id">
+      <a-descriptions class="note_descriptions" bordered v-for="(item,id) in this.leaveList" :key="id">
+        <a-descriptions-item label="请假学生" :span="3">
+          {{ item.name }}
+        </a-descriptions-item>
         <a-descriptions-item label="请假课程">
           {{ item.course }}
         </a-descriptions-item>
@@ -43,40 +40,31 @@
 </template>
 
 <script>
-import { StuCheckLeave } from '@/api/classroom'
-import { mapGetters } from 'vuex'
-import moment from 'moment'
+import { CheckLeaveAdmin } from '@/api/classroom'
 
 export default {
-  name: 'MyLeave',
+  name: 'CheckLeave',
   data () {
     return {
-      leave: [],
+      leaveList: [],
       searchTime: ''
     }
   },
   created () {
-    this.StuCheckLeave()
+    this.CheckLeaveAdmin()
   },
   methods: {
-    StuCheckLeave () {
-      const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
-      StuCheckLeave(searchTime).then((res) => {
-        this.leave = res.data
+    CheckLeaveAdmin () {
+      CheckLeaveAdmin().then((res) => {
+        this.leaveList = res.data
+        console.log(this.leaveList)
       })
     }
-  },
-  computed: {
-    ...mapGetters(['userInfo'])
   }
 }
 </script>
 
 <style scoped>
-.note_search {
-  margin-left: 10%;
-  width: 200px;
-}
 .note_div {
   width: 80%;
   background: white;

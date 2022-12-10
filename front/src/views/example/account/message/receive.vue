@@ -52,14 +52,7 @@ export default {
   },
   data () {
     return {
-      mail: {
-        title: '',
-        content: '',
-        receive_date: '',
-        from_user: '',
-        is_read: '',
-        this_mail_id: ''
-      },
+      mail: [],
       searchMsg: ''
     }
   },

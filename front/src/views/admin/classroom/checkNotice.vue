@@ -1,11 +1,5 @@
 <template>
   <div>
-    <a-input-search
-      class="main_search"
-      placeholder="请输入要搜索的公告"
-      enter-button
-      v-model="searchMsg"
-      @search="CheckNotice" />
     <div class="notice_back">
       <a-list
         class="notice_list"
@@ -13,7 +7,7 @@
       >
         <a-list-item slot="renderItem" slot-scope="item" style="padding: 0">
           <span class="notice_log_span">
-            <img class="notice_log" src="../../../../assets/notice/notice.png">
+            <img class="notice_log" src="../../../assets/notice/notice.png">
           </span>
           <div class="notice_list_item">
             <a-list-item-meta
@@ -32,38 +26,36 @@
 </template>
 
 <script>
-import { CheckNotice } from '@/api/classroom'
+import { CheckNoticeAdmin } from '@/api/classroom'
 
 export default {
-  name: 'MyNotice',
+  name: 'CheckNotice',
   data () {
     return {
       notices: [],
       loading: true,
       loadingMore: false,
       showLoadingMore: true,
-      data: [],
-      searchMsg: ''
+      data: []
     }
   },
   created () {
-    this.CheckNotice()
+    this.CheckNoticeAdmin()
   },
   methods: {
     go (thisNotice) {
       console.log(thisNotice)
       this.$router.push({
-        path: '/classroom/myNoticeDetail',
+        path: '/classroom/checkNoticeDetail',
         query: {
           thisNotice
         }
       })
     },
-    CheckNotice () {
-      const searchMsg = this.searchMsg
-      CheckNotice(searchMsg).then((res) => {
-          this.notices = res.data
-          console.log(this.notices)
+    CheckNoticeAdmin () {
+      CheckNoticeAdmin().then((res) => {
+        this.notices = res.data
+        console.log(this.notices)
       })
     }
   }
@@ -71,10 +63,6 @@ export default {
 </script>
 
 <style scoped>
-.main_search {
-  margin-left: 10%;
-  width: 300px;
-}
 .notice_back{
   width: 80%;
   margin: 0 auto;

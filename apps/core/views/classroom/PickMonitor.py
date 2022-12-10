@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 
-from apps.bases.response import SuccessResponse
+from apps.bases.response import SuccessResponse, ErrorResponse
 from apps.core.entity.classroom import ClassRoom
 from apps.core.entity.teacher import Teacher
 from apps.users.models import User
@@ -57,15 +57,18 @@ class CheckMonitor(APIView):
 
     def get(self, request: Request):
         monitor_id = ClassRoom.objects.values()[0].get('monitor')
-        monitor = User.objects.filter(id=Student.objects.get(id=monitor_id).user_id)
-        print(monitor)
-        msg_set = []
-        for i in monitor:
-            msg_set.append({
-                'name': i.name,
-                'username': i.username,
-                'email': i.email,
-                'telephone': i.telephone
-            })
-        print(msg_set)
-        return SuccessResponse(data=msg_set)
+        if monitor_id is None or monitor_id == 0:
+            return ErrorResponse(msg='还未选择班委')
+        else:
+            monitor = User.objects.filter(id=Student.objects.get(id=monitor_id).user_id)
+            print(monitor)
+            msg_set = []
+            for i in monitor:
+                msg_set.append({
+                    'name': i.name,
+                    'username': i.username,
+                    'email': i.email,
+                    'telephone': i.telephone
+                })
+            print(msg_set)
+            return SuccessResponse(data=msg_set)

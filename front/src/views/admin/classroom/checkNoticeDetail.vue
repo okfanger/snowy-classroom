@@ -2,42 +2,40 @@
   <div>
     <a-page-header
       class="page-header"
-      :sub-title=" mail.title+ ' | ' +'发布时间 : '+ mail.receive_date"
+      :sub-title=" notice.title+ ' | ' +'发布时间 : '+ notice.send_date"
       @back="() => this.$router.go(-1)"
     />
     <div class="detail_back">
       <div class="detail_top">
-        <h2 class="detail_title">{{ mail.title }}</h2>
+        <h2 class="detail_title">{{ notice.title }}</h2>
         <p class="detail_p">
           <spqn class="detail_span">发件者 :&nbsp;</spqn>
-          {{ mail.from_user }}
+          {{ notice.from_user }}
         </p>
         <p class="detail_p">
-          <spqn class="detail_span">发件时间 :&nbsp;</spqn>
-          {{ mail.receive_date }}
+          <spqn class="detail_span">发布时间 :&nbsp;</spqn>
+          {{ notice.send_date }}
         </p>
       </div>
       <div class="detail_content_box">
-        <div class="detail_content">{{ mail.content }}</div>
+        <div class="detail_content">{{ notice.content }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'ReceiveDetail',
+  name: 'CheckNoticeDetail',
   data () {
     return {
-      mail: []
+      notice: []
     }
   },
   created () {
-    this.mail = this.$route.query['thisMail']
+    this.notice = this.$route.query['thisNotice']
   }
 }
-
 </script>
 
 <style scoped>

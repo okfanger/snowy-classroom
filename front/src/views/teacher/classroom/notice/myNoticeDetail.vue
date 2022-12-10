@@ -26,11 +26,7 @@ export default {
   name: 'MyNoticeDetail',
   data () {
     return {
-      notice: {
-        title: '',
-        content: '',
-        send_date: ''
-      }
+      notice: []
     }
   },
   created () {

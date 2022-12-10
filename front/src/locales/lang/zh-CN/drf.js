@@ -12,5 +12,6 @@ export default {
   'menu.classroom.myNotice.index': '我发布的',
   'menu.classroom.myNoticeDetail.index': '查看详情',
   'menu.classroom.PickMonitor.index': '设立班委',
-  'menu.classroom.checkMonitor.index': '查看班委'
+  'menu.classroom.checkMonitor.index': '查看班委',
+  'menu.classroom.checkNotice.index': '查看通知'
 }
