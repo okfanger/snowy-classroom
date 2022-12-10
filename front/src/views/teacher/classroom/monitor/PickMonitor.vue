@@ -43,7 +43,7 @@
           {{ telephone }}
         </span>
         <span slot="action" slot-scope="id">
-          <a-button type="primary" @click="PickMonitor(id)" v-if="monitor_id===null || monitor_id===0">
+          <a-button type="primary" @click="PickMonitor(id)" v-if="monitor_id===0">
             设为班委
           </a-button>
           <a-button type="primary" disabled v-else>
