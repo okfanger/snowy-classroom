@@ -26,10 +26,10 @@
     <div class="tab-container" style="background: white">
       <a-tabs default-active-key="4">
         <a-tab-pane key="1" tab="作业" size="large">
-          <Homework></Homework>
+          <Homework :course-id="parseInt($route.query['id'])"></Homework>
         </a-tab-pane>
         <a-tab-pane key="2" tab="考勤" size="large">
-          Content of tab 1
+          <Attend :course-id="parseInt($route.query['id'])"></Attend>
         </a-tab-pane>
         <a-tab-pane key="3" tab="成员 & 小组">
           <Member :course-id="parseInt($route.query['id'])"> </Member>
@@ -54,6 +54,7 @@ import moment from 'moment'
 const homeworkComponent = () => import('./homework.vue')
 const examComponent = () => import('./exam')
 const memberComponent = () => import('./member')
+const attendComponent = () => import('./attend.vue')
 
 // import examComponent from '@/views/student/course/exam'
 export default {
@@ -61,7 +62,8 @@ export default {
   components: {
     'Exam': examComponent,
     'Member': memberComponent,
-    'Homework': homeworkComponent
+    'Homework': homeworkComponent,
+    'Attend': attendComponent
   },
   data () {
     return {

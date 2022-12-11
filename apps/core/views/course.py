@@ -53,11 +53,3 @@ class CourseGetStudentsView(APIView):
         student_set = Course.objects.get(pk=id).student_set
         return SuccessResponse(data=StudentSerializer(student_set, many=True).data)
 
-class CourseSignInView(APIView):
-    authentication_classes = [MyJWTAuthentication]
-    permission_classes = [IsStudent]
-
-    def post(self, request: Request):
-        pass
-
-
