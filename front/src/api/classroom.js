@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-// 发送邮件
+// 学生请假
 export const StudentLeave = (student, course, leaveType, reason, startTime, endTime) => {
   return request({
     url: '/classroom/student_leave/',
