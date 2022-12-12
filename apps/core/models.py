@@ -13,8 +13,10 @@ from .entity.teacher import *
 
 from .relationship.examquestion_result import *
 from .relationship.examstudent_attend import *
+from .relationship.examstudent_attend import *
 from .relationship.groupstudent_binder import *
 from .relationship.studentcourse_attend import *
+from .relationship.studentcourse_attend_task import *
 from .relationship.studentcourse_leave import *
 from .relationship.studenthomework_handin import *
 
