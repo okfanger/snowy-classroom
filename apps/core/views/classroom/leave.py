@@ -16,17 +16,11 @@ class StudentLeave(APIView):
 
     # 学生请假
     def post(self, request: Request):
-        # student  学生
         student_id = Student.objects.get(user=request.user.id)
-        # course 课程
         course_id = Course.objects.get(name=request.data['course'])
-        # type 请假类型
         leave_type = request.data['leave_type']
-        # reason 请假理由
         reason = request.data['reason']
-        # start_time 开始时间
         start_time = request.data['start_time']
-        # end_time 结束时间
         end_time = request.data['end_time']
         print(student_id, course_id, leave_type, reason, start_time, end_time)
         StudentCourseLeave.objects.create(reason=reason, type=leave_type, start_time=start_time, end_time=end_time
