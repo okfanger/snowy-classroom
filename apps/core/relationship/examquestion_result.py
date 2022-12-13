@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 from apps.bases.models import FactSchema
 
-
 class ExamQuestionResult(FactSchema):
     stu_answer = models.IntegerField(verbose_name='选择选项ID', null=True)
     right_answer = models.IntegerField(verbose_name="正确选项ID", null=True)

@@ -4,12 +4,14 @@ from rest_framework import serializers
 from apps.bases.models import FactSchema
 
 
-class StudentCourseAttendTask(FactSchema):
-    student = models.ForeignKey(to="Student",verbose_name="学生", on_delete=models.CASCADE)
+class CourseAttendTask(FactSchema):
+    # 持续的时间
+    duration = models.IntegerField(verbose_name="持续时间(单位分钟)", null=False)
+    status = models.IntegerField(verbose_name="考勤状态", null=False, default=1)
     course = models.ForeignKey(to="Course",verbose_name="课程", on_delete=models.CASCADE)
 
 
-class StudentCourseAttendTaskSerializer(serializers.ModelSerializer):
+class CourseAttendTaskSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StudentCourseAttendTask
+        model = CourseAttendTask
         fields = '__all__'
