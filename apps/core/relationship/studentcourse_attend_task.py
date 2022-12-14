@@ -2,6 +2,7 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
+from apps.core.relationship.studentcourse_attend import StudentCourseAttendSerializer
 
 
 class CourseAttendTask(FactSchema):
@@ -12,6 +13,12 @@ class CourseAttendTask(FactSchema):
 
 
 class CourseAttendTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseAttendTask
+        fields = '__all__'
+
+class CourseAttendTaskFullSerializer(serializers.ModelSerializer):
+    studentcourseattend_set = StudentCourseAttendSerializer(many=True, read_only=True)
     class Meta:
         model = CourseAttendTask
         fields = '__all__'

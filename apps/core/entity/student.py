@@ -2,6 +2,7 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
+from apps.core.relationship.studentcourse_attend_task import CourseAttendTaskSerializer
 from apps.users.serializers import UserSerializer
 
 

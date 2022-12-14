@@ -16,3 +16,13 @@ export const getCourseAttendBeforeCreateStatus = (courseId) => {
     }
   })
 }
+
+export const getCourseAttendRecord = (courseId) => {
+  return request({
+    url: '/attend/course-attend-records/',
+    method: 'GET',
+    params: {
+      courseId: courseId
+    }
+  })
+}

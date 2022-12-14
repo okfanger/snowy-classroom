@@ -8,15 +8,20 @@
         </a-button>
       </template>
       <template v-else>
-        <a-alert
-          message="您现在正在进行一项考勤任务"
-          description="请在考勤任务结束后再创建新的考勤任务"
-          type="info"
-          show-icon
-        />
+        <a-button type="primary" disabled>
+          创建考勤任务
+        </a-button>
       </template>
 
     </div>
+
+    <a-table bordered :data-source="dataSource" :coumns="columns">
+
+      <template v-for="item in records" :slot="`scope${item.id}`" slot-scope="text, record">
+        {{ record.records[item.id] }}
+      </template>
+    </a-table>
+
     <a-modal
       title="创建考勤任务"
       :visible="createAttendTaskVisible"
@@ -50,8 +55,8 @@
 </template>
 
 <script>
-import { getTeacherOne } from '@/api/course'
-import { createCourseAttendTask, getCourseAttendBeforeCreateStatus } from '@/api/attend'
+import { getStudents, getTeacherOne } from '@/api/course'
+import { createCourseAttendTask, getCourseAttendBeforeCreateStatus, getCourseAttendRecord } from '@/api/attend'
 
 export default {
   name: 'Attend',
@@ -63,6 +68,8 @@ export default {
   },
 data () {
   return {
+    columns: [],
+    dataSource: [],
     attend_able: true,
     createAttendTaskForm: {
         duartion: 1
@@ -100,6 +107,14 @@ data () {
 
   },
 created () {
+  getStudents(this.courseId).then((res) => {
+    this.students = res.data
+    const studentMap = {}
+    this.students.forEach((student) => {
+      studentMap[student.id] = student
+    })
+  })
+
   getCourseAttendBeforeCreateStatus(this.courseId).then((res) => {
     this.attend_able = res.data
     console.log(res.data)
@@ -107,6 +122,48 @@ created () {
   getTeacherOne(this.courseId).then((res) => {
     console.log(res.data)
     this.course = res.data
+  })
+
+   getCourseAttendRecord(this.courseId).then((res) => {
+    console.log('records', res.data)
+     this.records = res.data
+    // 对从数据库中获取的数据进行处理
+    const processDict = {}
+     const cols = []
+
+     for (const taskItem of res.data) {
+       cols.push({
+         key: taskItem['id'],
+         title: taskItem['craete_time'],
+         scopedSlots: { customRender: `scope${taskItem['id']}` }
+       })
+        const attendRecord = taskItem.studentcourseattend_set
+        for (const attendRecordItem of attendRecord) {
+          const studentId = attendRecordItem['student']
+          const id = attendRecordItem['id']
+          const result = attendRecordItem['result']
+          const signInTime = attendRecordItem['sign_in_time']
+          const task = attendRecordItem['task']
+
+          if (processDict[studentId] === undefined) {
+            processDict[studentId] = {
+              studentId: studentId,
+              records: {}
+            }
+          }
+
+          processDict[studentId].records[task] = ({
+            student_id: studentId,
+            id: id,
+            result: result,
+            sign_in_time: signInTime,
+            task: task
+          })
+     }
+     }
+     // console.log('va', Object.values(processDict))
+     this.dataSource = Object.values(processDict)
+     this.columns = cols
   })
   }
 }
