@@ -17,6 +17,7 @@ import themePluginConfig from '../config/themePluginConfig'
 
 import bootstrap from './core/bootstrap'
 import './core/lazy_use' // use lazy load components
+// import './core/use' // full use load components
 import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style

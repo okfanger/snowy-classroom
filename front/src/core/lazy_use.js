@@ -51,6 +51,7 @@ import {
   notification,
   Slider
 } from 'ant-design-vue'
+
 import Viser from 'viser-vue'
 
 // ext library
@@ -60,6 +61,10 @@ import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
 import PermissionHelper from '@/core/permission/permission'
 import './directives/action'
+
+for (const item of 'ant-design-vue') {
+  Vue.use(() => import(item))
+}
 
 Vue.use(ConfigProvider)
 // 手动加的组件
