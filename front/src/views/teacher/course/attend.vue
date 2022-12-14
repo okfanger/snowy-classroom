@@ -1,24 +1,48 @@
 <template>
   <div>
     <div class="sign-in-bar">
-
-      <template v-if="attend_able">
-        <a-button type="primary" @click="handleCreateAttendTask">
-          创建考勤任务
+      <a-space :size="size">
+        <template v-if="attend_able">
+          <a-button type="primary" @click="handleCreateAttendTask">
+            创建考勤任务
+          </a-button>
+        </template>
+        <template v-else>
+          <a-button type="warning" @click="handleOpenDrawer">
+            查看考勤结果
+          </a-button>
+        </template>
+        <a-button v-show="!editDataVisible" @click="handleEditData">
+          编辑考勤
         </a-button>
-      </template>
-      <template v-else>
-        <a-button type="primary" disabled>
-          创建考勤任务
+        <a-button v-show="editDataVisible" type="primary" @click="handleSaveData">
+          保存
         </a-button>
-      </template>
-
+      </a-space>
+      <div style="height: 20px"></div>
     </div>
 
-    <a-table bordered :data-source="dataSource" :coumns="columns">
+    <a-table
+      :loading="dataLoading"
+      bordered
+      size="middle"
 
+      :scroll="{x: 2000}"
+      :data-source="dataSource"
+      :columns="columns"
+      rowKey="studentId">
+      <template slot="name" slot-scope="text, record">{{ studentMap[record.studentId] ? studentMap[record.studentId].user.name : "" }}</template>
       <template v-for="item in records" :slot="`scope${item.id}`" slot-scope="text, record">
-        {{ record.records[item.id] }}
+        <span :key="`k1_${item.id}`" v-if="editDataVisible">
+          <a-select :style="{'width': '80px'}" v-model="record.records[item.id].result" :default-value="record.records[item.id].result" style="width: 120px">
+            <a-select-option :key="`k2_${item2.label}`" v-for="item2 in atStatusList" :value="item2.label">
+              {{ item2.label }}
+            </a-select-option>
+          </a-select></span>
+        <span :key="`k3_${item.id}`" v-if="!editDataVisible"> <a-tag
+          :color="getColorByLabel(record.records[item.id].result)">
+          {{ record.records[item.id].result }}
+        </a-tag></span>
       </template>
     </a-table>
 
@@ -51,12 +75,32 @@
 
       </a-form-item>
     </a-modal>
+    <a-drawer
+      title="签到情况"
+      placement="right"
+      :closable="false"
+      :visible="drawerVisible"
+      @close="onDrawerClose"
+    >
+      <p><a-button @click="refreshAsyncAttendTask">刷新数据</a-button></p>
+      <img style="width: 100%" :src="qrcodeImgUrl" alt="">
+      <a-timeline>
+        <a-timeline-item :key="item.id" v-for="item in asyncAttendRecordCut">{{ studentMap[item.student].user.name }}
+          {{ item.sign_in_time }}</a-timeline-item>
+      </a-timeline>
+    </a-drawer>
   </div>
 </template>
 
 <script>
 import { getStudents, getTeacherOne } from '@/api/course'
-import { createCourseAttendTask, getCourseAttendBeforeCreateStatus, getCourseAttendRecord } from '@/api/attend'
+import {
+  createCourseAttendTask,
+  getCourseAttendBeforeCreateStatus,
+  getCourseAttendOneRecord,
+  getCourseAttendRecord
+} from '@/api/attend'
+import { message } from 'ant-design-vue'
 
 export default {
   name: 'Attend',
@@ -66,13 +110,35 @@ export default {
       default: -1
     }
   },
+  computed: {
+    asyncAttendRecordCut () {
+      const dataset = this.asyncAttendRecord ? this.asyncAttendRecord.studentcourseattend_set : []
+      return dataset.filter((item) => {
+        return item.result === '正常'
+      })
+    }
+  },
 data () {
+    const atStatusList = [
+        { label: '正常', value: 0, color: 'green' },
+        { label: '请假', value: 1, color: 'blue' },
+        { label: '缺勤', value: 2, color: 'red' }
+      ]
+
   return {
+    qrcodeImgUrl: '',
+    asyncAttendRecord: {},
+    attend_expire_time: '',
+    drawerVisible: false,
+    atStatusList,
+    dataLoading: true,
+    editDataVisible: false,
+    studentMap: {},
     columns: [],
     dataSource: [],
     attend_able: true,
     createAttendTaskForm: {
-        duartion: 1
+      duration: 1
       },
       teacher: {},
       createAttendTaskVisible: false,
@@ -80,17 +146,62 @@ data () {
     }
   },
   methods: {
+    getColorByLabel (label) {
+      for (const item of this.atStatusList) {
+        if (item.label === label) {
+          return item.color
+        }
+      }
+    },
+    onDrawerClose () {
+      this.drawerVisible = false
+    },
+    handleOpenDrawer () {
+      // 获取当前页面地址，如http://localhost:8080/admin/index
+      const wPath = window.document.location.href
+      // 获取当前页面主机地址之后的目录，如：/admin/index
+      const pathName = this.$route.path
+      const pos = wPath.indexOf(pathName)
+      // 获取主机地址，如：http://localhost:8080
+      const localhostPath = wPath.substring(0, pos)
+      const signInUrl = `${localhostPath}/user/sign-in/?task=${this.asyncAttendRecord.id}`
+      this.qrcodeImgUrl = `${localhostPath}/api/qrcode/?url=${encodeURI(signInUrl)}`
+      console.log(this.qrcodeImgUrl)
+      this.drawerVisible = true
+    },
+    handleSaveData () {
+      this.dataLoading = true
+
+      setTimeout(() => {
+        this.editDataVisible = false
+        this.dataLoading = false
+    }, 300)
+    },
+    handleEditData () {
+      this.dataLoading = true
+      setTimeout(() => {
+        this.editDataVisible = true
+        this.dataLoading = false
+      }, 300)
+    },
     handleCreateAttendTask () {
       this.createAttendTaskVisible = true
+    },
+    refreshAsyncAttendTask () {
+      getCourseAttendOneRecord(this.asyncAttendRecord.id).then((res) => {
+        this.asyncAttendRecord = res.data
+      })
     },
     handleCreateAttendTaskVisibleOK () {
       this.createAttendTaskconfirmLoading = true
 
       createCourseAttendTask({
         courseId: this.courseId,
-        duration: this.createAttendTaskForm.duartion
+        duration: this.createAttendTaskForm.duration
       }).then((res) => {
-          this.$message({
+        this.asyncAttendRecord = res.data
+        console.log(res.data)
+          message({
             type: 'success',
             message: '创建成功，等待学生签到'
           })
@@ -99,6 +210,14 @@ data () {
       }).catch((fail) => {
         this.createAttendTaskVisible = false
         this.createAttendTaskconfirmLoading = false
+      }).finally(() => {
+        getCourseAttendBeforeCreateStatus(this.courseId).then((res) => {
+          this.attend_able = res.data.attend_able
+          this.attend_expire_time = res.data.expire_time
+          this.asyncAttendRecord = res.data.task
+        }).finally(() => {
+          this.handleOpenDrawer()
+        })
       })
     },
     handleCreateAttendTaskCancel () {
@@ -113,11 +232,13 @@ created () {
     this.students.forEach((student) => {
       studentMap[student.id] = student
     })
+    this.studentMap = studentMap
   })
 
   getCourseAttendBeforeCreateStatus(this.courseId).then((res) => {
-    this.attend_able = res.data
-    console.log(res.data)
+    this.attend_able = res.data.attend_able
+    this.attend_expire_time = res.data.expire_time
+    this.asyncAttendRecord = res.data.task
   })
   getTeacherOne(this.courseId).then((res) => {
     console.log(res.data)
@@ -129,13 +250,23 @@ created () {
      this.records = res.data
     // 对从数据库中获取的数据进行处理
     const processDict = {}
-     const cols = []
+     const cols = [{
+       key: 'name',
+       title: '姓名',
+       // dataIndex: 'studentId',
+       width: 100,
+       fixed: 'left',
+       align: 'center',
+       scopedSlots: { customRender: 'name' }
+     }]
 
      for (const taskItem of res.data) {
        cols.push({
          key: taskItem['id'],
-         title: taskItem['craete_time'],
-         scopedSlots: { customRender: `scope${taskItem['id']}` }
+         title: taskItem['create_time'],
+         width: '80px',
+         align: 'center',
+       scopedSlots: { customRender: `scope${taskItem['id']}` }
        })
         const attendRecord = taskItem.studentcourseattend_set
         for (const attendRecordItem of attendRecord) {
@@ -161,9 +292,11 @@ created () {
           })
      }
      }
+     console.log('col', cols)
      // console.log('va', Object.values(processDict))
      this.dataSource = Object.values(processDict)
      this.columns = cols
+     this.dataLoading = false
   })
   }
 }

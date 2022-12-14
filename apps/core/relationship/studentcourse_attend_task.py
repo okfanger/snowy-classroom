@@ -8,7 +8,8 @@ from apps.core.relationship.studentcourse_attend import StudentCourseAttendSeria
 class CourseAttendTask(FactSchema):
     # 持续的时间
     duration = models.IntegerField(verbose_name="持续时间(单位分钟)", null=False)
-    status = models.IntegerField(verbose_name="考勤状态", null=False, default=1)
+    expire_time = models.DateTimeField(verbose_name="过期时间", null=False)
+    # status = models.IntegerField(verbose_name="考勤状态", null=False, default=1)
     course = models.ForeignKey(to="Course",verbose_name="课程", on_delete=models.CASCADE)
 
 

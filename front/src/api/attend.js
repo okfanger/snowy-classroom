@@ -26,3 +26,22 @@ export const getCourseAttendRecord = (courseId) => {
     }
   })
 }
+export const getCourseAttendOneRecord = (taskId) => {
+  return request({
+    url: '/attend/course-attend-one/',
+    method: 'GET',
+    params: {
+      taskId: taskId
+    }
+  })
+}
+
+export const studentSignInRecord = (taskId) => {
+  return request({
+    url: '/attend/course-attend-sign-in/',
+    method: 'POST',
+    data: {
+      taskId: taskId
+    }
+  })
+}

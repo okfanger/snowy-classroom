@@ -37,6 +37,11 @@ export const constantRouterMap = [
         path: 'recover',
         name: 'recover',
         component: undefined
+      },
+      {
+        path: 'sign-in',
+        name: 'sign-in',
+        component: () => import('@/views/user/SignIn.vue')
       }
     ]
   },

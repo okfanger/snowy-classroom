@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 # from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView, TokenRefreshView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
+
+from apps.core.utils.qrcode import QRCodeView
 from apps.users.authentication import MyTokenObtainPairView
 from apps.users.views import UserInfoView, UserForgetView, UserRegisterView, UserNavView
 
@@ -41,5 +43,9 @@ urlpatterns = [
     # 注册用户
     path('user/register/', UserRegisterView.as_view(), name="user_register"),
     # 用户权限菜单
-    path('user/nav/', UserNavView.as_view(), name="user_nav")
+    path('user/nav/', UserNavView.as_view(), name="user_nav"),
+
+
+    #生成二维码工具类
+    path('qrcode/', QRCodeView.as_view(), name="qrcode"),
 ]

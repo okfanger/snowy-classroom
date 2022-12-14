@@ -62,9 +62,9 @@ import PageLoading from '@/components/PageLoading'
 import PermissionHelper from '@/core/permission/permission'
 import './directives/action'
 
-for (const item of 'ant-design-vue') {
-  Vue.use(() => import(item))
-}
+// for (const item of 'ant-design-vue') {
+//   Vue.use(() => import(item))
+// }
 
 Vue.use(ConfigProvider)
 // 手动加的组件
