@@ -10,26 +10,68 @@
       @ok="handleOk"
       @cancel="handleCancel"
     >
-      <div>
-        <a-input placeholder="输入作业题目" allow-clear @change="onChange" />
-        <br />
-        <br />
-        <a-textarea placeholder="输入作业内容" allow-clear @change="onChange" />
-        <br />
-        <br />
-        <a-range-picker @change="onChange" />
-      </div>
+      <!--      <div>-->
+      <!--        <a-input placeholder="输入作业题目" allow-clear @change="onChange" />-->
+      <!--        <br />-->
+      <!--        <br />-->
+      <!--        <a-textarea placeholder="输入作业内容" allow-clear @change="onChange" />-->
+      <!--        <br />-->
+      <!--        <br />-->
+      <!--        <a-range-picker @change="onChange" />-->
+      <!--      </div>-->
+      <a-form
+        :form="form"
+        :label-col="{ span: 5 }"
+        :wrapper-col="{ span: 12 }"
+        @submit="handleSubmit"
+        class="leave_form"
+      >
+        <a-form-item label="作业题目">
+          <a-input
+            v-decorator="['title', { rules: [{ required: true, message: '请输入作业题目' }] }]"
+            placeholder="请输入作业题目">
+          </a-input>
+        </a-form-item>
+        <a-form-item label="作业内容">
+          <a-input
+            v-decorator="['content', { rules: [{ required: true, message: '请输入作业内容' }] }]"
+            placeholder="请输入作业内容">
+          </a-input>
+        </a-form-item>
+        <a-form-item label="开始时间">
+          <a-date-picker
+            :disabled-date="disabledDate"
+            v-decorator="['start_time', { rules: [{ required: true, message: '请选择开始时间' }] }]"
+            show-time
+            format="YYYY-MM-DD HH:mm"
+          />
+        </a-form-item>
+        <a-form-item label="结束时间">
+          <a-date-picker
+            :disabled-date="disabledDate"
+            v-decorator="['end_time', { rules: [{ required: true, message: '请选择结束时间' }] }]"
+            show-time
+            format="YYYY-MM-DD HH:mm"
+          />
+        </a-form-item>
+        <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+          <a-button type="primary" html-type="submit">
+            发布
+          </a-button>
+        </a-form-item>
+      </a-form>
     </a-modal>
     <div>
       <a-table :columns="columns" :dataSource="dataSource">
         <template slot="operation" slot-scope="id"><a-button @click="delWork(id)">删除</a-button></template>
       </a-table>
-
     </div>
   </div>
 </template>
 
 <script>
+import { releaseHomework } from '@/api/homework'
+
 export default {
   name: 'SendHomework',
   data () {
@@ -38,6 +80,7 @@ export default {
     const month = data.getMonth() + 1
     const day = data.getDate()
     return {
+      form: this.$form.createForm(this, { name: 'coordinated' }),
       visible: false,
       confirmLoading: false,
       dataSource: [
@@ -82,7 +125,10 @@ export default {
       ]
     }
   },
-methods: {
+  created () {
+    console.log(this.$route.query['key'])
+  },
+  methods: {
     showModal () {
       this.visible = true
     },
@@ -100,6 +146,23 @@ methods: {
     },
   onChange (date, dateString) {
     console.log(date, dateString)
+  },
+  handleSubmit (e) {
+    e.preventDefault()
+    this.form.validateFields((err, values) => {
+      values.start_time = values['start_time'].format('YYYY-MM-DD HH:mm')
+      values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
+      if (values.end_time > values.start_time) {
+        if (!err) {
+          releaseHomework(values.title, values.content, values.start_time, values.end_time).then(() => {
+            this.$message.success('发布成功')
+            this.form.resetFields()
+          })
+        }
+      } else {
+        this.$message.error('结束时间要在开始时间之后')
+      }
+    })
   }
   },
   delWork (id) {

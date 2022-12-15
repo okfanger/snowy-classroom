@@ -2,12 +2,12 @@
   <div>
     <h1 align="center">第一次作业</h1>
     <div>
-    <template>
-      <a-tooltip>
-        <template #title>prompt text</template>
-        本次作业为XXXXXXX
-      </a-tooltip>
-    </template>
+      <template>
+        <a-tooltip>
+          <template #title>prompt text</template>
+          本次作业为XXXXXXX
+        </a-tooltip>
+      </template>
     </div>
     <div>
       <template>
@@ -39,7 +39,15 @@
 
 <script>
 export default {
-  name: 'PushHomework'
+  name: 'PushHomework',
+  data () {
+    return {
+
+    }
+  },
+  created () {
+    console.log(this.$route.query['courseId'])
+  }
 }
 </script>
 

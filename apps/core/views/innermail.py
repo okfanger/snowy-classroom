@@ -17,6 +17,7 @@ class SendMail(APIView, serializers.ModelSerializer):
     # 发送邮件
     def post(self, request: Request):
         content = request.data['content']
+        # request.query_params['']
         title = request.data['title']
         send_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         receive_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')

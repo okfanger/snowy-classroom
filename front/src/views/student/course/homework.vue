@@ -1,15 +1,39 @@
 <template>
   <div>
-    <a-table :columns="columns" :dataSource="dataSource">
+    <!--    <a-table :columns="columns" :dataSource="dataSource">-->
 
-      <template slot="operation" slot-scope="id"><a-button @click="entryWork(id)">提交作业</a-button></template>
+    <!--      <template slot="operation">-->
+    <!--        <a-button @click="entryWork(courseId)">提交作业</a-button>-->
+    <!--      </template>-->
 
+    <!--    </a-table>-->
+
+    <a-table
+      :columns="columns"
+      :data-source="homeworkList"
+    >
+      <span slot="title" slot-scope="title">
+        {{ title }}
+      </span>
+      <span slot="start_date" slot-scope="start_date">
+        {{ start_date }}
+      </span>
+      <span slot="end_date" slot-scope="end_date">
+        {{ end_date }}
+      </span>
+      <span slot="operation">
+        <a-button type="primary" @click="entryWork(courseId)">
+          提交作业
+        </a-button>
+      </span>
     </a-table>
 
   </div>
 </template>
 
 <script>
+import { checkWork } from '@/api/homework'
+
 export default {
   name: 'Homework',
   data () {
@@ -43,13 +67,13 @@ export default {
         },
         {
           title: '开始时间',
-          dataIndex: 'startDate',
-          key: 'startDate'
+          dataIndex: 'start_date',
+          key: 'start_date'
         },
         {
           title: '截止时间',
-          dataIndex: 'endDate',
-          key: 'endDate'
+          dataIndex: 'end_date',
+          key: 'end_date'
         },
         {
           title: '操作',
@@ -57,13 +81,27 @@ export default {
           key: 'operation',
           scopedSlots: { customRender: 'operation' }
         }
-      ]
+      ],
+      courseId: this.$route.query['id'],
+      homeworkList: []
     }
   },
+  created () {
+    console.log(this.courseId)
+    this.checkWork()
+  },
   methods: {
-    entryWork () {
+    checkWork () {
+      checkWork(this.courseId).then((res) => {
+        this.homeworkList = res.data
+      })
+    },
+    entryWork (courseId) {
       this.$router.push({
-        path: '/homework/pushHomework'
+        path: '/homework/pushHomework',
+        query: {
+          courseId
+        }
       })
     }
   }

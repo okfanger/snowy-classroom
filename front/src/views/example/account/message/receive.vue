@@ -58,11 +58,6 @@ export default {
   },
 
   methods: {
-    // ReceiveMail () {
-    //   ReceiveMail().then((res) => {
-    //     this.mail = res.data
-    //   })
-    // },
     noticeActive (mailId, isRead, thisMail) {
       console.log(mailId)
       if (isRead === false) {

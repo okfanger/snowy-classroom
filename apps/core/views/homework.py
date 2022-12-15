@@ -19,6 +19,7 @@ class TeacherHomework(APIView):
 
     # 老师发布作业
     def post(self, request: Request):
+
         course_id = Course.objects.get(id=request.data['course_id'])
         title = request.data['title']
         content = request.data['content']

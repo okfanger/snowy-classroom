@@ -25,6 +25,7 @@ urlpatterns = [
 '''
 post 请求: 老师发布作业
 request.data: [ 
+    title 作业题目
     course_id 课程id
     content 作业内容
     start_time 开始时间
