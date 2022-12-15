@@ -1,118 +1,81 @@
 <template>
   <div>
-    <a-table :columns="columns" :dataSource="dataSource">
-
-      <template slot="operation">
-        <a-button type="primary" @click="showModal">
-          查看作业
-        </a-button>
-        <a-modal
-          title="作业"
-          :visible="visible"
-          :confirm-loading="confirmLoading"
-          @ok="handleCancel"
-          @cancel="handleCancel"
-        >
-          <div>
-            <a-card title="第一次作业" style="width:100%">
-              <p>
-                今天的作业是XXXXX，写完后提交到平台。
-              </p>
-              <p>
-                今天的作业是XXXXX，写完后提交到平台。
-              </p>
-              <p>
-                今天的作业是XXXXX，写完后提交到平台。
-              </p>
-              <p>
-                今天的作业是XXXXX，写完后提交到平台。
-              </p>
-              <p>
-                今天的作业是XXXXX，写完后提交到平台。
-              </p>
-            </a-card>
-
-          </div>
-        </a-modal>
-        <div>
-        </div></template>
-
+    <a-table
+      :columns="columns"
+      :data-source="homeworkList"
+      class="table"
+    >
+      <span slot="timu" slot-scope="title">
+        {{ title }}
+      </span>
+      <span slot="start_date" slot-scope="start_time">
+        {{ start_time }}
+      </span>
+      <span slot="end_date" slot-scope="end_time">
+        {{ end_time }}
+      </span>
     </a-table>
-
   </div>
 </template>
 
 <script>
+import { checkWork } from '@/api/homework'
+
 export default {
   name: 'Homework',
   data () {
-    const data = new Date()
-    const year = data.getFullYear()
-    const month = data.getMonth() + 1
-    const day = data.getDate()
     return {
-      visible: false,
-      confirmLoading: false,
-      dataSource: [
-        {
-
-          title: '第一次作业',
-          endDate: year + '.' + month + '.' + (day + 3),
-          startDate: year + '.' + month + '.' + day,
-          operation: { customRender: 'operation' }
-        },
-        {
-
-          title: '第二次作业',
-          endDate: year + '.' + month + '.' + (day + 4),
-          startDate: year + '.' + month + '.' + day,
-          operation: { customRender: 'operation' }
-        }
-      ],
-
       columns: [
         {
-          title: '标题',
+          title: '作业题目',
           dataIndex: 'title',
-          key: 'title'
+          key: 'timu',
+          scopedSlots: { customRender: 'timu' }
         },
         {
           title: '开始时间',
-          dataIndex: 'startDate',
-          key: 'startDate'
+          dataIndex: 'start_time',
+          key: 'start_time',
+          scopedSlots: { customRender: 'start_time' }
         },
         {
           title: '截止时间',
-          dataIndex: 'endDate',
-          key: 'endDate'
+          dataIndex: 'end_time',
+          key: 'end_time',
+          scopedSlots: { customRender: 'end_time' }
         },
         {
           title: '操作',
-          dataIndex: 'operation',
+          dataIndex: 'homework_id',
           key: 'operation',
           scopedSlots: { customRender: 'operation' }
         }
-      ]
+      ],
+      courseId: this.$route.query['id'],
+      homeworkList: [],
+      homeworkId: 0
     }
   },
+  created () {
+    console.log(this.courseId)
+    this.checkWork()
+  },
   methods: {
-    showModal () {
-      this.visible = true
+    checkWork () {
+      checkWork(this.courseId, this.homeworkId).then((res) => {
+        this.homeworkList = res.data
+        console.log(this.homeworkList)
+      })
     },
-    //  handleOk (e) {
-    //   this.ModalText = 'The modal will be closed after two seconds'
-    //   this.confirmLoading = true
-    //   setTimeout(() => {
-    //     this.visible = false
-    //     this.confirmLoading = false
-    //   }, 2000)
-    // },
-    handleCancel (e) {
-      console.log('Clicked cancel button')
-      this.visible = false
-    },
-    onChange (date, dateString) {
-      console.log(date, dateString)
+    entryWork (homeworkId) {
+      console.log(homeworkId)
+      this.$router.push({
+        path: '/homework/pushHomework',
+        query: {
+          courseId: this.courseId,
+          homeworkId: homeworkId
+        }
+      })
     }
   }
 }

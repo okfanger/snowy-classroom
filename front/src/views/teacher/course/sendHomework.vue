@@ -3,22 +3,19 @@
     <a-button type="primary" @click="showModal">
       发布作业
     </a-button>
+    <!--    <a-modal-->
+    <!--      title="作业"-->
+    <!--      :visible="visible"-->
+    <!--      :confirm-loading="confirmLoading"-->
+    <!--      @ok="handleOk"-->
+    <!--      @cancel="handleCancel"-->
+    <!--    >-->
     <a-modal
       title="作业"
       :visible="visible"
       :confirm-loading="confirmLoading"
-      @ok="handleOk"
       @cancel="handleCancel"
     >
-      <!--      <div>-->
-      <!--        <a-input placeholder="输入作业题目" allow-clear @change="onChange" />-->
-      <!--        <br />-->
-      <!--        <br />-->
-      <!--        <a-textarea placeholder="输入作业内容" allow-clear @change="onChange" />-->
-      <!--        <br />-->
-      <!--        <br />-->
-      <!--        <a-range-picker @change="onChange" />-->
-      <!--      </div>-->
       <a-form
         :form="form"
         :label-col="{ span: 5 }"
@@ -26,6 +23,15 @@
         @submit="handleSubmit"
         class="leave_form"
       >
+        <a-form-item label="选择班级">
+          <a-select
+            v-decorator="['course',{ rules: [{ required: true, message: '请选择班级' }] }]"
+            placeholder="请选择班级">
+            <a-select-option v-for="item in coursesList" :key="item">
+              {{ item }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
         <a-form-item label="作业题目">
           <a-input
             v-decorator="['title', { rules: [{ required: true, message: '请输入作业题目' }] }]"
@@ -71,6 +77,8 @@
 
 <script>
 import { releaseHomework } from '@/api/homework'
+import { CheckCourse } from '@/api/classroom'
+import moment from 'moment/moment'
 
 export default {
   name: 'SendHomework',
@@ -83,6 +91,7 @@ export default {
       form: this.$form.createForm(this, { name: 'coordinated' }),
       visible: false,
       confirmLoading: false,
+      coursesList: [],
       dataSource: [
         {
 
@@ -126,20 +135,20 @@ export default {
     }
   },
   created () {
-    console.log(this.$route.query['key'])
+    this.CheckCourse()
   },
   methods: {
     showModal () {
       this.visible = true
     },
-    handleOk (e) {
-      this.ModalText = 'The modal will be closed after two seconds'
-      this.confirmLoading = true
-      setTimeout(() => {
-        this.visible = false
-        this.confirmLoading = false
-      }, 2000)
-    },
+    // handleOk (e) {
+    //   this.ModalText = 'The modal will be closed after two seconds'
+    //   this.confirmLoading = true
+    //   setTimeout(() => {
+    //     this.visible = false
+    //     this.confirmLoading = false
+    //   }, 2000)
+    // },
     handleCancel (e) {
       console.log('Clicked cancel button')
       this.visible = false
@@ -154,7 +163,7 @@ export default {
       values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
       if (values.end_time > values.start_time) {
         if (!err) {
-          releaseHomework(values.title, values.content, values.start_time, values.end_time).then(() => {
+          releaseHomework(values.course, values.title, values.content, values.start_time, values.end_time).then(() => {
             this.$message.success('发布成功')
             this.form.resetFields()
           })
@@ -163,11 +172,20 @@ export default {
         this.$message.error('结束时间要在开始时间之后')
       }
     })
-  }
   },
-  delWork (id) {
-
+    CheckCourse () {
+      CheckCourse().then((res) => {
+        this.coursesList = res.data
+      })
+    },
+    disabledDate (current) {
+      // 不能选择过去的日期
+      return current && current < moment().add(-1, 'd')
+    }
   }
+  // delWork (id) {
+  //
+  // }
 }
 </script>
 
