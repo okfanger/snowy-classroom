@@ -45,3 +45,13 @@ export const studentSignInRecord = (taskId) => {
     }
   })
 }
+
+export const attendUpdateBatch = (dataList) => {
+  return request({
+    url: '/attend/course-attend-update-batch/',
+    method: 'POST',
+    data: {
+      dataList: dataList
+    }
+  })
+}

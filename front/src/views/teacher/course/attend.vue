@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sign-in-bar">
-      <a-space :size="size">
+      <a-space>
         <template v-if="attend_able">
           <a-button type="primary" @click="handleCreateAttendTask">
             创建考勤任务
@@ -27,15 +27,21 @@
       bordered
       size="middle"
 
-      :scroll="{x: 2000}"
+      :scroll="{x: scrollx}"
       :data-source="dataSource"
       :columns="columns"
       rowKey="studentId">
       <template slot="name" slot-scope="text, record">{{ studentMap[record.studentId] ? studentMap[record.studentId].user.name : "" }}</template>
       <template v-for="item in records" :slot="`scope${item.id}`" slot-scope="text, record">
         <span :key="`k1_${item.id}`" v-if="editDataVisible">
-          <a-select :style="{'width': '80px'}" v-model="record.records[item.id].result" :default-value="record.records[item.id].result" style="width: 120px">
-            <a-select-option :key="`k2_${item2.label}`" v-for="item2 in atStatusList" :value="item2.label">
+          <a-select @change="addUploadList" :style="{'width': '80px'}" v-model="record.records[item.id].result" :default-value="record.records[item.id].result" style="width: 120px">
+            <a-select-option
+              :data-record="record.records[item.id].id"
+              :data-studentid="record.studentId"
+              :data-taskid="record.records[item.id].task"
+              :key="`k2_${item2.label}`"
+              v-for="item2 in atStatusList"
+              :value="item2.label">
               {{ item2.label }}
             </a-select-option>
           </a-select></span>
@@ -95,13 +101,13 @@
 <script>
 import { getStudents, getTeacherOne } from '@/api/course'
 import {
+  attendUpdateBatch,
   createCourseAttendTask,
   getCourseAttendBeforeCreateStatus,
   getCourseAttendOneRecord,
   getCourseAttendRecord
 } from '@/api/attend'
 import { message } from 'ant-design-vue'
-
 export default {
   name: 'Attend',
   props: {
@@ -111,8 +117,19 @@ export default {
     }
   },
   computed: {
+    scrollx () {
+      const columns = this.columns
+
+      let scrollx = 0
+      for (let i = 0; i < columns.length; i++) {
+        scrollx += 1
+      }
+      console.log(scrollx)
+      return scrollx
+    },
     asyncAttendRecordCut () {
       const dataset = this.asyncAttendRecord ? this.asyncAttendRecord.studentcourseattend_set : []
+      if (dataset === undefined) { return [] }
       return dataset.filter((item) => {
         return item.result === '正常'
       })
@@ -126,6 +143,7 @@ data () {
       ]
 
   return {
+    uploadList: {},
     qrcodeImgUrl: '',
     asyncAttendRecord: {},
     attend_expire_time: '',
@@ -146,6 +164,20 @@ data () {
     }
   },
   methods: {
+
+    addUploadList (e, option) {
+      const studentId = option.data.attrs['data-studentid']
+      const taskId = option.data.attrs['data-taskid']
+      const recordId = option.data.attrs['data-record']
+      this.uploadList[`${taskId}-${studentId}`] = {
+        student: studentId,
+        task: taskId,
+        id: recordId,
+        result: e
+      }
+
+      console.log(this.uploadList)
+    },
     getColorByLabel (label) {
       for (const item of this.atStatusList) {
         if (item.label === label) {
@@ -172,17 +204,21 @@ data () {
     handleSaveData () {
       this.dataLoading = true
 
-      setTimeout(() => {
+      attendUpdateBatch(Object.values(this.uploadList)).then((res) => {
+        console.log(Object.values(this.uploadList))
+        console.log(res.data)
         this.editDataVisible = false
         this.dataLoading = false
-    }, 300)
+      })
     },
     handleEditData () {
       this.dataLoading = true
+      this.uploadList = {}
+
       setTimeout(() => {
         this.editDataVisible = true
         this.dataLoading = false
-      }, 300)
+      }, 100)
     },
     handleCreateAttendTask () {
       this.createAttendTaskVisible = true
@@ -293,7 +329,7 @@ created () {
      }
      }
      console.log('col', cols)
-     // console.log('va', Object.values(processDict))
+     console.log('va', Object.values(processDict))
      this.dataSource = Object.values(processDict)
      this.columns = cols
      this.dataLoading = false

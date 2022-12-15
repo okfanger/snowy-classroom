@@ -28,9 +28,9 @@
         <a-tab-pane key="1" tab="作业" size="large">
           <Homework :course-id="parseInt($route.query['id'])"></Homework>
         </a-tab-pane>
-        <a-tab-pane key="2" tab="考勤" size="large">
-          <Attend :course-id="parseInt($route.query['id'])"></Attend>
-        </a-tab-pane>
+        <!--        <a-tab-pane key="2" tab="考勤" size="large">-->
+        <!--          <Attend :course-id="parseInt($route.query['id'])"></Attend>-->
+        <!--        </a-tab-pane>-->
         <a-tab-pane key="3" tab="成员 & 小组">
           <Member :course-id="parseInt($route.query['id'])"> </Member>
         </a-tab-pane>

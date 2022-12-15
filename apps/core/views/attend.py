@@ -86,6 +86,26 @@ class CourseAttendRecordOneView(APIView):
         record = CourseAttendTask.objects.get(pk=task_id)
         return SuccessResponse(data=CourseAttendTaskFullSerializer(record).data)
 
+
+class CourseAttendUpdateBatchView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    @transaction.atomic
+    def post(self, request: Request):
+
+        data_list = request.data['dataList']
+        print(data_list)
+        for item in data_list:
+            student = item['student']
+            task = item['task']
+            result = item['result']
+            id = item['id']
+
+            StudentCourseAttend.objects.filter(pk=id).update(**{
+                'result': result
+            })
+        return SuccessResponse("success")
 class CourseAttendSignInView(APIView):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsStudent]
