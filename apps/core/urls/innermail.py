@@ -15,10 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
-from apps.core.views.innermail import SendMail, ReceiveMail, SearchMain
+from apps.core.views.innermail import SendMail, ReceiveMail
 
 urlpatterns = [
     path("send_mail/", SendMail.as_view(), name="发送邮件"),
     path("receive_mail/", ReceiveMail.as_view(), name="接收邮件"),
-    path("search_mail/", SearchMain.as_view(), name="查找邮件")
 ]

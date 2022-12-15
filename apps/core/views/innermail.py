@@ -69,30 +69,3 @@ class ReceiveMail(APIView):
         this_mail_id = InnerMail.objects.get(id=request.data['this_mail_id'])
         this_mail_id.is_read = 1
         this_mail_id.save()
-
-
-# 查找邮件
-class SearchMain(APIView):
-    authentication_classes = [MyJWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request: Request):
-        # print(request.query_params['search_msg'])
-        this_user = request.user
-        search_msg = request.query_params['search_msg']
-        mail_list = InnerMail.objects.filter(title=search_msg, to_user=this_user)
-        print(mail_list)
-        msg_set = []
-
-        for i in mail_list:
-            from_user = User.objects.get(id=i.from_user.id).name
-            msg_set.append({
-                "content": i.content,
-                "title": i.title,
-                "receive_date": i.receive_date.__format__('%Y-%m-%d %H:%M'),
-                "is_read": i.is_read,
-                "this_mail_id": i.id,
-                "from_user": from_user
-            })
-        print(msg_set)
-        return SuccessResponse(data=msg_set)
