@@ -88,11 +88,18 @@ WSGI_APPLICATION = "back.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+IS_MYSQL = False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    } if not IS_MYSQL else {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'snow_yujie_dev',
+        'USER': 'snow_yujie_dev',
+        'PASSWORD': 'RNsa7japXa2DMinb',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
