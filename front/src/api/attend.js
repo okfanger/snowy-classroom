@@ -46,12 +46,11 @@ export const studentSignInRecord = (taskId) => {
   })
 }
 
-export const attendUpdateBatch = (taskId, dataList) => {
+export const attendUpdateBatch = (dataList) => {
   return request({
     url: '/attend/course-attend-update-batch/',
     method: 'POST',
     data: {
-      taskId: taskId,
       dataList: dataList
     }
   })

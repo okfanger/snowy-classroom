@@ -93,12 +93,18 @@ class CourseAttendUpdateBatchView(APIView):
 
     @transaction.atomic
     def post(self, request: Request):
-        task_id = request.data['taskId']
-        attend_list = request.data['attendList']
-        for item in attend_list:
-            stu_id = item['id']
+
+        data_list = request.data['dataList']
+        print(data_list)
+        for item in data_list:
+            student = item['student']
+            task = item['task']
             result = item['result']
-            StudentCourseAttend.objects.filter(task=task_id, student=stu_id).update(result=result)
+            id = item['id']
+
+            StudentCourseAttend.objects.filter(pk=id).update(**{
+                'result': result
+            })
         return SuccessResponse("success")
 class CourseAttendSignInView(APIView):
     authentication_classes = [MyJWTAuthentication]

@@ -35,6 +35,7 @@ const ruleText = `
 在课程中同其他人讨论一般概念和资料；
 将想法和书面成果展示给雨课堂同学或其他人，以获得他们的意见和评论。
 `
+
 export {
   style2mask, calcState, ruleText
 }
