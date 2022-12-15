@@ -95,13 +95,14 @@
 <script>
 import { getStudents, getTeacherOne } from '@/api/course'
 import {
+  attendUpdateBatch,
   createCourseAttendTask,
   getCourseAttendBeforeCreateStatus,
   getCourseAttendOneRecord,
   getCourseAttendRecord
 } from '@/api/attend'
 import { message } from 'ant-design-vue'
-
+import { deepClone } from '@/utils/custom'
 export default {
   name: 'Attend',
   props: {
@@ -171,18 +172,20 @@ data () {
     },
     handleSaveData () {
       this.dataLoading = true
+      const updateData = []
 
-      setTimeout(() => {
-        this.editDataVisible = false
-        this.dataLoading = false
-    }, 300)
+      attendUpdateBatch(this.asyncAttendRecord.id, updateData).then((res) => {
+        console.log(res.data)
+      })
     },
     handleEditData () {
       this.dataLoading = true
+      this.bak = deepClone(this.dataSource)
+
       setTimeout(() => {
         this.editDataVisible = true
         this.dataLoading = false
-      }, 300)
+      }, 100)
     },
     handleCreateAttendTask () {
       this.createAttendTaskVisible = true
