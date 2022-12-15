@@ -1,69 +1,64 @@
 <template>
   <div>
-    <a-table :columns="columns" :dataSource="dataSource">
-
-      <template slot="operation" slot-scope="id"><a-button @click="entryWork(id)">提交作业</a-button></template>
-
+    <a-table
+      :columns="columns"
+      :data-source="homeworkList"
+      class="table"
+    >
+      <span slot="timu" slot-scope="title">
+        {{ title }}
+      </span>
+      <span slot="start_date" slot-scope="start_time">
+        {{ start_time }}
+      </span>
+      <span slot="end_date" slot-scope="end_time">
+        {{ end_time }}
+      </span>
     </a-table>
-
   </div>
 </template>
 
 <script>
+import { checkWork } from '@/api/homework'
+
 export default {
   name: 'Homework',
   data () {
-    const data = new Date()
-    const year = data.getFullYear()
-    const month = data.getMonth() + 1
-    const day = data.getDate()
     return {
-      dataSource: [
-        {
-
-          title: '第一次作业',
-          endDate: year + '.' + month + '.' + (day + 3),
-          startDate: year + '.' + month + '.' + day,
-          operation: { customRender: 'operation' }
-        },
-        {
-
-          title: '第二次作业',
-          endDate: year + '.' + month + '.' + (day + 4),
-          startDate: year + '.' + month + '.' + day,
-          operation: { customRender: 'operation' }
-        }
-      ],
-
       columns: [
         {
-          title: '标题',
+          title: '作业题目',
           dataIndex: 'title',
-          key: 'title'
+          key: 'timu',
+          scopedSlots: { customRender: 'timu' }
         },
         {
           title: '开始时间',
-          dataIndex: 'startDate',
-          key: 'startDate'
+          dataIndex: 'start_time',
+          key: 'start_time',
+          scopedSlots: { customRender: 'start_time' }
         },
         {
           title: '截止时间',
-          dataIndex: 'endDate',
-          key: 'endDate'
-        },
-        {
-          title: '操作',
-          dataIndex: 'operation',
-          key: 'operation',
-          scopedSlots: { customRender: 'operation' }
+          dataIndex: 'end_time',
+          key: 'end_time',
+          scopedSlots: { customRender: 'end_time' }
         }
-      ]
+      ],
+      courseId: this.$route.query['id'],
+      homeworkList: [],
+      homeworkId: 0
     }
   },
+  created () {
+    console.log(this.courseId)
+    this.checkWork()
+  },
   methods: {
-    entryWork () {
-      this.$router.push({
-        path: '/homework/pushHomework'
+    checkWork () {
+      checkWork(this.courseId, this.homeworkId).then((res) => {
+        this.homeworkList = res.data
+        console.log(this.homeworkList)
       })
     }
   }

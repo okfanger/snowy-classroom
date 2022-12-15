@@ -9,7 +9,7 @@
       <div class="detail_top">
         <h2 class="detail_title">{{ notice.title }}</h2>
         <p class="detail_p">
-          <spqn class="detail_span">发布时间 :&nbsp;</spqn>
+          <span class="detail_span">发布时间 :&nbsp;</span>
           {{ notice.send_date }}
         </p>
       </div>
