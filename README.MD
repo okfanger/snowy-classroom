@@ -148,3 +148,13 @@ python .\scripts\reset-database-shell.py
 | hiddenHeaderContent | *特殊 隐藏 [PageHeader](https://github.com/vueComponent/ant-design-vue-pro/blob/master/src/components/PageHeader/PageHeader.vue#L6) 组件中的页面带的 面包屑和页面标题栏 | boolean | false  |
 
 > 路由自定义 `Icon` 请引入自定义 `svg` Icon 文件，然后传递给路由的 `meta.icon` 参数即可
+
+
+# 测试
+pytest测试
+
+1. 测试文件放在tests目录下
+2. 测试文件名必须以test_开头
+3. 测试函数名必须以test_开头
+4. 测试函数必须有一个参数，参数名可以随意，但是必须有
+5. 测试函数中，如果有断言，断言必须以assert开头
