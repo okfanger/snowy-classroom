@@ -57,10 +57,13 @@ export default {
 .page-header{
   border-bottom: 1px solid rgb(207, 207, 207);
   background: #f8f8f8;
+  margin-left: 150px;
+  margin-right: 150px;
 }
 .detail_back{
-  background: #f8f8f8;
-
+  background: #F5F5F5;
+  margin-left: 150px;
+  margin-right: 150px;
   text-align: left;
 }
 .detail_top{
@@ -89,6 +92,7 @@ export default {
   text-align: left;
   word-break: break-word;
   background: white;
+  width: 70%;
 }
 .detail_content{
   width: 800px;
@@ -97,5 +101,8 @@ export default {
   line-height: 22px;
   color: #666;
   white-space: pre-wrap;
+}
+.detail_p{
+  margin-left: 85px;
 }
 </style>
