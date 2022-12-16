@@ -49,7 +49,8 @@ import {
   Mentions,
   message,
   notification,
-  Slider
+  Slider,
+  FormModel
 } from 'ant-design-vue'
 
 import Viser from 'viser-vue'
@@ -129,5 +130,6 @@ Vue.use(PageLoading)
 Vue.use(PermissionHelper)
 Vue.use(VueCropper)
 Vue.use(Slider)
+Vue.use(FormModel)
 
 process.env.NODE_ENV !== 'production' && console.warn('[antd-pro] NOTICE: Antd use lazy-load.')

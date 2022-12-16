@@ -1,26 +1,49 @@
+from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from apps.bases.response import SuccessResponse, ErrorResponse
 from apps.core.entity.exam import ExamSerializer, Exam, ExamDetailNoAnswerSerializer
+from apps.core.entity.question import Question
+from apps.core.entity.questionoption import QuestionOption
 from apps.core.entity.student import Student
 from apps.core.relationship.examquestion_result import ExamQuestionResult
 from apps.core.relationship.examstudent_attend import ExamStudentAttend
 from apps.users.myJWTAuthentication import MyJWTAuthentication
-from apps.users.permissions import IsStudent
+from apps.users.permissions import IsStudent, IsTeacher
 
 
+class ExamTeacherCreateOrUpdateView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def post(self, request: Request):
+        print(request.data)
+        serializer = ExamSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return SuccessResponse("success")
+        else:
+            return ErrorResponse(serializer.errors)
 class ExamByCourseView(APIView):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request):
         course_id = request.query_params['id']
-        exams = Exam.objects.filter(course_id=course_id)
+        exams = Exam.objects.filter(course_id=course_id).order_by("-id")
         return SuccessResponse(ExamSerializer(exams, many=True).data)
 
+class ExamRemoveView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
 
+    def post(self, request: Request):
+        exam_id = request.data['id']
+        exam = Exam.objects.get(id=exam_id)
+        exam.delete()
+        return SuccessResponse("success")
 class ExamDetailById(APIView):
     authentication_classes = [MyJWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -132,3 +155,103 @@ class ExamOverView(APIView):
         exam_attend_record.is_done = True
         exam_attend_record.save()
         return SuccessResponse(data="success")
+
+class ExamQuestionRemoveView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def post(self, request: Request):
+        question_id = request.data['id']
+        question = Question.objects.get(id=question_id)
+        question.delete()
+        return SuccessResponse("success")
+
+
+class ExamQuestionOptionRemoveView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def post(self, request: Request):
+        option_id = request.data['id']
+        option = QuestionOption.objects.get(id=option_id)
+        option.delete()
+        return SuccessResponse("success")
+
+
+class ExamQuestionSaveOrUpdateView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def post(self, request: Request):
+        quesitonId = request.data.get("id", None)
+        examId = request.data['examId']
+        print(examId)
+        title = request.data['title']
+        type = request.data['type']
+
+        if quesitonId is None:
+            question = Question.objects.create(**{
+                "title": title,
+                "type": type,
+                "exam_id": examId
+            })
+            question.save()
+        else:
+            question = Question.objects.get(pk=quesitonId)
+            question.title = title
+            question.type = type
+            question.save()
+
+        return SuccessResponse("success")
+
+class ExamQuestionOptionSaveOrUpdateView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def post(self, request: Request):
+        quesitonId = request.data['questionId']
+        optionId = request.data.get("id", None)
+        examId = request.data['examId']
+        content = request.data['content']
+        right = request.data['right']
+
+        if optionId is None:
+            option = QuestionOption.objects.create(**{
+                "content": content,
+                "right": right,
+                "question": quesitonId,
+                "exam_id": examId
+            })
+            option.save()
+        else:
+            option = QuestionOption.objects.get(pk=optionId)
+            option.content = content
+            option.right = right
+            option.save()
+        return SuccessResponse("success")
+
+
+class ExamSaveOptions(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    @transaction.atomic
+    def post(self, request: Request):
+        print(request.data['options'])
+        exam_id = request.data['examId']
+        options = request.data['options']
+        for item in options:
+            if item['id'] is None:
+                option = QuestionOption.objects.create(**{
+                    "content": item['content'],
+                    "right": item['right'],
+                    "question_id": item['questionId'],
+                    "exam_id": exam_id
+                })
+                option.save()
+            else:
+                option = QuestionOption.objects.get(pk=item['id'])
+                option.content = item['content']
+                option.right = item['right']
+                option.save()
+        return SuccessResponse("success")

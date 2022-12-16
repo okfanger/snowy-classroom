@@ -5,7 +5,7 @@ import cv2
 import imutils
 import numpy as np
 
-CV_SHOW = False
+CV_SHOW = True
 # 设置参数
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
@@ -19,8 +19,8 @@ ANSWER_KEY = {0: 1, 1: 4, 2: 0, 3: 3, 4: 1}
 def order_points(pts):
     # 一共4个坐标点
     rect = np.zeros((4, 2), dtype="float32")
-
     # 按顺序找到对应坐标0123分别是 左上，右上，右下，左下
+
     # 计算左上，右下
     s = pts.sum(axis=1)
     rect[0] = pts[np.argmin(s)]

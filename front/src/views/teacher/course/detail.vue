@@ -67,6 +67,7 @@ export default {
   data () {
     return {
       defaultActiveKey: '1',
+      examId: 0,
       course: {
 
       },

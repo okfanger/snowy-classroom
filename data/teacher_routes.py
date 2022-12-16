@@ -208,4 +208,60 @@ teacher_role_routes = [
         'component': 'teacher/course/detail.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
         'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
     },
+    {
+        'name': 'exam',  # 路由名
+        'parentId': 0,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51046,  # 路由ID
+        "path": "exam",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.exam',  # 国际化标识，可以在前端locales里增加
+            'icon': 'profile',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'RouteView',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'examCreate',  # 路由名
+        'parentId': 51046,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51047,  # 路由ID
+        "path": "create",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.exam.create',  # 国际化标识，可以在前端locales里增加
+            'icon': 'profile',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/exam/create.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'examIndex',  # 路由名
+        'parentId': 51046,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51048,  # 路由ID
+        "path": "index",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.exam.index',  # 国际化标识，可以在前端locales里增加
+            'icon': 'profile',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/exam/index.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    },
+    {
+        'name': 'examEdit',  # 路由名
+        'parentId': 51046,  # 父菜单ID，如果没有父菜单就写0
+        'id': 51050,  # 路由ID
+        "path": "edit",  # 路由地址（显示在浏览器URL上的）
+        'meta': {  # 元信息
+            'title': 'menu.exam.edit',  # 国际化标识，可以在前端locales里增加
+            'icon': 'profile',  # 图标，这个可以从Ant Design Vue 组件库中找
+            'show': True,  # 是否显示
+            # 'hidden': True
+        },
+        'component': 'teacher/exam/edit.vue',  # 前端.vue文件的相对地址（views为根目录，最前面不用写/）
+        'redirect': ''  # 重定向，如果这边填了其实component就没啥用，不需要重定向就留空字符串即可
+    }
 ]
