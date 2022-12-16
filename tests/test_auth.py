@@ -9,7 +9,7 @@ def test_teacher_login():
 
     url = BASE_URL + '/auth/login/'
     resp = requests.post(url, data={
-        "username": "2020122104559",
+        "username": "misslee",
         "password": "827ccb0eea8a706c4c34a16891f84e7b"
     })
 
@@ -18,6 +18,18 @@ def test_teacher_login():
     assert json_resp['data']['token'] != ''
     assert json_resp['data']['refresh'] != ''
 
+def test_student_login():
+
+    url = BASE_URL + '/auth/login/'
+    resp = requests.post(url, data={
+        "username": "2020122104559",
+        "password": "827ccb0eea8a706c4c34a16891f84e7b"
+    })
+
+    json_resp = resp.json()
+    assert json_resp['status'] == 200
+    assert json_resp['data']['token'] != ''
+    assert json_resp['data']['refresh'] != ''
 def test_teacher_login2():
     url = BASE_URL + '/auth/login/'
     resp = requests.post(url, data={

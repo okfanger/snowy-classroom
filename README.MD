@@ -159,3 +159,18 @@ pytest测试
 4. 测试函数必须有一个参数，参数名可以随意，但是必须有
 5. 测试函数中，如果有断言，断言必须以assert开头
 
+```
+pip install allure-pytest
+```
+
+下载文件：
+
+https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.zip
+
+解压后，将allure文件夹下的bin目录添加到环境变量PATH中
+
+最后在项目根目录下执行（测试之前需要把后端开着）
+
+```
+python scripts\allure-test.py
+```
