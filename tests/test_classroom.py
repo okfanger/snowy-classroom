@@ -6,7 +6,7 @@ BASE_URL = 'http://localhost:8032'
 
 
 # 当数据全部正确时
-def test_student_leave1(self):
+def test_student_leave1():
     token = util.get_token("2020122104593", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/student_leave/'
     resp = requests.post(url,
@@ -25,7 +25,7 @@ def test_student_leave1(self):
 
 
 # 当course为None时
-def test_student_leave2(self):
+def test_student_leave2():
     token = util.get_token("2020122104593", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/student_leave/'
     resp = requests.post(url,
@@ -44,7 +44,7 @@ def test_student_leave2(self):
 
 
 # 当course不存在时
-def test_student_leave3(self):
+def test_student_leave3():
     token = util.get_token("2020122104593", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/student_leave/'
     resp = requests.post(url,
@@ -63,7 +63,7 @@ def test_student_leave3(self):
 
 
 # 学生查看假条
-def test_student_check_leave(self):
+def test_student_check_leave():
     token = util.get_token("2020122104593", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/student_check_leave/'
     resp = requests.get(url,
@@ -78,7 +78,7 @@ def test_student_check_leave(self):
 
 
 # 返回所有课程
-def test_show_all_course(self):
+def test_show_all_course():
     token = util.get_token("2020122104593", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/student_leave/'
     resp = requests.get(url, params={},
@@ -90,7 +90,7 @@ def test_show_all_course(self):
 
 
 # 老师查看假条
-def test_teacher_check_leave(self):
+def test_teacher_check_leave():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_approval/'
     resp = requests.get(url,
@@ -108,7 +108,7 @@ def test_teacher_check_leave(self):
 # status=2 正在审批
 # status=3 未通过
 # 老师批改假条 status=1时
-def test_teacher_approval_leave1(self):
+def test_teacher_approval_leave1():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_approval/'
     resp = requests.post(url,
@@ -124,7 +124,7 @@ def test_teacher_approval_leave1(self):
 
 
 # 老师批改假条 status=2时
-def test_teacher_approval_leave2(self):
+def test_teacher_approval_leave2():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_approval/'
     resp = requests.post(url,
@@ -140,7 +140,7 @@ def test_teacher_approval_leave2(self):
 
 
 # 老师批改假条 status=3时
-def test_teacher_approval_leave3(self):
+def test_teacher_approval_leave3():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_approval/'
     resp = requests.post(url,
@@ -172,7 +172,7 @@ def test_teacher_approval_leave4(self):
 
 
 # 返回当前老师所带的所有班级
-def test_show_teacher_course(self):
+def test_show_teacher_course():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_publish_notice/'
     resp = requests.get(url, params={},
@@ -184,7 +184,7 @@ def test_show_teacher_course(self):
 
 
 # 当所有数据全部正确时
-def test_teacher_publish_notice(self):
+def test_teacher_publish_notice():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_publish_notice/'
     resp = requests.post(url,
@@ -201,7 +201,7 @@ def test_teacher_publish_notice(self):
 
 
 # 当classroom为None时
-def test_teacher_publish_notice1(self):
+def test_teacher_publish_notice1():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_publish_notice/'
     resp = requests.post(url,
@@ -218,7 +218,7 @@ def test_teacher_publish_notice1(self):
 
 
 # 当classroom不是老师所带班级时
-def test_teacher_publish_notice3(self):
+def test_teacher_publish_notice3():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_publish_notice/'
     resp = requests.post(url,
@@ -235,7 +235,7 @@ def test_teacher_publish_notice3(self):
 
 
 # 当title为None时
-def test_teacher_publish_notice4(self):
+def test_teacher_publish_notice4():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_publish_notice/'
     resp = requests.post(url,
@@ -252,7 +252,7 @@ def test_teacher_publish_notice4(self):
 
 
 # 当content为None时
-def test_teacher_publish_notice5(self):
+def test_teacher_publish_notice5():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_publish_notice/'
     resp = requests.post(url,
@@ -269,7 +269,7 @@ def test_teacher_publish_notice5(self):
 
 
 # 老师查看自己发布的公告
-def test_teacher_check_notice(self):
+def test_teacher_check_notice():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_check_notice/'
     resp = requests.get(url,
@@ -285,7 +285,7 @@ def test_teacher_check_notice(self):
 
 
 # 返回当前老师所带班级的所有学生
-def test_show_all_student(self):
+def test_show_all_student():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_pick_monitor/'
     resp = requests.get(url,
@@ -300,7 +300,7 @@ def test_show_all_student(self):
 
 
 # 当学生id存在时
-def test_teacher_pick_monitor1(self):
+def test_teacher_pick_monitor1():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_pick_monitor/'
     resp = requests.post(url,
@@ -315,7 +315,7 @@ def test_teacher_pick_monitor1(self):
 
 
 # 当学生id不存在时
-def test_teacher_pick_monitor2(self):
+def test_teacher_pick_monitor2():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/teacher_pick_monitor/'
     resp = requests.post(url,
@@ -330,7 +330,7 @@ def test_teacher_pick_monitor2(self):
 
 
 # 学生查看班委
-def test_student_check_monitor(self):
+def test_student_check_monitor():
     token = util.get_token("misszhuang", "827ccb0eea8a706c4c34a16891f84e7b")
     url = BASE_URL + '/classroom/student_check_monitor/'
     resp = requests.get(url, params={},
