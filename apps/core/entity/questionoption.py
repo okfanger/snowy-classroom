@@ -14,7 +14,7 @@ class QuestionOption(FactSchema):
 class QuestionOptionNoAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionOption
-        exclude = ['right']
+        fields = '__all__'
 class QuestionOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionOption

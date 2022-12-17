@@ -9,7 +9,8 @@ from apps.core.entity.question import Question
 from apps.core.entity.questionoption import QuestionOption
 from apps.core.entity.student import Student
 from apps.core.relationship.examquestion_result import ExamQuestionResult
-from apps.core.relationship.examstudent_attend import ExamStudentAttend
+from apps.core.relationship.examstudent_attend import ExamStudentAttend, ExamStudentAttendSerializer, \
+    ExamStudentAttendFullSerializer
 from apps.users.myJWTAuthentication import MyJWTAuthentication
 from apps.users.permissions import IsStudent, IsTeacher
 
@@ -154,6 +155,29 @@ class ExamOverView(APIView):
         exam_attend_record = ExamStudentAttend.objects.get(pk=exam_attend_id, student__id=student_id)
         exam_attend_record.is_done = True
         exam_attend_record.save()
+
+        for item in exam_attend_record.examquestionresult_set.all():
+            options = item.question.options.all()
+            stu_answer = item.stu_answer
+            if stu_answer == "":
+                item.right = False
+                item.score = 0
+                item.save()
+                continue
+            is_right = QuestionOption.objects.get(pk=int(stu_answer)).right
+            if is_right:
+                item.right = True
+                item.score = 5
+                item.save()
+            else:
+                item.right = False
+                item.score = 0
+                item.save()
+            if exam_attend_record.score is None:
+                exam_attend_record.score = 0
+        exam_attend_record.save()
+
+
         return SuccessResponse(data="success")
 
 class ExamQuestionRemoveView(APIView):
@@ -254,4 +278,37 @@ class ExamSaveOptions(APIView):
                 option.content = item['content']
                 option.right = item['right']
                 option.save()
+        return SuccessResponse("success")
+
+
+class StudentResultByExamView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def get(self, request: Request):
+        exam_id = request.query_params['examId']
+        exam = Exam.objects.get(pk=exam_id)
+        exam_attend = ExamStudentAttend.objects.filter(exam_id=exam_id)
+        return SuccessResponse(data=ExamStudentAttendSerializer(exam_attend, many=True).data)
+
+
+class StudentResultOneView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def get(self, request: Request):
+        id = request.query_params['id']
+        exam_attend = ExamStudentAttend.objects.get(pk=id)
+        return SuccessResponse(data=ExamStudentAttendFullSerializer(exam_attend).data)
+
+class ExamQuestionOptionChangeRightView(APIView):
+    authentication_classes = [MyJWTAuthentication]
+    permission_classes = [IsTeacher]
+
+    def post(self, request: Request):
+        option_id = request.data['id']
+        right = request.data['right']
+        option = QuestionOption.objects.get(pk=option_id)
+        option.right = right
+        option.save()
         return SuccessResponse("success")

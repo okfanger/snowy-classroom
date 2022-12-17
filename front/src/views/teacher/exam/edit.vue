@@ -14,14 +14,20 @@
             <a-list-item slot="renderItem" slot-scope="item">
               <span slot="actions">
                 <!--                <a-button size="small" ghost type="primary" >编辑</a-button>-->
-                <a-popconfirm
-                  title="确定删除吗？"
-                  ok-text="Yes"
-                  cancel-text="No"
-                  @confirm="removeQuestionOption(record, item.id)"
-                >
-                  <a-button size="small" ghost type="danger">删除</a-button>
-                </a-popconfirm>
+                <a-space>
+                  <a-switch :checked="item.right" @change="handleChangeOptionRight(item.id, item.right)" >
+                    <a-icon slot="checkedChildren" type="check" />
+                    <a-icon slot="unCheckedChildren" type="close" />
+                  </a-switch>
+                  <a-popconfirm
+                    title="确定删除吗？"
+                    ok-text="Yes"
+                    cancel-text="No"
+                    @confirm="removeQuestionOption(record, item.id)"
+                  >
+                    <a-button size="small" ghost type="danger">删除</a-button>
+                  </a-popconfirm>
+                </a-space>
               </span>
 
               <a-list-item-meta
@@ -83,6 +89,19 @@
         </a-form-model-item>
       </a-form-model>
     </a-modal>
+
+    <a-modal
+      title="查看答卷记录"
+      :visible="checkResultVisible"
+      @cancel="handleCreateExamCancel"
+    >
+      <a-table :dataSource="studentResult" :columns="studentResultColumns">
+        <template slot="action" slot-scope="id">
+          <a-button type="primary" @click="handleReviewStudentAnswer(id)">预览学生试卷</a-button>
+        </template>
+      </a-table>
+    </a-modal>
+
   </div>
 
 </template>
@@ -92,13 +111,33 @@ import {
   getExamDetailById,
   QuestionRemove,
   QuestionOptionRemove,
-  questionSaveOrUpdate, saveExamsOptions
+  questionSaveOrUpdate, saveExamsOptions, getStudentResultByExamId, changeOptionRight
 } from '@/api/exam'
 
 export default {
   name: 'ExamEdit',
 data () {
     return {
+      studentResult: [],
+      studentResultColumns: [
+        {
+          title: '学生姓名',
+          dataIndex: 'student.user.name',
+          key: 'studentName'
+        },
+        {
+          title: '学生答题时间',
+          dataIndex: 'create_time',
+          key: 'create_time'
+        }, {
+          title: '操作',
+          dataIndex: 'id',
+          key: 'action',
+          scopedSlots: { customRender: 'action' }
+
+        }
+      ],
+      checkResultVisible: false,
       tableLoading: true,
       inputSwitch: {},
       expendedKeys: [],
@@ -132,11 +171,37 @@ rules: {
     }
   },
 methods: {
+  handleChangeOptionRight (id, right) {
+    changeOptionRight(id, right).then(res => {
+      this.$message.success('修改成功')
+    })
+  },
+  handleReviewStudentAnswer (id) {
+    const routeUrl = this.$router.resolve({
+        path: '/exam/preview',
+        query: {
+          examId: this.$route.query.id,
+          id: id
+        }
+    })
+    window.open(routeUrl.href, '_blank')
+    // this.$router.push({x
+    //   path: '/exam/preview',
+    //   query: {
+    //     examId: this.$route.query.id,
+    //     id: id
+    //   }
+    // })
+  },
   handleChangeOptionContent (item) {
     item['updateFlag'] = true
   },
   handleCheckStudentResult () {
-
+    this.checkResultVisible = true
+    getStudentResultByExamId(this.$route.query.id).then(res => {
+      console.log('check', res.data)
+      this.studentResult = res.data
+    })
   },
   handleSavePaper () {
     // eslint-disable-next-line promise/param-names
@@ -200,6 +265,7 @@ methods: {
   },
 handleCreateExamCancel () {
     this.createExamVisible = false
+    this.checkResultVisible = false
     this.resetForm()
   },
 resetForm () {

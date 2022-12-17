@@ -144,3 +144,34 @@ export const saveExamsOptions = (examId, options) => {
       }
     })
 }
+
+export const getStudentResultByExamId = (examId) => {
+  return request({
+    url: '/exam/student-result/',
+    method: 'GET',
+    params: {
+      examId: examId
+    }
+  })
+}
+
+export const getStudentResultOne = (id) => {
+  return request({
+    url: '/exam/student-result-one/',
+    method: 'GET',
+    params: {
+      id: id
+    }
+  })
+}
+
+export const changeOptionRight = (optionId, right) => {
+  return request({
+    url: '/exam/option-change-right/',
+    method: 'POST',
+    data: {
+      'id': optionId,
+      'right': right
+    }
+  })
+}

@@ -174,3 +174,11 @@ https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/a
 ```
 python scripts\allure-test.py
 ```
+
+
+# 先指定alluredir并生成allure报告json文件，再用generate生成html文件，然后用命令打开html文件
+1.python3 -m pytest --alluredir=../unit/allure_result test_case.py
+ 
+2.allure generate ./unit/allure_result -o ./unit/allure_report
+ 
+3.allure open allure_report目录

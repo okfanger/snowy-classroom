@@ -18,7 +18,8 @@ from django.urls import path
 
 from apps.core.views.exam import ExamByCourseView, ExamDetailById, ExamLiveSubmitView, ExamStudentStateView, \
     ExamStudentGenerateView, ExamOverView, ExamTeacherCreateOrUpdateView, ExamRemoveView, ExamQuestionOptionRemoveView, \
-    ExamQuestionRemoveView, ExamSaveOptions,  ExamQuestionSaveOrUpdateView, ExamQuestionOptionSaveOrUpdateView
+    ExamQuestionRemoveView, ExamSaveOptions, ExamQuestionSaveOrUpdateView, ExamQuestionOptionSaveOrUpdateView, \
+    StudentResultByExamView, StudentResultOneView, ExamQuestionOptionChangeRightView
 
 urlpatterns = [
     path("all-by-course/", ExamByCourseView.as_view()),
@@ -33,5 +34,8 @@ urlpatterns = [
     path("question/option/remove/", ExamQuestionOptionRemoveView.as_view()),
     path("question/save-or-update/", ExamQuestionSaveOrUpdateView.as_view()),
     path("question/option/save-or-update/", ExamQuestionOptionSaveOrUpdateView.as_view()),
-    path("save-options/", ExamSaveOptions.as_view())
+    path("save-options/", ExamSaveOptions.as_view()),
+    path("student-result/", StudentResultByExamView.as_view()),
+    path("student-result-one/", StudentResultOneView.as_view()),
+    path("option-change-right/", ExamQuestionOptionChangeRightView.as_view()),
 ]

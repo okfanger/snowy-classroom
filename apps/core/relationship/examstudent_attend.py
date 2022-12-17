@@ -2,6 +2,8 @@ from django.db import models
 from rest_framework import serializers
 
 from apps.bases.models import FactSchema
+from apps.core.entity.student import StudentSerializer
+from apps.core.relationship.examquestion_result import ExamQuestionResultSerializer, ExamQuestionResultFullSerializer
 
 
 class ExamStudentAttend(FactSchema):
@@ -12,6 +14,13 @@ class ExamStudentAttend(FactSchema):
     is_done = models.BooleanField(verbose_name="是否完成", default=False, null=True)
 
 class ExamStudentAttendSerializer(serializers.ModelSerializer):
+    student = StudentSerializer(read_only=True)
+    class Meta:
+        model = ExamStudentAttend
+        fields = '__all__'
+
+class ExamStudentAttendFullSerializer(serializers.ModelSerializer):
+    examquestionresult_set = ExamQuestionResultFullSerializer(many=True, read_only=True)
     class Meta:
         model = ExamStudentAttend
         fields = '__all__'

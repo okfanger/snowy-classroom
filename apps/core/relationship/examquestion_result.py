@@ -15,6 +15,14 @@ class ExamQuestionResult(FactSchema):
 
 
 class ExamQuestionResultSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ExamQuestionResult
+        fields = '__all__'
+
+
+class ExamQuestionResultFullSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ExamQuestionResult
         fields = '__all__'
