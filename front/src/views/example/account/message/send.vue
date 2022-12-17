@@ -53,9 +53,11 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          SendMail(values.toUser, values.title, values.content).then(() => {
-            this.$message.success('发送成功')
-            this.form.resetFields()
+          SendMail(values.toUser, values.title, values.content).then((res) => {
+            if (res.data === 1) {
+              this.$message.success('发送成功')
+              this.form.resetFields()
+            }
           })
         }
       })

@@ -1,11 +1,10 @@
 import request from '@/utils/request'
 // 学生请假
-export const StudentLeave = (student, course, leaveType, reason, startTime, endTime) => {
+export const StudentLeave = (course, leaveType, reason, startTime, endTime) => {
   return request({
     url: '/classroom/student_leave/',
     method: 'POST',
     data: {
-      'student': student,
       'course': course,
       'leave_type': leaveType,
       'reason': reason,
@@ -56,7 +55,7 @@ export const TeacherApproval = (leaveId, status) => {
   })
 }
 
-// 老师获取自己带的所有课程
+// 老师获取自己带的所有班级
 export const CheckCourse = () => {
   return request({
     url: '/classroom/teacher_publish_notice/',
@@ -65,12 +64,12 @@ export const CheckCourse = () => {
 }
 
 // 老师发布公告
-export const publishNotice = (course, title, content) => {
+export const publishNotice = (classroom, title, content) => {
   return request({
     url: '/classroom/teacher_publish_notice/',
     method: 'POST',
     data: {
-      'course': course,
+      'classroom': classroom,
       'title': title,
       'content': content
     }
@@ -78,12 +77,13 @@ export const publishNotice = (course, title, content) => {
 }
 
 // 老师查看公告
-export const CheckNotice = (searchMsg) => {
+export const CheckNotice = (searchMsg, searchTime) => {
   return request({
     url: '/classroom/teacher_check_notice/',
     method: 'GET',
     params: {
-      'search_msg': searchMsg
+      'search_msg': searchMsg,
+      'search_time': searchTime
     }
   })
 }

@@ -6,6 +6,12 @@
       enter-button
       v-model="searchMsg"
       @search="CheckNotice" />
+    <a-date-picker
+      @change="CheckNotice"
+      class="note_search"
+      v-model="searchTime"
+      placeholder="请选择申请时间"
+    />
     <div class="notice_back">
       <a-list
         class="notice_list"
@@ -33,6 +39,7 @@
 
 <script>
 import { CheckNotice } from '@/api/classroom'
+import moment from 'moment/moment'
 
 export default {
   name: 'MyNotice',
@@ -43,7 +50,8 @@ export default {
       loadingMore: false,
       showLoadingMore: true,
       data: [],
-      searchMsg: ''
+      searchMsg: '',
+      searchTime: ''
     }
   },
   created () {
@@ -61,7 +69,8 @@ export default {
     },
     CheckNotice () {
       const searchMsg = this.searchMsg
-      CheckNotice(searchMsg).then((res) => {
+      const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
+      CheckNotice(searchMsg, searchTime).then((res) => {
           this.notices = res.data
           console.log(this.notices)
       })

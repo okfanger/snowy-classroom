@@ -6,6 +6,12 @@
       enter-button
       v-model="searchMsg"
       @search="ReceiveMail" />
+    <a-date-picker
+      @change="ReceiveMail"
+      class="note_search"
+      v-model="searchTime"
+      placeholder="请选择申请时间"
+    />
     <div class="mail_back">
       <a-list
         class="mail_list"
@@ -44,6 +50,7 @@
 
 <script>
 import { mailNotice, ReceiveMail } from '@/api/innermail'
+import moment from 'moment'
 
 export default {
   name: 'Receive',
@@ -53,7 +60,8 @@ export default {
   data () {
     return {
       mail: [],
-      searchMsg: ''
+      searchMsg: '',
+      searchTime: ''
     }
   },
 
@@ -73,7 +81,8 @@ export default {
     },
     ReceiveMail () {
       const searchMsg = this.searchMsg
-      ReceiveMail(searchMsg).then((res) => {
+      const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
+      ReceiveMail(searchMsg, searchTime).then((res) => {
           this.mail = res.data
           console.log(this.mail)
       })

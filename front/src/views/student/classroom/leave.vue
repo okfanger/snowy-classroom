@@ -88,7 +88,7 @@ export default {
         values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
         if (values.end_time > values.start_time) {
           if (!err) {
-            StudentLeave(values.student, values.course, values.leave_type, values.reason,
+            StudentLeave(values.course, values.leave_type, values.reason,
               values.start_time, values.end_time).then(() => {
               this.$message.success('申请成功')
               this.form.resetFields()

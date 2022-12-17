@@ -13,12 +13,13 @@ export const SendMail = (toUser, title, content) => {
 }
 
 // 接收邮件(查看邮件)
-export const ReceiveMail = (searchMsg) => {
+export const ReceiveMail = (searchMsg, searchTime) => {
   return request({
     url: '/innermail/receive_mail/',
     method: 'GET',
     params: {
-      'search_msg': searchMsg
+      'search_msg': searchMsg,
+      'search_time': searchTime
     }
   })
 }

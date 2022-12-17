@@ -10,9 +10,9 @@
       >
         <a-form-item label="选择班级">
           <a-select
-            v-decorator="['course',{ rules: [{ required: true, message: '请选择班级' }] }]"
+            v-decorator="['classroom',{ rules: [{ required: true, message: '请选择班级' }] }]"
             placeholder="请选择班级">
-            <a-select-option v-for="item in courses" :key="item">
+            <a-select-option v-for="item in classrooms" :key="item">
               {{ item }}
             </a-select-option>
           </a-select>
@@ -45,7 +45,7 @@ export default {
   name: 'Notice',
   data () {
     return {
-      courses: [],
+      classrooms: [],
       form: this.$form.createForm(this, { name: 'coordinated' })
     }
   },
@@ -57,7 +57,7 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          publishNotice(values.course, values.title, values.content).then(() => {
+          publishNotice(values.classroom, values.title, values.content).then(() => {
             this.$message.success('发布成功')
             this.form.resetFields()
           })
@@ -66,8 +66,8 @@ export default {
     },
     CheckCourse () {
       CheckCourse().then((res) => {
-        this.courses = res.data
-        console.log(this.courses)
+        this.classrooms = res.data
+        console.log(this.classrooms)
       })
     }
   }

@@ -2,9 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 
 from apps.bases.response import SuccessResponse
-from apps.core.entity.course import Course
+from apps.core.entity.classroom import ClassRoom
 from apps.core.entity.innermail import InnerMail
 from apps.core.entity.student import Student
+from apps.core.entity.teacher import Teacher
 from apps.users.myJWTAuthentication import MyJWTAuthentication
 from apps.users.permissions import IsTeacher
 from apps.users.models import User
@@ -18,11 +19,13 @@ class PublishNotice(APIView):
 
     # 获取老师所带课程
     def get(self, request: Request):
-        courses = request.user.teacher_binder.courses.all()
+        teacher_id = Teacher.objects.get(user_id=request.user).id
+        classroom_id = ClassRoom.objects.filter(adviser_id=teacher_id)
+        print(classroom_id)
         msg_set = []
-        for i in courses:
-            courses_name = Course.objects.get(id=i.id).name
-            msg_set.append(courses_name)
+        for i in classroom_id:
+            classroom_name = ClassRoom.objects.get(id=i.id).name
+            msg_set.append(classroom_name)
         print(msg_set)
         return SuccessResponse(data=msg_set)
 
@@ -33,8 +36,9 @@ class PublishNotice(APIView):
         send_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         receive_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         from_user = User.objects.get(id=request.user.pk)
-        course = Course.objects.get(name=request.data['course'])
-        students = Student.objects.filter(courses=course)
+        classroom = ClassRoom.objects.get(name=request.data['classroom'])
+        students = Student.objects.filter(classroom=classroom)
+        print(students)
         for j in students:
             stu_user_id = User.objects.get(id=j.user.id)
             InnerMail.objects.create(title=title, content=content, send_date=send_date,
@@ -51,13 +55,16 @@ class CheckNotice(APIView):
     def get(self, request: Request):
         teacher = User.objects.get(id=request.user.pk)
         search_msg = request.query_params['search_msg']
-        # 如果没有搜索信息则返回全部数据
-        if len(search_msg) == 0:
-            notice = InnerMail.objects.filter(from_user=teacher.id)
-        # 否则返回查到的数据
-        else:
+        search_time = request.query_params['search_time']
+        if len(search_msg) != 0 and search_time != 'Invalid date':
+            notice = InnerMail.objects.filter(from_user=teacher.id, title__contains=search_msg,
+                                              receive_date__contains=search_time)
+        elif len(search_msg) != 0:
             notice = InnerMail.objects.filter(from_user=teacher.id, title__contains=search_msg)
-
+        elif search_time != 'Invalid date':
+            notice = InnerMail.objects.filter(from_user=teacher.id, receive_date__contains=search_time)
+        else:
+            notice = InnerMail.objects.filter(from_user=teacher.id)
         notice = notice.values('title', 'content', 'send_date').distinct()
         msg_set = []
         for i in notice:

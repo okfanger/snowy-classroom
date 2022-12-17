@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import serializers
 from rest_framework.request import Request
-from apps.bases.response import SuccessResponse
+from apps.bases.response import SuccessResponse, ErrorResponse
 from apps.core.entity.innermail import InnerMail
 from apps.users.models import User
 from apps.users.myJWTAuthentication import MyJWTAuthentication
@@ -17,17 +17,21 @@ class SendMail(APIView, serializers.ModelSerializer):
     # 发送邮件
     def post(self, request: Request):
         content = request.data['content']
-        # request.query_params['']
         title = request.data['title']
+        isok = 1
         send_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         receive_date = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         from_user = User.objects.get(id=request.user.pk)
-        to_user = User.objects.get(username=request.data['to_user'])
+        try:
+            to_user = User.objects.get(username=request.data['to_user'])
+        except User.DoesNotExist:
+            isok = 0
+            return ErrorResponse(data=isok, msg='收件人不存在')
 
         InnerMail.objects.create(content=content, title=title, send_date=send_date,
                                  receive_date=receive_date,
                                  from_user=from_user, to_user=to_user, is_read=False).save()
-        return SuccessResponse(data="发送成功")
+        return SuccessResponse(data=isok)
 
 
 # 接收邮件(查看邮件)
@@ -38,15 +42,19 @@ class ReceiveMail(APIView):
     # 查看邮件/搜索邮件
     def get(self, request: Request):
         this_user = request.user
+        search_time = request.query_params['search_time']
         search_msg = request.query_params['search_msg']
         msg_set = []
         # 如果搜索的值为空，则全部返回
-        if len(search_msg) == 0:
-            all_mail = InnerMail.objects.filter(to_user=this_user)
-        # 否则返回指定搜索的数据
-        else:
+        if len(search_msg) != 0 and search_time != 'Invalid date':
+            all_mail = InnerMail.objects.filter(to_user=this_user, title__contains=search_msg,
+                                                receive_date__contains=search_time)
+        elif len(search_msg) != 0:
             all_mail = InnerMail.objects.filter(to_user=this_user, title__contains=search_msg)
-
+        elif search_time != 'Invalid date':
+            all_mail = InnerMail.objects.filter(to_user=this_user, receive_date__contains=search_time)
+        else:
+            all_mail = InnerMail.objects.filter(to_user=this_user)
         for i in all_mail:
             this_mail_id = i.id
             content = i.content
@@ -62,7 +70,6 @@ class ReceiveMail(APIView):
                 "this_mail_id": this_mail_id,
                 "from_user": from_user
             })
-        print(msg_set)
         return SuccessResponse(data=msg_set)
 
     # 消息已读未读
