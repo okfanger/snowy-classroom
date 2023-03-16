@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  nacos:
+    container_name: nacos
+    image: nacos/nacos-server:v2.2.0-slim
+    ports:
+      - "8848:8848"
+    environment:
+      MODE: standalone

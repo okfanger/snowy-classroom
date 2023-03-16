@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.akfang.snow.user.mapper.UsersMenuroutermetaMapper">
+
+    <resultMap id="BaseResultMap" type="cn.akfang.snow.feign.model.entity.UsersMenuroutermeta">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="keepAlive" column="keepAlive" jdbcType="TINYINT"/>
+            <result property="target" column="target" jdbcType="VARCHAR"/>
+            <result property="hidden" column="hidden" jdbcType="TINYINT"/>
+            <result property="hiddenHeaderContent" column="hiddenHeaderContent" jdbcType="TINYINT"/>
+            <result property="hideChildren" column="hideChildren" jdbcType="TINYINT"/>
+            <result property="hideHeader" column="hideHeader" jdbcType="TINYINT"/>
+            <result property="show" column="show" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,update_time,
+        title,icon,keepAlive,
+        target,hidden,hiddenHeaderContent,
+        hideChildren,hideHeader,show
+    </sql>
+</mapper>

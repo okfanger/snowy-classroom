@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.CoreStudenthomeworkhandinMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.CoreStudenthomeworkhandin">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="submit_time" column="submit_time" jdbcType="TIMESTAMP"/>
+            <result property="submit_detail" column="submit_detail" jdbcType="VARCHAR"/>
+            <result property="course_id" column="course_id" jdbcType="BIGINT"/>
+            <result property="homework_id" column="homework_id" jdbcType="BIGINT"/>
+            <result property="student_id" column="student_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,update_time,
+        submit_time,submit_detail,course_id,
+        homework_id,student_id
+    </sql>
+</mapper>

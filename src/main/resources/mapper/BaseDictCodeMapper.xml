@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.BaseDictCodeMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.BaseDictCode">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="parent" column="parent" jdbcType="VARCHAR"/>
+            <result property="type_id" column="type_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,code,name,
+        parent,type_id
+    </sql>
+</mapper>

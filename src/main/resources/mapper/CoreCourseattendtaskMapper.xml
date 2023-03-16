@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.CoreCourseattendtaskMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.CoreCourseattendtask">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="duration" column="duration" jdbcType="INTEGER"/>
+            <result property="expire_time" column="expire_time" jdbcType="TIMESTAMP"/>
+            <result property="course_id" column="course_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,update_time,
+        duration,expire_time,course_id
+    </sql>
+</mapper>
