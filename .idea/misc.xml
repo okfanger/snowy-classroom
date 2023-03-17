@@ -8,12 +8,13 @@
         <option value="$PROJECT_DIR$/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/snow-services/course-service/pom.xml" />
+        <option value="$PROJECT_DIR$/snow-services/exam-service/pom.xml" />
+        <option value="$PROJECT_DIR$/snow-common/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
-        <option value="$PROJECT_DIR$/snow-common/pom.xml" />
         <option value="$PROJECT_DIR$/snow-services/order-service/pom.xml" />
       </set>
     </option>

@@ -17,17 +17,20 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.github.openfeign</groupId>-->
-<!--            <artifactId>feign-httpclient</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.akfang.snow</groupId>
+            <artifactId>snow-common</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>io.github.openfeign</groupId>-->
+        <!--            <artifactId>feign-httpclient</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 </project>

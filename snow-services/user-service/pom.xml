@@ -38,6 +38,12 @@
 
         <dependency>
             <groupId>cn.akfang.snow</groupId>
+            <artifactId>snow-common</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.akfang.snow</groupId>
             <artifactId>snow-api</artifactId>
             <version>1.0</version>
             <scope>compile</scope>

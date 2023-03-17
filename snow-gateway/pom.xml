@@ -27,6 +27,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.akfang.snow</groupId>
+            <artifactId>snow-common</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>app</finalName>

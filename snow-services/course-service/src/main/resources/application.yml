@@ -14,7 +14,7 @@ spring:
 #      discovery:
 #        cluster-name: HZ
 mybatis:
-  type-aliases-package: cn.akfang.snow.feign.model
+  type-aliases-package: cn.akfang.snow.common.model
   configuration:
     map-underscore-to-camel-case: true
 logging:
