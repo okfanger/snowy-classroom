@@ -15,7 +15,7 @@ const themePluginOption = {
   fileName: 'css/theme-colors-[contenthash:8].css',
   matchColors: getAntdSerials('#1890ff'), // 主色系列
   // 改变样式选择器，解决样式覆盖问题
-  changeSelector(selector) {
+  changeSelector (selector) {
     switch (selector) {
       case '.ant-calendar-today .ant-calendar-date':
         return ':not(.ant-calendar-selected-date):not(.ant-calendar-selected-day)' + selector

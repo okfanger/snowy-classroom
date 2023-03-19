@@ -7,7 +7,7 @@
         </a-button>
       </template>
     </a-result>
-    <div v-if="state === 201">
+    <div v-if="state === 201" >
       <a-spin tip="Loading..." :spinning="spinning">
         <a-row type="flex" justify="space-around" align="middle" style="height: 100%">
           <a-col :sm="24" :md="6" align="center">
@@ -20,7 +20,7 @@
               :percent="total_percent"
             />
             <div style="height: 20px"></div>
-            <a-descriptions :column="1" bordered :title="exam.name">
+            <a-descriptions :column="1" bordered :title="exam.name" >
               <a-descriptions-item label="学生ID">
                 {{ student }}
               </a-descriptions-item>
@@ -40,12 +40,9 @@
             <template v-for="(item, idx1) in exam.question_set">
               <a-spin :key="item.id" :spinning="user_spin[`${item.id}`] || false">
                 <a-card :key="item.id" size="small" :title="`${idx1 + 1}. ${item.title}`" style="">
-                  <a slot="extra" href="#">
-                    <a-tag>{{ item.type }}</a-tag>
-                  </a>
+                  <a slot="extra" href="#"><a-tag>{{ item.type }}</a-tag></a>
                   <a-radio-group @change="syncSubmit(item)" v-model="user_answer[`${item.id}`]">
-                    <a-radio style="display: block" v-for="(item2, idx2) in item.options" :key="item2.id"
-                             :value="item2.id">
+                    <a-radio style="display: block" v-for="(item2, idx2) in item.options" :key="item2.id" :value="item2.id">
                       {{ String.fromCharCode(idx2 + 'A'.charCodeAt()) }}: {{ item2.content }}
                     </a-radio>
                   </a-radio-group>
@@ -66,11 +63,10 @@ import {
   getExamDetailById, getStudentResultOne
 } from '@/api/exam'
 import moment from 'moment'
-import {calcState} from '@/utils/custom'
-
+import { calcState } from '@/utils/custom'
 export default {
   name: 'ExamPreview',
-  data() {
+  data () {
     return {
       isRightMap: {},
       studentAnswerData: [],
@@ -91,7 +87,7 @@ export default {
     }
   },
   methods: {
-    syncSubmit(item) {
+    syncSubmit (item) {
       // const itemId = item.id
       // const ans = this.user_answer[itemId]
       // this.user_spin[itemId] = true
@@ -103,7 +99,7 @@ export default {
 
       // console.log(ans)
     },
-    initState() {
+    initState () {
       const examId = this.$route.query['examId'] || undefined
       const id = this.$route.query['id'] || undefined
 
@@ -137,7 +133,7 @@ export default {
       })
     }
   },
-  created() {
+  created () {
     this.clientHeight = document.body.clientHeight
     const id = this.$route.query['id'] || undefined
     if (!id) this.state = 404

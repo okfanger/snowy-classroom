@@ -19,30 +19,30 @@
 </template>
 
 <script>
-import {checkWork} from '@/api/homework'
+import { checkWork } from '@/api/homework'
 
 export default {
   name: 'Homework',
-  data() {
+  data () {
     return {
       columns: [
         {
           title: '作业题目',
           dataIndex: 'title',
           key: 'timu',
-          scopedSlots: {customRender: 'timu'}
+          scopedSlots: { customRender: 'timu' }
         },
         {
           title: '开始时间',
           dataIndex: 'start_time',
           key: 'start_time',
-          scopedSlots: {customRender: 'start_time'}
+          scopedSlots: { customRender: 'start_time' }
         },
         {
           title: '截止时间',
           dataIndex: 'end_time',
           key: 'end_time',
-          scopedSlots: {customRender: 'end_time'}
+          scopedSlots: { customRender: 'end_time' }
         }
       ],
       courseId: this.$route.query['id'],
@@ -50,12 +50,12 @@ export default {
       homeworkId: 0
     }
   },
-  created() {
+  created () {
     console.log(this.courseId)
     this.checkWork()
   },
   methods: {
-    checkWork() {
+    checkWork () {
       checkWork(this.courseId, this.homeworkId).then((res) => {
         this.homeworkList = res.data
         console.log(this.homeworkList)

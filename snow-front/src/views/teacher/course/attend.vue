@@ -31,13 +31,10 @@
       :data-source="dataSource"
       :columns="columns"
       rowKey="studentId">
-      <template slot="name" slot-scope="text, record">
-        {{ studentMap[record.studentId] ? studentMap[record.studentId].user.name : "" }}
-      </template>
+      <template slot="name" slot-scope="text, record">{{ studentMap[record.studentId] ? studentMap[record.studentId].user.name : "" }}</template>
       <template v-for="item in records" :slot="`scope${item.id}`" slot-scope="text, record">
         <span :key="`k1_${item.id}`" v-if="editDataVisible">
-          <a-select @change="addUploadList" :style="{'width': '80px'}" v-model="record.records[item.id].result"
-                    :default-value="record.records[item.id].result" style="width: 120px">
+          <a-select @change="addUploadList" :style="{'width': '80px'}" v-model="record.records[item.id].result" :default-value="record.records[item.id].result" style="width: 120px">
             <a-select-option
               :data-record="record.records[item.id].id"
               :data-studentid="record.studentId"
@@ -69,7 +66,7 @@
       >
         <a-row>
           <a-col :span="12">
-            <a-slider v-model="createAttendTaskForm.duration" :min="1" :max="30" :step="0.5"/>
+            <a-slider v-model="createAttendTaskForm.duration" :min="1" :max="30" :step="0.5" />
           </a-col>
           <a-col :span="4">
             <a-input-number
@@ -91,21 +88,18 @@
       :visible="drawerVisible"
       @close="onDrawerClose"
     >
-      <p>
-        <a-button @click="refreshAsyncAttendTask">刷新数据</a-button>
-      </p>
+      <p><a-button @click="refreshAsyncAttendTask">刷新数据</a-button></p>
       <img style="width: 100%" :src="qrcodeImgUrl" alt="">
       <a-timeline>
         <a-timeline-item :key="item.id" v-for="item in asyncAttendRecordCut">{{ studentMap[item.student].user.name }}
-          {{ item.sign_in_time }}
-        </a-timeline-item>
+          {{ item.sign_in_time }}</a-timeline-item>
       </a-timeline>
     </a-drawer>
   </div>
 </template>
 
 <script>
-import {getStudents, getTeacherOne} from '@/api/course'
+import { getStudents, getTeacherOne } from '@/api/course'
 import {
   attendUpdateBatch,
   createCourseAttendTask,
@@ -113,8 +107,7 @@ import {
   getCourseAttendOneRecord,
   getCourseAttendRecord
 } from '@/api/attend'
-import {message} from 'ant-design-vue'
-
+import { message } from 'ant-design-vue'
 export default {
   name: 'Attend',
   props: {
@@ -124,7 +117,7 @@ export default {
     }
   },
   computed: {
-    scrollx() {
+    scrollx () {
       const columns = this.columns
 
       let scrollx = 0
@@ -134,38 +127,36 @@ export default {
       console.log(scrollx)
       return scrollx
     },
-    asyncAttendRecordCut() {
+    asyncAttendRecordCut () {
       const dataset = this.asyncAttendRecord ? this.asyncAttendRecord.studentcourseattend_set : []
-      if (dataset === undefined) {
-        return []
-      }
+      if (dataset === undefined) { return [] }
       return dataset.filter((item) => {
         return item.result === '正常'
       })
     }
   },
-  data() {
+data () {
     const atStatusList = [
-      {label: '正常', value: 0, color: 'green'},
-      {label: '请假', value: 1, color: 'blue'},
-      {label: '缺勤', value: 2, color: 'red'}
-    ]
+        { label: '正常', value: 0, color: 'green' },
+        { label: '请假', value: 1, color: 'blue' },
+        { label: '缺勤', value: 2, color: 'red' }
+      ]
 
-    return {
-      uploadList: {},
-      qrcodeImgUrl: '',
-      asyncAttendRecord: {},
-      attend_expire_time: '',
-      drawerVisible: false,
-      atStatusList,
-      dataLoading: true,
-      editDataVisible: false,
-      studentMap: {},
-      columns: [],
-      dataSource: [],
-      attend_able: true,
-      createAttendTaskForm: {
-        duration: 1
+  return {
+    uploadList: {},
+    qrcodeImgUrl: '',
+    asyncAttendRecord: {},
+    attend_expire_time: '',
+    drawerVisible: false,
+    atStatusList,
+    dataLoading: true,
+    editDataVisible: false,
+    studentMap: {},
+    columns: [],
+    dataSource: [],
+    attend_able: true,
+    createAttendTaskForm: {
+      duration: 1
       },
       teacher: {},
       createAttendTaskVisible: false,
@@ -174,7 +165,7 @@ export default {
   },
   methods: {
 
-    addUploadList(e, option) {
+    addUploadList (e, option) {
       const studentId = option.data.attrs['data-studentid']
       const taskId = option.data.attrs['data-taskid']
       const recordId = option.data.attrs['data-record']
@@ -187,17 +178,17 @@ export default {
 
       console.log(this.uploadList)
     },
-    getColorByLabel(label) {
+    getColorByLabel (label) {
       for (const item of this.atStatusList) {
         if (item.label === label) {
           return item.color
         }
       }
     },
-    onDrawerClose() {
+    onDrawerClose () {
       this.drawerVisible = false
     },
-    handleOpenDrawer() {
+    handleOpenDrawer () {
       // 获取当前页面地址，如http://localhost:8080/admin/index
       const wPath = window.document.location.href
       // 获取当前页面主机地址之后的目录，如：/admin/index
@@ -210,7 +201,7 @@ export default {
       console.log(this.qrcodeImgUrl)
       this.drawerVisible = true
     },
-    handleSaveData() {
+    handleSaveData () {
       this.dataLoading = true
 
       attendUpdateBatch(Object.values(this.uploadList)).then((res) => {
@@ -220,7 +211,7 @@ export default {
         this.dataLoading = false
       })
     },
-    handleEditData() {
+    handleEditData () {
       this.dataLoading = true
       this.uploadList = {}
 
@@ -229,15 +220,15 @@ export default {
         this.dataLoading = false
       }, 100)
     },
-    handleCreateAttendTask() {
+    handleCreateAttendTask () {
       this.createAttendTaskVisible = true
     },
-    refreshAsyncAttendTask() {
+    refreshAsyncAttendTask () {
       getCourseAttendOneRecord(this.asyncAttendRecord.id).then((res) => {
         this.asyncAttendRecord = res.data
       })
     },
-    handleCreateAttendTaskVisibleOK() {
+    handleCreateAttendTaskVisibleOK () {
       this.createAttendTaskconfirmLoading = true
 
       createCourseAttendTask({
@@ -246,12 +237,12 @@ export default {
       }).then((res) => {
         this.asyncAttendRecord = res.data
         console.log(res.data)
-        message({
-          type: 'success',
-          message: '创建成功，等待学生签到'
-        })
-        this.createAttendTaskVisible = false
-        this.createAttendTaskconfirmLoading = false
+          message({
+            type: 'success',
+            message: '创建成功，等待学生签到'
+          })
+          this.createAttendTaskVisible = false
+          this.createAttendTaskconfirmLoading = false
       }).catch((fail) => {
         this.createAttendTaskVisible = false
         this.createAttendTaskconfirmLoading = false
@@ -265,54 +256,54 @@ export default {
         })
       })
     },
-    handleCreateAttendTaskCancel() {
+    handleCreateAttendTaskCancel () {
       this.createAttendTaskVisible = false
     }
 
   },
-  created() {
-    getStudents(this.courseId).then((res) => {
-      this.students = res.data
-      const studentMap = {}
-      this.students.forEach((student) => {
-        studentMap[student.id] = student
-      })
-      this.studentMap = studentMap
+created () {
+  getStudents(this.courseId).then((res) => {
+    this.students = res.data
+    const studentMap = {}
+    this.students.forEach((student) => {
+      studentMap[student.id] = student
     })
+    this.studentMap = studentMap
+  })
 
-    getCourseAttendBeforeCreateStatus(this.courseId).then((res) => {
-      this.attend_able = res.data.attend_able
-      this.attend_expire_time = res.data.expire_time
-      this.asyncAttendRecord = res.data.task
-    })
-    getTeacherOne(this.courseId).then((res) => {
-      console.log(res.data)
-      this.course = res.data
-    })
+  getCourseAttendBeforeCreateStatus(this.courseId).then((res) => {
+    this.attend_able = res.data.attend_able
+    this.attend_expire_time = res.data.expire_time
+    this.asyncAttendRecord = res.data.task
+  })
+  getTeacherOne(this.courseId).then((res) => {
+    console.log(res.data)
+    this.course = res.data
+  })
 
-    getCourseAttendRecord(this.courseId).then((res) => {
-      console.log('records', res.data)
-      this.records = res.data
-      // 对从数据库中获取的数据进行处理
-      const processDict = {}
-      const cols = [{
-        key: 'name',
-        title: '姓名',
-        // dataIndex: 'studentId',
-        width: 100,
-        fixed: 'left',
-        align: 'center',
-        scopedSlots: {customRender: 'name'}
-      }]
+   getCourseAttendRecord(this.courseId).then((res) => {
+    console.log('records', res.data)
+     this.records = res.data
+    // 对从数据库中获取的数据进行处理
+    const processDict = {}
+     const cols = [{
+       key: 'name',
+       title: '姓名',
+       // dataIndex: 'studentId',
+       width: 100,
+       fixed: 'left',
+       align: 'center',
+       scopedSlots: { customRender: 'name' }
+     }]
 
-      for (const taskItem of res.data) {
-        cols.push({
-          key: taskItem['id'],
-          title: taskItem['create_time'],
-          width: '80px',
-          align: 'center',
-          scopedSlots: {customRender: `scope${taskItem['id']}`}
-        })
+     for (const taskItem of res.data) {
+       cols.push({
+         key: taskItem['id'],
+         title: taskItem['create_time'],
+         width: '80px',
+         align: 'center',
+       scopedSlots: { customRender: `scope${taskItem['id']}` }
+       })
         const attendRecord = taskItem.studentcourseattend_set
         for (const attendRecordItem of attendRecord) {
           const studentId = attendRecordItem['student']
@@ -335,14 +326,14 @@ export default {
             sign_in_time: signInTime,
             task: task
           })
-        }
-      }
-      console.log('col', cols)
-      console.log('va', Object.values(processDict))
-      this.dataSource = Object.values(processDict)
-      this.columns = cols
-      this.dataLoading = false
-    })
+     }
+     }
+     console.log('col', cols)
+     console.log('va', Object.values(processDict))
+     this.dataSource = Object.values(processDict)
+     this.columns = cols
+     this.dataLoading = false
+  })
   }
 }
 </script>

@@ -1,4 +1,4 @@
-import {Spin} from 'ant-design-vue'
+import { Spin } from 'ant-design-vue'
 
 export const PageLoading = {
   name: 'PageLoading',
@@ -12,7 +12,7 @@ export const PageLoading = {
       default: 'large'
     }
   },
-  render() {
+  render () {
     const style = {
       textAlign: 'center',
       background: 'rgba(0,0,0,0.6)',
@@ -30,7 +30,7 @@ export const PageLoading = {
       transform: 'translate(-50%, -50%)'
     }
     return (<div style={style}>
-      <Spin size={this.size} style={spinStyle} tip={this.tip}/>
+      <Spin size={this.size} style={spinStyle} tip={this.tip} />
     </div>)
   }
 }
@@ -47,27 +47,27 @@ loading.newInstance = (Vue, options) => {
     document.body.appendChild(loadingElement)
   }
 
-  const cdProps = Object.assign({visible: false, size: 'large', tip: 'Loading...'}, options)
+  const cdProps = Object.assign({ visible: false, size: 'large', tip: 'Loading...' }, options)
 
   const instance = new Vue({
-    data() {
+    data () {
       return {
         ...cdProps
       }
     },
-    render() {
-      const {tip} = this
+    render () {
+      const { tip } = this
       const props = {}
       this.tip && (props.tip = tip)
       if (this.visible) {
-        return <PageLoading {...{props}} />
+        return <PageLoading { ...{ props } } />
       }
       return null
     }
   }).$mount(loadingElement)
 
-  function update(config) {
-    const {visible, size, tip} = {...cdProps, ...config}
+  function update (config) {
+    const { visible, size, tip } = { ...cdProps, ...config }
     instance.$set(instance, 'visible', visible)
     if (tip) {
       instance.$set(instance, 'tip', tip)
@@ -85,10 +85,10 @@ loading.newInstance = (Vue, options) => {
 
 const api = {
   show: function (options) {
-    this.instance.update({...options, visible: true})
+    this.instance.update({ ...options, visible: true })
   },
   hide: function () {
-    this.instance.update({visible: false})
+    this.instance.update({ visible: false })
   }
 }
 

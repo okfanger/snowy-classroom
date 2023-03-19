@@ -48,8 +48,7 @@
             </a-col>
           </template>
           <a-col :md="!advanced && 8 || 24" :sm="24">
-            <span class="table-page-search-submitButtons"
-                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+            <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
               <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
               <a @click="toggleAdvanced" style="margin-left: 8px">
@@ -67,19 +66,12 @@
       <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
       <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
-          <a-menu-item key="1">
-            <a-icon type="delete"/>
-            删除
-          </a-menu-item>
+          <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
           <!-- lock | unlock -->
-          <a-menu-item key="2">
-            <a-icon type="lock"/>
-            锁定
-          </a-menu-item>
+          <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
         </a-menu>
         <a-button style="margin-left: 8px">
-          批量操作
-          <a-icon type="down"/>
+          批量操作 <a-icon type="down" />
         </a-button>
       </a-dropdown>
     </div>
@@ -99,11 +91,11 @@
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="handleEdit(record)">编辑</a>
-          <a-divider type="vertical"/>
+          <a-divider type="vertical" />
         </template>
         <a-dropdown>
           <a class="ant-dropdown-link">
-            更多 <a-icon type="down"/>
+            更多 <a-icon type="down" />
           </a>
           <a-menu slot="overlay">
             <a-menu-item>
@@ -124,15 +116,15 @@
 
 <script>
 import moment from 'moment'
-import {STable} from '@/components'
-import {getRoleList, getServiceList} from '@/api/manage'
+import { STable } from '@/components'
+import { getRoleList, getServiceList } from '@/api/manage'
 
 export default {
   name: 'TableList',
   components: {
     STable
   },
-  data() {
+  data () {
     return {
       mdl: {},
       // 高级搜索 展开/关闭
@@ -143,7 +135,7 @@ export default {
       columns: [
         {
           title: '#',
-          scopedSlots: {customRender: 'serial'}
+          scopedSlots: { customRender: 'serial' }
         },
         {
           title: '规则编号',
@@ -174,7 +166,7 @@ export default {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
-          scopedSlots: {customRender: 'action'}
+          scopedSlots: { customRender: 'action' }
         }
       ],
       // 加载数据方法 必须为 Promise 对象
@@ -190,11 +182,7 @@ export default {
 
       // custom table alert & rowSelection
       options: {
-        alert: {
-          show: true, clear: () => {
-            this.selectedRowKeys = []
-          }
-        },
+        alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
         rowSelection: {
           selectedRowKeys: this.selectedRowKeys,
           onChange: this.onSelectChange
@@ -203,19 +191,15 @@ export default {
       optionAlertShow: false
     }
   },
-  created() {
+  created () {
     this.tableOption()
-    getRoleList({t: new Date()})
+    getRoleList({ t: new Date() })
   },
   methods: {
-    tableOption() {
+    tableOption () {
       if (!this.optionAlertShow) {
         this.options = {
-          alert: {
-            show: true, clear: () => {
-              this.selectedRowKeys = []
-            }
-          },
+          alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
           rowSelection: {
             selectedRowKeys: this.selectedRowKeys,
             onChange: this.onSelectChange
@@ -231,22 +215,22 @@ export default {
       }
     },
 
-    handleEdit(record) {
+    handleEdit (record) {
       this.$emit('onEdit', record)
     },
-    handleOk() {
+    handleOk () {
 
     },
 
-    onSelectChange(selectedRowKeys, selectedRows) {
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     },
 
-    resetSearchForm() {
+    resetSearchForm () {
       this.queryParam = {
         date: moment(new Date())
       }

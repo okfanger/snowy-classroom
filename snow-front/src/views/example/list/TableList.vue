@@ -49,8 +49,7 @@
               </a-col>
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
-              <span class="table-page-search-submitButtons"
-                    :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+              <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
                 <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
                 <a-button style="margin-left: 8px" @click="() => this.queryParam = {}">重置</a-button>
                 <a @click="toggleAdvanced" style="margin-left: 8px">
@@ -67,19 +66,12 @@
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
-            <a-menu-item key="1">
-              <a-icon type="delete"/>
-              删除
-            </a-menu-item>
+            <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
             <!-- lock | unlock -->
-            <a-menu-item key="2">
-              <a-icon type="lock"/>
-              锁定
-            </a-menu-item>
+            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
-            批量操作
-            <a-icon type="down"/>
+            批量操作 <a-icon type="down" />
           </a-button>
         </a-dropdown>
       </div>
@@ -98,7 +90,7 @@
           {{ index + 1 }}
         </span>
         <span slot="status" slot-scope="text">
-          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
+          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
         <span slot="description" slot-scope="text">
           <ellipsis :length="4" tooltip>{{ text }}</ellipsis>
@@ -107,7 +99,7 @@
         <span slot="action" slot-scope="text, record">
           <template>
             <a @click="handleEdit(record)">配置</a>
-            <a-divider type="vertical"/>
+            <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a>
           </template>
         </span>
@@ -128,8 +120,8 @@
 
 <script>
 import moment from 'moment'
-import {STable, Ellipsis} from '@/components'
-import {getRoleList, getServiceList} from '@/api/manage'
+import { STable, Ellipsis } from '@/components'
+import { getRoleList, getServiceList } from '@/api/manage'
 
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
@@ -137,7 +129,7 @@ import CreateForm from './modules/CreateForm'
 const columns = [
   {
     title: '#',
-    scopedSlots: {customRender: 'serial'}
+    scopedSlots: { customRender: 'serial' }
   },
   {
     title: '规则编号',
@@ -146,7 +138,7 @@ const columns = [
   {
     title: '描述',
     dataIndex: 'description',
-    scopedSlots: {customRender: 'description'}
+    scopedSlots: { customRender: 'description' }
   },
   {
     title: '服务调用次数',
@@ -158,7 +150,7 @@ const columns = [
   {
     title: '状态',
     dataIndex: 'status',
-    scopedSlots: {customRender: 'status'}
+    scopedSlots: { customRender: 'status' }
   },
   {
     title: '更新时间',
@@ -169,7 +161,7 @@ const columns = [
     title: '操作',
     dataIndex: 'action',
     width: '150px',
-    scopedSlots: {customRender: 'action'}
+    scopedSlots: { customRender: 'action' }
   }
 ]
 
@@ -200,7 +192,7 @@ export default {
     CreateForm,
     StepByStepModal
   },
-  data() {
+  data () {
     this.columns = columns
     return {
       // create model
@@ -225,18 +217,18 @@ export default {
     }
   },
   filters: {
-    statusFilter(type) {
+    statusFilter (type) {
       return statusMap[type].text
     },
-    statusTypeFilter(type) {
+    statusTypeFilter (type) {
       return statusMap[type].status
     }
   },
-  created() {
-    getRoleList({t: new Date()})
+  created () {
+    getRoleList({ t: new Date() })
   },
   computed: {
-    rowSelection() {
+    rowSelection () {
       return {
         selectedRowKeys: this.selectedRowKeys,
         onChange: this.onSelectChange
@@ -244,15 +236,15 @@ export default {
     }
   },
   methods: {
-    handleAdd() {
+    handleAdd () {
       this.mdl = null
       this.visible = true
     },
-    handleEdit(record) {
+    handleEdit (record) {
       this.visible = true
-      this.mdl = {...record}
+      this.mdl = { ...record }
     },
-    handleOk() {
+    handleOk () {
       const form = this.$refs.createModal.form
       this.confirmLoading = true
       form.validateFields((errors, values) => {
@@ -296,27 +288,27 @@ export default {
         }
       })
     },
-    handleCancel() {
+    handleCancel () {
       this.visible = false
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）
     },
-    handleSub(record) {
+    handleSub (record) {
       if (record.status !== 0) {
         this.$message.info(`${record.no} 订阅成功`)
       } else {
         this.$message.error(`${record.no} 订阅失败，规则已关闭`)
       }
     },
-    onSelectChange(selectedRowKeys, selectedRows) {
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.queryParam = {
         date: moment(new Date())
       }

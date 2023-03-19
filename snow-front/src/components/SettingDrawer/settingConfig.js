@@ -45,4 +45,4 @@ const updateColorWeak = colorWeak => {
   colorWeak ? app.classList.add('colorWeak') : app.classList.remove('colorWeak')
 }
 
-export {updateTheme, colorList, updateColorWeak}
+export { updateTheme, colorList, updateColorWeak }

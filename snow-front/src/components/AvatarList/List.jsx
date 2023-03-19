@@ -3,7 +3,7 @@ import './index.less'
 import PropTypes from 'ant-design-vue/es/_util/vue-types'
 import Avatar from 'ant-design-vue/es/avatar'
 import Item from './Item.jsx'
-import {filterEmpty} from '@/components/_util/util'
+import { filterEmpty } from '@/components/_util/util'
 
 /**
  * size: `number`、 `large`、`small`、`default` 默认值: default
@@ -30,8 +30,8 @@ const AvatarList = {
   Item,
   name: 'AvatarList',
   props: AvatarListProps,
-  render(h) {
-    const {prefixCls, size} = this.$props
+  render (h) {
+    const { prefixCls, size } = this.$props
     const className = {
       [`${prefixCls}`]: true,
       [`${size}`]: true
@@ -46,7 +46,7 @@ const AvatarList = {
     )
   },
   methods: {
-    getItems(items) {
+    getItems (items) {
       const className = {
         [`${this.prefixCls}-item`]: true,
         [`${this.size}`]: true
@@ -55,8 +55,7 @@ const AvatarList = {
 
       if (this.maxLength > 0) {
         items = items.slice(0, this.maxLength)
-        items.push((<Avatar size={this.size === 'mini' ? 'small' : this.size}
-                            style={this.excessItemsStyle}>{`+${totalSize - this.maxLength}`}</Avatar>))
+        items.push((<Avatar size={this.size === 'mini' ? 'small' : this.size} style={this.excessItemsStyle}>{`+${totalSize - this.maxLength}`}</Avatar>))
       }
       return items.map((item) => (
         <li class={className}>{item}</li>

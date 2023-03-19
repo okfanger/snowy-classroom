@@ -19,8 +19,7 @@
     <a-spin :spinning="stepLoading">
       <a-form layout="vertical" :auto-form-create="(form)=>{this.form = form}">
         <div class="step-form-wrapper">
-          <p style="text-align: center" v-if="!stepLoading">请在手机中打开 Google Authenticator 或两步验证 APP<br/>输入
-            6 位动态码</p>
+          <p style="text-align: center" v-if="!stepLoading">请在手机中打开 Google Authenticator 或两步验证 APP<br />输入 6 位动态码</p>
           <p style="text-align: center" v-else>正在验证..<br/>请稍后</p>
           <a-form-item
             :style="{ textAlign: 'center' }"
@@ -28,7 +27,7 @@
             fieldDecoratorId="stepCode"
             :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入 6 位动态码!', pattern: /^\d{6}$/, len: 6 }]}"
           >
-            <a-input :style="{ textAlign: 'center' }" @keyup.enter.native="handleStepOk" placeholder="000000"/>
+            <a-input :style="{ textAlign: 'center' }" @keyup.enter.native="handleStepOk" placeholder="000000" />
           </a-form-item>
           <p style="text-align: center">
             <a @click="onForgeStepCode">遗失手机?</a>
@@ -47,7 +46,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       stepLoading: false,
 
@@ -55,7 +54,7 @@ export default {
     }
   },
   methods: {
-    handleStepOk() {
+    handleStepOk () {
       const vm = this
       this.stepLoading = true
       this.form.validateFields((err, values) => {
@@ -63,28 +62,28 @@ export default {
           console.log('values', values)
           setTimeout(() => {
             vm.stepLoading = false
-            vm.$emit('success', {values})
+            vm.$emit('success', { values })
           }, 2000)
           return
         }
         this.stepLoading = false
-        this.$emit('error', {err})
+        this.$emit('error', { err })
       })
     },
-    handleCancel() {
+    handleCancel () {
       this.visible = false
       this.$emit('cancel')
     },
-    onForgeStepCode() {
+    onForgeStepCode () {
 
     }
   }
 }
 </script>
 <style lang="less" scoped>
-.step-form-wrapper {
-  margin: 0 auto;
-  width: 80%;
-  max-width: 400px;
-}
+  .step-form-wrapper {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 400px;
+  }
 </style>

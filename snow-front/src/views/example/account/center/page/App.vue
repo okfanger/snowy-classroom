@@ -71,7 +71,7 @@ for (let i = 0; i < 11; i++) {
 export default {
   name: 'Article',
   components: {},
-  data() {
+  data () {
     return {
       dataSource
     }
@@ -81,33 +81,33 @@ export default {
 
 <style lang="less" scoped>
 
-.app-list {
+  .app-list {
 
-  .meta-cardInfo {
-    zoom: 1;
-    margin-top: 16px;
+    .meta-cardInfo {
+      zoom: 1;
+      margin-top: 16px;
 
-    > div {
-      position: relative;
-      text-align: left;
-      float: left;
-      width: 50%;
+      > div {
+        position: relative;
+        text-align: left;
+        float: left;
+        width: 50%;
 
-      p {
-        line-height: 32px;
-        font-size: 24px;
-        margin: 0;
+        p {
+          line-height: 32px;
+          font-size: 24px;
+          margin: 0;
 
-        &:first-child {
-          color: rgba(0, 0, 0, .45);
-          font-size: 12px;
-          line-height: 20px;
-          margin-bottom: 4px;
+          &:first-child {
+            color: rgba(0, 0, 0, .45);
+            font-size: 12px;
+            line-height: 20px;
+            margin-bottom: 4px;
+          }
         }
-      }
 
+      }
     }
   }
-}
 
 </style>

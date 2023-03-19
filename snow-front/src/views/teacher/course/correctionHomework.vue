@@ -24,22 +24,22 @@
 </template>
 
 <script>
-import {checkHomework} from '@/api/homework'
-import {mapGetters} from 'vuex'
+import { checkHomework } from '@/api/homework'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Receive',
-  created() {
+  created () {
     this.checkHomework()
   },
-  data() {
+  data () {
     return {
       homeworkList: []
     }
   },
 
   methods: {
-    noticeActive(thisHomework) {
+    noticeActive (thisHomework) {
       console.log(thisHomework)
       this.$router.push({
         path: '/homework/correctionDetail',
@@ -48,7 +48,7 @@ export default {
         }
       })
     },
-    checkHomework() {
+    checkHomework () {
       checkHomework().then((res) => {
         this.homeworkList = res.data
         console.log(this.homeworkList)

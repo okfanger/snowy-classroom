@@ -1,18 +1,18 @@
-import {Select} from 'ant-design-vue'
+import { Select } from 'ant-design-vue'
 import './index.less'
 
 const GlobalSearch = {
   name: 'GlobalSearch',
-  data() {
+  data () {
     return {
       visible: false
     }
   },
-  mounted() {
+  mounted () {
     const keyboardHandle = (e) => {
       e.preventDefault()
       e.stopPropagation()
-      const {ctrlKey, shiftKey, altKey, keyCode} = e
+      const { ctrlKey, shiftKey, altKey, keyCode } = e
       console.log('keyCode:', e.keyCode, e)
       // key is `K` and hold ctrl
       if (keyCode === 75 && ctrlKey && !shiftKey && !altKey) {
@@ -21,8 +21,8 @@ const GlobalSearch = {
     }
     document.addEventListener('keydown', keyboardHandle)
   },
-  render() {
-    const {visible} = this
+  render () {
+    const { visible } = this
     const handleSearch = (e) => {
       this.$emit('search', e)
     }
@@ -40,7 +40,7 @@ const GlobalSearch = {
             size={'large'}
             showSearch
             placeholder="Input search text.."
-            style={{width: '100%'}}
+            style={{ width: '100%' }}
             defaultActiveFirstOption={false}
             showArrow={false}
             filterOption={false}

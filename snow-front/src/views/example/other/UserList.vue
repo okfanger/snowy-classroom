@@ -42,14 +42,12 @@
         <a-row
           :gutter="24"
           :style="{ marginBottom: '12px' }">
-          <a-col :span="12" v-for="(role, index) in record.permissions" :key="index"
-                 :style="{ marginBottom: '12px', height: '23px' }">
+          <a-col :span="12" v-for="(role, index) in record.permissions" :key="index" :style="{ marginBottom: '12px', height: '23px' }">
             <a-col :lg="4" :md="24">
               <span>{{ role.permissionName }}：</span>
             </a-col>
             <a-col :lg="20" :md="24" v-if="role.actionList && role.actionList.length > 0">
-              <a-tag color="cyan" v-for="action in role.actionList" :key="action">{{ action | permissionFilter }}
-              </a-tag>
+              <a-tag color="cyan" v-for="action in role.actionList" :key="action">{{ action | permissionFilter }}</a-tag>
             </a-col>
             <a-col :span="20" v-else>-</a-col>
           </a-col>
@@ -59,10 +57,10 @@
       <span slot="createTime" slot-scope="text">{{ text | moment }}</span>
       <span slot="action" slot-scope="text, record">
         <a @click="handleEdit(record)">编辑</a>
-        <a-divider type="vertical"/>
+        <a-divider type="vertical" />
         <a-dropdown>
           <a class="ant-dropdown-link">
-            更多 <a-icon type="down"/>
+            更多 <a-icon type="down" />
           </a>
           <a-menu slot="overlay">
             <a-menu-item>
@@ -153,8 +151,7 @@
             :label="permission.permissionName"
           >
             <a-checkbox>全选</a-checkbox>
-            <a-checkbox-group v-decorator="[`permissions.${permission.permissionId}`]"
-                              :options="permission.actionsOptions"/>
+            <a-checkbox-group v-decorator="[`permissions.${permission.permissionId}`]" :options="permission.actionsOptions"/>
           </a-form-item>
         </template>
 
@@ -166,9 +163,9 @@
 
 <script>
 import pick from 'lodash.pick'
-import {STable} from '@/components'
-import {getRoleList, getServiceList} from '@/api/manage'
-import {PERMISSION_ENUM} from '@/core/permission/permission'
+import { STable } from '@/components'
+import { getRoleList, getServiceList } from '@/api/manage'
+import { PERMISSION_ENUM } from '@/core/permission/permission'
 
 const STATUS = {
   1: '启用',
@@ -187,18 +184,18 @@ const columns = [
   {
     title: '状态',
     dataIndex: 'status',
-    scopedSlots: {customRender: 'status'}
+    scopedSlots: { customRender: 'status' }
   },
   {
     title: '创建时间',
     dataIndex: 'createTime',
-    scopedSlots: {customRender: 'createTime'},
+    scopedSlots: { customRender: 'createTime' },
     sorter: true
   }, {
     title: '操作',
     width: '150px',
     dataIndex: 'action',
-    scopedSlots: {customRender: 'action'}
+    scopedSlots: { customRender: 'action' }
   }
 ]
 
@@ -207,18 +204,18 @@ export default {
   components: {
     STable
   },
-  data() {
+  data () {
     return {
       description: '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
 
       visible: false,
       labelCol: {
-        xs: {span: 24},
-        sm: {span: 5}
+        xs: { span: 24 },
+        sm: { span: 5 }
       },
       wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16}
+        xs: { span: 24 },
+        sm: { span: 16 }
       },
       form: this.$form.createForm(this),
       permissions: [],
@@ -246,15 +243,15 @@ export default {
     }
   },
   filters: {
-    statusFilter(key) {
+    statusFilter (key) {
       return STATUS[key]
     },
-    permissionFilter(key) {
+    permissionFilter (key) {
       const permission = PERMISSION_ENUM[key]
       return permission && permission.label
     }
   },
-  created() {
+  created () {
     getServiceList().then(res => {
       console.log('getServiceList.call()', res)
     })
@@ -264,7 +261,7 @@ export default {
     })
   },
   methods: {
-    handleEdit(record) {
+    handleEdit (record) {
       this.visible = true
       console.log('record', record)
 
@@ -293,17 +290,17 @@ export default {
         this.form.setFieldsValue(checkboxGroup)
       })
     },
-    handleOk(e) {
+    handleOk (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         console.log(err, values)
       })
     },
-    onChange(selectedRowKeys, selectedRows) {
+    onChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    handleExpand(expanded, record) {
+    handleExpand (expanded, record) {
       console.log('expanded', expanded, record)
       if (expanded) {
         this.expandedRowKeys.push(record.id)
@@ -311,7 +308,7 @@ export default {
         this.expandedRowKeys = this.expandedRowKeys.filter(item => record.id !== item)
       }
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     }
   },

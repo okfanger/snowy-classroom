@@ -18,7 +18,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
-import {quillEditor} from 'vue-quill-editor'
+import { quillEditor } from 'vue-quill-editor'
 
 export default {
   name: 'QuillEditor',
@@ -36,7 +36,7 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       content: null,
       editorOption: {
@@ -45,22 +45,22 @@ export default {
     }
   },
   methods: {
-    onEditorBlur(quill) {
+    onEditorBlur (quill) {
       console.log('editor blur!', quill)
     },
-    onEditorFocus(quill) {
+    onEditorFocus (quill) {
       console.log('editor focus!', quill)
     },
-    onEditorReady(quill) {
+    onEditorReady (quill) {
       console.log('editor ready!', quill)
     },
-    onEditorChange({quill, html, text}) {
+    onEditorChange ({ quill, html, text }) {
       console.log('editor change!', quill, html, text)
       this.$emit('change', html)
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       this.content = val
     }
   }
@@ -73,11 +73,9 @@ export default {
 /* 覆盖 quill 默认边框圆角为 ant 默认圆角，用于统一 ant 组件风格 */
 .ant-editor-quill {
   line-height: initial;
-
   :deep(.ql-toolbar.ql-snow) {
     border-radius: @border-radius-base @border-radius-base 0 0;
   }
-
   :deep(.ql-container.ql-snow) {
     border-radius: 0 0 @border-radius-base @border-radius-base;
   }

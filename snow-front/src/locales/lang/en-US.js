@@ -14,7 +14,6 @@ import fyj from './en-US/fyj'
 import gzy from './en-US/gzy'
 import drf from './en-US/drf'
 import xh from './en-US/xh'
-
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',

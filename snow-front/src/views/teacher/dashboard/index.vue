@@ -1,7 +1,7 @@
 <template>
   <div>只有教师可以看到的仪表盘
 
-    <br/>
+    <br />
 
     <div>{{ userInfo }}</div>
 
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TeacherDashboard',

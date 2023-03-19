@@ -11,7 +11,7 @@ const api = {
     events.$emit('open', config)
   },
   rename: function (key, name) {
-    events.$emit('rename', {key: key, name: name})
+    events.$emit('rename', { key: key, name: name })
   },
   /**
    * close current page

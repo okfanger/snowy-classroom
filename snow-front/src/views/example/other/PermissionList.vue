@@ -39,10 +39,10 @@
 
       <span slot="action" slot-scope="text, record">
         <a @click="handleEdit(record)">编辑</a>
-        <a-divider type="vertical"/>
+        <a-divider type="vertical" />
         <a-dropdown>
           <a class="ant-dropdown-link">
-            更多 <a-icon type="down"/>
+            更多 <a-icon type="down" />
           </a>
           <a-menu slot="overlay">
             <a-menu-item>
@@ -74,7 +74,7 @@
           hasFeedback
           validateStatus="success"
         >
-          <a-input placeholder="唯一识别码" v-model="mdl.id" id="no" disabled="disabled"/>
+          <a-input placeholder="唯一识别码" v-model="mdl.id" id="no" disabled="disabled" />
         </a-form-item>
 
         <a-form-item
@@ -84,7 +84,7 @@
           hasFeedback
           validateStatus="success"
         >
-          <a-input placeholder="起一个名字" v-model="mdl.name" id="permission_name"/>
+          <a-input placeholder="起一个名字" v-model="mdl.name" id="permission_name" />
         </a-form-item>
 
         <a-form-item
@@ -109,7 +109,7 @@
           <a-textarea :rows="5" v-model="mdl.describe" placeholder="..." id="describe"/>
         </a-form-item>
 
-        <a-divider/>
+        <a-divider />
 
         <a-form-item
           :labelCol="labelCol"
@@ -123,9 +123,7 @@
             v-model="mdl.actions"
             :allowClear="true"
           >
-            <a-select-option v-for="(action, index) in permissionList" :key="index" :value="action.value">
-              {{ action.label }}
-            </a-select-option>
+            <a-select-option v-for="(action, index) in permissionList" :key="index" :value="action.value">{{ action.label }}</a-select-option>
           </a-select>
         </a-form-item>
 
@@ -136,25 +134,25 @@
 </template>
 
 <script>
-import {STable} from '@/components'
+import { STable } from '@/components'
 
 export default {
   name: 'TableList',
   components: {
     STable
   },
-  data() {
+  data () {
     return {
       description: '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
 
       visible: false,
       labelCol: {
-        xs: {span: 24},
-        sm: {span: 5}
+        xs: { span: 24 },
+        sm: { span: 5 }
       },
       wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16}
+        xs: { span: 24 },
+        sm: { span: 16 }
       },
       form: null,
       mdl: {},
@@ -176,18 +174,18 @@ export default {
         {
           title: '可操作权限',
           dataIndex: 'actions',
-          scopedSlots: {customRender: 'actions'}
+          scopedSlots: { customRender: 'actions' }
         },
         {
           title: '状态',
           dataIndex: 'status',
-          scopedSlots: {customRender: 'status'}
+          scopedSlots: { customRender: 'status' }
         },
         {
           title: '操作',
           width: '150px',
           dataIndex: 'action',
-          scopedSlots: {customRender: 'action'}
+          scopedSlots: { customRender: 'action' }
         }
       ],
       // 向后端拉取可以用的操作列表
@@ -211,7 +209,7 @@ export default {
     }
   },
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         1: '正常',
         2: '禁用'
@@ -219,40 +217,40 @@ export default {
       return statusMap[status]
     }
   },
-  created() {
+  created () {
     this.loadPermissionList()
   },
   methods: {
-    loadPermissionList() {
+    loadPermissionList () {
       // permissionList
       new Promise(resolve => {
         const data = [
-          {label: '新增', value: 'add', defaultChecked: false},
-          {label: '查询', value: 'get', defaultChecked: false},
-          {label: '修改', value: 'update', defaultChecked: false},
-          {label: '列表', value: 'query', defaultChecked: false},
-          {label: '删除', value: 'delete', defaultChecked: false},
-          {label: '导入', value: 'import', defaultChecked: false},
-          {label: '导出', value: 'export', defaultChecked: false}
+          { label: '新增', value: 'add', defaultChecked: false },
+          { label: '查询', value: 'get', defaultChecked: false },
+          { label: '修改', value: 'update', defaultChecked: false },
+          { label: '列表', value: 'query', defaultChecked: false },
+          { label: '删除', value: 'delete', defaultChecked: false },
+          { label: '导入', value: 'import', defaultChecked: false },
+          { label: '导出', value: 'export', defaultChecked: false }
         ]
         setTimeout(resolve(data), 1500)
       }).then(res => {
         this.permissionList = res
       })
     },
-    handleEdit(record) {
+    handleEdit (record) {
       this.mdl = Object.assign({}, record)
       console.log(this.mdl)
       this.visible = true
     },
-    handleOk() {
+    handleOk () {
 
     },
-    onChange(selectedRowKeys, selectedRows) {
+    onChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
     }
   },

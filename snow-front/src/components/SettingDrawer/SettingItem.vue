@@ -24,15 +24,15 @@ export default {
 
 <style lang="less" scoped>
 
-.setting-drawer-index-item {
-  margin-bottom: 24px;
+  .setting-drawer-index-item {
+    margin-bottom: 24px;
 
-  .setting-drawer-index-title {
-    font-size: 14px;
-    color: rgba(0, 0, 0, .85);
-    line-height: 22px;
-    margin-bottom: 12px;
+    .setting-drawer-index-title {
+      font-size: 14px;
+      color: rgba(0, 0, 0, .85);
+      line-height: 22px;
+      margin-bottom: 12px;
+    }
+
   }
-
-}
 </style>

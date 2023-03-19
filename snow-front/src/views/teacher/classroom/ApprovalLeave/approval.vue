@@ -49,9 +49,9 @@
           <!-- status="warning" 正在审批 -->
           <!-- status="error" 未通过 -->
           <div class="des_bag_div">
-            <a-badge v-if="item.status === 1" status="success" text="通过"/>
-            <a-badge v-if="item.status === 2" status="error" text="未通过"/>
-            <a-badge v-if="item.status === 3" status="default" text="已销假"/>
+            <a-badge v-if="item.status === 1" status="success" text="通过" />
+            <a-badge v-if="item.status === 2" status="error" text="未通过" />
+            <a-badge v-if="item.status === 3" status="default" text="已销假" />
           </div>
           <div class="des_btn_div">
             <a-button type="primary" @click="TeacherApproval(item.id,3)" v-if="item.status !== 3" block>
@@ -65,15 +65,15 @@
 </template>
 
 <script>
-import {TeaCheckLeave, TeacherApproval} from '@/api/classroom'
+import { TeaCheckLeave, TeacherApproval } from '@/api/classroom'
 import moment from 'moment/moment'
 
 export default {
   name: 'Approval',
-  created() {
+  created () {
     this.TeaCheckLeave()
   },
-  data() {
+  data () {
     return {
       stu_leave: [],
       searchTime: ''
@@ -81,14 +81,14 @@ export default {
   },
 
   methods: {
-    TeaCheckLeave() {
+    TeaCheckLeave () {
       const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
       TeaCheckLeave(searchTime).then((res) => {
         this.stu_leave = res.data
         console.log(res.data)
       })
     },
-    TeacherApproval(leaveId, status) {
+    TeacherApproval (leaveId, status) {
       TeacherApproval(leaveId, status).then(() => {
         this.$message.success('操作成功')
       })
@@ -104,25 +104,21 @@ export default {
   margin-left: 10%;
   width: 200px;
 }
-
-.note_div {
+.note_div{
   width: 80%;
   background: white;
   margin: 0 auto;
 }
-
-.note_descriptions {
+.note_descriptions{
   margin-bottom: 50px;
   background: #E0FFFF;
   padding-right: -50px;
 }
-
-.des_btn_div {
+.des_btn_div{
   width: 80px;
   display: inline-block;
 }
-
-.des_bag_div {
+.des_bag_div{
   width: 80px;
   display: inline-block;
 }

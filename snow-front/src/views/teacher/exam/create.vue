@@ -2,7 +2,7 @@
   <div>
     <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
       <a-form-model-item label="考试名">
-        <a-input v-model="form.name"/>
+        <a-input v-model="form.name" />
       </a-form-model-item>
       <a-form-model-item label="考试类型">
         <a-select v-model="form.type" placeholder="请选择考试类型">
@@ -31,21 +31,23 @@
 <script>
 export default {
   name: 'Create',
-  data() {
-    return {}
+  data () {
+    return {
+
+    }
   },
-  methods: {
-    onDatePickerChange(value, dateString) {
+methods: {
+  onDatePickerChange (value, dateString) {
 
-    },
-    onDatePickerOk(value) {
+  },
+onDatePickerOk (value) {
 
-    },
-    onSubmit() {
+  },
+onSubmit () {
       console.log('submit!', this.form)
     }
   },
-  created() {
+  created () {
     const id = this.$route.query['id'] || null
     this.courseId = id
   }

@@ -5,8 +5,7 @@ Table 重封装组件说明
 封装说明
 ----
 
-> 基础的使用方式与 API 与 [官方版(Table)](https://vuecomponent.github.io/ant-design-vue/components/table-cn/)
-> 本一致，在其基础上，封装了加载数据的方法。
+>  基础的使用方式与 API 与 [官方版(Table)](https://vuecomponent.github.io/ant-design-vue/components/table-cn/) 本一致，在其基础上，封装了加载数据的方法。
 >
 > 你无需在你是用表格的页面进行分页逻辑处理，仅需向 Table 组件传递绑定 `:data="Promise"` 对象即可
 
@@ -91,6 +90,8 @@ Table 重封装组件说明
 </script>
 
 ```
+
+
 
 例子2
 ----
@@ -191,6 +192,8 @@ Table 重封装组件说明
 </script>
 ```
 
+
+
 内置方法
 ----
 
@@ -200,19 +203,20 @@ Table 重封装组件说明
 
 > 注意：要调用 `refresh(bool)` 需要给表格组件设定 `ref` 值
 >
-> `refresh()` 方法可以传一个 `bool` 值，当有传值 或值为 `true` 时，则刷新时会强制刷新到第一页（常用户页面 搜索
-> 按钮进行搜索时，结果从第一页开始分页）
+> `refresh()` 方法可以传一个 `bool` 值，当有传值 或值为 `true` 时，则刷新时会强制刷新到第一页（常用户页面 搜索 按钮进行搜索时，结果从第一页开始分页）
 
 
 内置属性
 ----
-> 除去 `a-table` 自带属性外，还而外提供了一些额外属性属性
+> 除去 `a-table` 自带属性外，还而外提供了一些额外属性属性  
 
-| 属性             | 说明                               | 类型                | 默认值               |
-|----------------|----------------------------------|-------------------|-------------------|
-| alert          | 设置是否显示表格信息栏                      | [object, boolean] | null              |
-| showPagination | 显示分页选择器，可传 'auto' \              | boolean           | [string, boolean] | 'auto' |
-| data           | 加载数据方法 必须为 `Promise` 对象 **必须绑定** | Promise           | -                 |
+
+| 属性           | 说明                                            | 类型              | 默认值 |
+| -------------- | ----------------------------------------------- | ----------------- | ------ |
+| alert          | 设置是否显示表格信息栏                          | [object, boolean] | null   |
+| showPagination | 显示分页选择器，可传 'auto' \| boolean          | [string, boolean] | 'auto' |
+| data           | 加载数据方法 必须为 `Promise` 对象 **必须绑定** | Promise           | -      |
+
 
 `alert` 属性对象：
 
@@ -232,6 +236,8 @@ alert: {
 > 文档中的结构有可能由于组件 bug 进行修正而改动。实际修改请以当时最新版本为准
 
 修改 `@/components/table/index.js`  第 156 行起
+
+
 
 ```javascript
 result.then(r => {
@@ -263,9 +269,7 @@ result.then(r => {
           this.localLoading = false
         })
 ```
-
 返回 JSON 例子：
-
 ```json
 {
   "message": "",
@@ -328,6 +332,8 @@ result.then(r => {
   "timestamp": 1534955098193
 }
 ```
+
+
 
 更新时间
 ----

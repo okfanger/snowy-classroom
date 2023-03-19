@@ -35,21 +35,21 @@
 </template>
 
 <script>
-import {SendMail} from '@/api/innermail'
-import {mapGetters} from 'vuex'
+import { SendMail } from '@/api/innermail'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Send',
-  data() {
+  data () {
     return {
       toUser: '',
       title: '',
       content: '',
-      form: this.$form.createForm(this, {name: 'coordinated'})
+      form: this.$form.createForm(this, { name: 'coordinated' })
     }
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -70,16 +70,15 @@ export default {
 </script>
 
 <style scoped>
-.send-back {
+.send-back{
   width: 70%;
-  min-height: 300px;
-  overflow: auto;
+  min-height:300px;
+  overflow:auto;
   background: white;
   margin: 0 auto;
   padding-top: 20px;
 }
-
-.send_mail_form {
+.send_mail_form{
   margin-left: 80px;
 }
 </style>

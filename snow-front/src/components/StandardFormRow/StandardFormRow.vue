@@ -37,13 +37,13 @@ export default {
     }
   },
   computed: {
-    lastCls() {
+    lastCls () {
       return this.last ? classes[2] : null
     },
-    blockCls() {
+    blockCls () {
       return this.block ? classes[0] : null
     },
-    gridCls() {
+    gridCls () {
       return this.grid ? classes[1] : null
     }
   }
@@ -62,12 +62,10 @@ export default {
   :deep(.ant-form-item ) {
     margin-right: 24px;
   }
-
   :deep(.ant-form-item-label label) {
     margin-right: 0;
     color: @text-color;
   }
-
   :deep(.ant-form-item-label,
   .ant-form-item-control) {
     padding: 0;
@@ -80,12 +78,10 @@ export default {
     color: @heading-color;
     font-size: @font-size-base;
     text-align: right;
-
     & > span {
       display: inline-block;
       height: 32px;
       line-height: 32px;
-
       &::after {
         content: '：';
       }
@@ -94,7 +90,6 @@ export default {
 
   .antd-pro-components-standard-form-row-index-content {
     flex: 1 1 0;
-
     :deep(.ant-form-item:last-child) {
       margin-right: 0;
     }
@@ -114,14 +109,13 @@ export default {
   }
 
   &.antd-pro-components-standard-form-row-index-standardFormRowGrid {
-    :deep(.ant-form-item,
+      :deep(.ant-form-item,
       div.ant-form-item-control-wrapper) {
-      display: block;
-    }
-
-    :deep(.ant-form-item-label) {
-      float: left;
-    }
+        display: block;
+      }
+      :deep(.ant-form-item-label) {
+        float: left;
+      }
   }
 }
 

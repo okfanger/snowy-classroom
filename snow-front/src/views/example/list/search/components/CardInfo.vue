@@ -37,19 +37,16 @@ export default {
 
   margin-top: 16px;
   margin-left: 40px;
-
   & > div {
     position: relative;
     float: left;
     width: 50%;
     text-align: left;
-
     p {
       margin: 0;
       font-size: 24px;
       line-height: 32px;
     }
-
     p:first-child {
       margin-bottom: 4px;
       color: @text-color-secondary;

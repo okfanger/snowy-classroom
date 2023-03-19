@@ -9,7 +9,7 @@
               v-decorator="[
                 'name',
                 {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
@@ -22,14 +22,13 @@
               v-decorator="[
                 'url',
                 {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
           <a-form-item
             label="仓库管理员">
-            <a-select placeholder="请选择管理员"
-                      v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
+            <a-select placeholder="请选择管理员" v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
               <a-select-option value="黄同学">黄同学</a-select-option>
@@ -41,8 +40,7 @@
         <a-col :lg="6" :md="12" :sm="24">
           <a-form-item
             label="审批人">
-            <a-select placeholder="请选择审批员"
-                      v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
+            <a-select placeholder="请选择审批员" v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
@@ -56,7 +54,7 @@
               v-decorator="[
                 'dateRange',
                 {rules: [{ required: true, message: '请选择生效日期'}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
@@ -67,7 +65,7 @@
               v-decorator="[
                 'type',
                 {rules: [{ required: true, message: '请选择仓库类型'}]}
-              ]">
+              ]" >
               <a-select-option value="公开">公开</a-select-option>
               <a-select-option value="私密">私密</a-select-option>
             </a-select>
@@ -75,7 +73,7 @@
         </a-col>
       </a-row>
       <a-form-item v-if="showSubmit">
-        <a-button htmlType="submit">Submit</a-button>
+        <a-button htmlType="submit" >Submit</a-button>
       </a-form-item>
     </a-form>
 
@@ -88,7 +86,7 @@
               v-decorator="[
                 'name',
                 {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
@@ -101,14 +99,13 @@
               v-decorator="[
                 'url',
                 {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
           <a-form-item
             label="仓库管理员">
-            <a-select placeholder="请选择管理员"
-                      v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
+            <a-select placeholder="请选择管理员" v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
               <a-select-option value="黄同学">黄同学</a-select-option>
@@ -120,8 +117,7 @@
         <a-col :lg="6" :md="12" :sm="24">
           <a-form-item
             label="审批人">
-            <a-select placeholder="请选择审批员"
-                      v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
+            <a-select placeholder="请选择审批员" v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
@@ -135,7 +131,7 @@
               v-decorator="[
                 'dateRange',
                 {rules: [{ required: true, message: '请选择生效日期'}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
@@ -146,7 +142,7 @@
               v-decorator="[
                 'type',
                 {rules: [{ required: true, message: '请选择仓库类型'}]}
-              ]">
+              ]" >
               <a-select-option value="公开">公开</a-select-option>
               <a-select-option value="私密">私密</a-select-option>
             </a-select>
@@ -154,7 +150,7 @@
         </a-col>
       </a-row>
       <a-form-item v-if="showSubmit">
-        <a-button htmlType="submit">Submit</a-button>
+        <a-button htmlType="submit" >Submit</a-button>
       </a-form-item>
     </a-form>
 
@@ -167,7 +163,7 @@
               v-decorator="[
                 'name',
                 {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
@@ -180,14 +176,13 @@
               v-decorator="[
                 'url',
                 {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
           <a-form-item
             label="仓库管理员">
-            <a-select placeholder="请选择管理员"
-                      v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
+            <a-select placeholder="请选择管理员" v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
               <a-select-option value="黄同学">黄同学</a-select-option>
@@ -199,8 +194,7 @@
         <a-col :lg="6" :md="12" :sm="24">
           <a-form-item
             label="审批人">
-            <a-select placeholder="请选择审批员"
-                      v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
+            <a-select placeholder="请选择审批员" v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
@@ -214,7 +208,7 @@
               v-decorator="[
                 'dateRange',
                 {rules: [{ required: true, message: '请选择生效日期'}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
@@ -225,7 +219,7 @@
               v-decorator="[
                 'type',
                 {rules: [{ required: true, message: '请选择仓库类型'}]}
-              ]">
+              ]" >
               <a-select-option value="公开">公开</a-select-option>
               <a-select-option value="私密">私密</a-select-option>
             </a-select>
@@ -233,7 +227,7 @@
         </a-col>
       </a-row>
       <a-form-item v-if="showSubmit">
-        <a-button htmlType="submit">Submit</a-button>
+        <a-button htmlType="submit" >Submit</a-button>
       </a-form-item>
     </a-form>
 
@@ -246,7 +240,7 @@
               v-decorator="[
                 'name',
                 {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
@@ -259,14 +253,13 @@
               v-decorator="[
                 'url',
                 {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
           <a-form-item
             label="仓库管理员">
-            <a-select placeholder="请选择管理员"
-                      v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
+            <a-select placeholder="请选择管理员" v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
               <a-select-option value="黄同学">黄同学</a-select-option>
@@ -278,8 +271,7 @@
         <a-col :lg="6" :md="12" :sm="24">
           <a-form-item
             label="审批人">
-            <a-select placeholder="请选择审批员"
-                      v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
+            <a-select placeholder="请选择审批员" v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
@@ -293,7 +285,7 @@
               v-decorator="[
                 'dateRange',
                 {rules: [{ required: true, message: '请选择生效日期'}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
@@ -304,7 +296,7 @@
               v-decorator="[
                 'type',
                 {rules: [{ required: true, message: '请选择仓库类型'}]}
-              ]">
+              ]" >
               <a-select-option value="公开">公开</a-select-option>
               <a-select-option value="私密">私密</a-select-option>
             </a-select>
@@ -312,7 +304,7 @@
         </a-col>
       </a-row>
       <a-form-item v-if="showSubmit">
-        <a-button htmlType="submit">Submit</a-button>
+        <a-button htmlType="submit" >Submit</a-button>
       </a-form-item>
     </a-form>
 
@@ -325,7 +317,7 @@
               v-decorator="[
                 'name',
                 {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
@@ -338,14 +330,13 @@
               v-decorator="[
                 'url',
                 {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
           <a-form-item
             label="仓库管理员">
-            <a-select placeholder="请选择管理员"
-                      v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
+            <a-select placeholder="请选择管理员" v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]">
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
               <a-select-option value="黄同学">黄同学</a-select-option>
@@ -357,8 +348,7 @@
         <a-col :lg="6" :md="12" :sm="24">
           <a-form-item
             label="审批人">
-            <a-select placeholder="请选择审批员"
-                      v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
+            <a-select placeholder="请选择审批员" v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]">
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
@@ -372,7 +362,7 @@
               v-decorator="[
                 'dateRange',
                 {rules: [{ required: true, message: '请选择生效日期'}]}
-              ]"/>
+              ]" />
           </a-form-item>
         </a-col>
         <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
@@ -383,7 +373,7 @@
               v-decorator="[
                 'type',
                 {rules: [{ required: true, message: '请选择仓库类型'}]}
-              ]">
+              ]" >
               <a-select-option value="公开">公开</a-select-option>
               <a-select-option value="私密">私密</a-select-option>
             </a-select>
@@ -391,11 +381,11 @@
         </a-col>
       </a-row>
       <a-form-item v-if="showSubmit">
-        <a-button htmlType="submit">Submit</a-button>
+        <a-button htmlType="submit" >Submit</a-button>
       </a-form-item>
     </a-form>
 
-    <a-divider/>
+    <a-divider />
 
     <a-table
       :columns="columns"
@@ -418,29 +408,27 @@
         <template v-if="record.editable">
           <span v-if="record.isNew">
             <a @click="saveRow(record)">添加</a>
-            <a-divider type="vertical"/>
+            <a-divider type="vertical" />
             <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
               <a>删除</a>
             </a-popconfirm>
           </span>
           <span v-else>
             <a @click="saveRow(record)">保存</a>
-            <a-divider type="vertical"/>
+            <a-divider type="vertical" />
             <a @click="cancel(record.key)">取消</a>
           </span>
         </template>
         <span v-else>
           <a @click="toggle(record.key)">编辑</a>
-          <a-divider type="vertical"/>
+          <a-divider type="vertical" />
           <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
             <a>删除</a>
           </a-popconfirm>
         </span>
       </template>
     </a-table>
-    <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">
-      新增成员
-    </a-button>
+    <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">新增成员</a-button>
 
   </a-card>
 </template>
@@ -452,32 +440,32 @@ const columns = [
     dataIndex: 'name',
     key: 'name',
     width: '20%',
-    scopedSlots: {customRender: 'name'}
+    scopedSlots: { customRender: 'name' }
   },
   {
     title: '工号',
     dataIndex: 'workId',
     key: 'workId',
     width: '20%',
-    scopedSlots: {customRender: 'workId'}
+    scopedSlots: { customRender: 'workId' }
   },
   {
     title: '所属部门',
     dataIndex: 'department',
     key: 'department',
     width: '40%',
-    scopedSlots: {customRender: 'department'}
+    scopedSlots: { customRender: 'department' }
   },
   {
     title: '操作',
     key: 'action',
-    scopedSlots: {customRender: 'operation'}
+    scopedSlots: { customRender: 'operation' }
   }
 ]
 
 export default {
   name: 'BigForm',
-  data() {
+  data () {
     return {
       showSubmit: true,
       form1: this.$form.createForm(this),
@@ -510,43 +498,43 @@ export default {
         }]
     }
   },
-  mounted() {
+  mounted () {
     // 加 10 个表单行
     new Array(10).fill(0).forEach(() => {
       this.newMember()
     })
   },
   methods: {
-    handleForm1Submit(e) {
+    handleForm1Submit (e) {
       e.preventDefault()
       this.form1.validateFields()
     },
-    handleForm2Submit(e) {
+    handleForm2Submit (e) {
       e.preventDefault()
       this.form2.validateFields()
     },
 
-    handleChange(value, key, column) {
+    handleChange (value, key, column) {
       const target = this.data.find(item => key === item.key)
       if (target) {
         target[column] = value
       }
     },
 
-    toggle(record) {
+    toggle (record) {
 
     },
-    saveRow(record) {
+    saveRow (record) {
 
     },
-    cancel(key) {
+    cancel (key) {
 
     },
-    remove(key) {
+    remove (key) {
       this.data = this.data.filter(item => item.key !== key)
     },
 
-    newMember() {
+    newMember () {
       const length = this.data.length
       this.data.push({
         key: length === 0 ? '1' : (parseInt(this.data[length - 1].key) + 1).toString(),

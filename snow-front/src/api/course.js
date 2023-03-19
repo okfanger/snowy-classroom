@@ -22,7 +22,8 @@ export const getTeacherAll = () => {
   return request({
     url: '/course/all/',
     method: 'GET',
-    params: {}
+    params: {
+    }
   })
 }
 

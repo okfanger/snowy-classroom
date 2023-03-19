@@ -7,8 +7,7 @@
     </a-space>
     <div style="height: 15px"></div>
     <div style="background: white">
-      <a-table :loading="tableLoading" :columns="columns" :data-source="dataSource"
-               @expandedRowsChange="expandedRowsChange">
+      <a-table :loading="tableLoading" :columns="columns" :data-source="dataSource" @expandedRowsChange="expandedRowsChange">
         <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
           <!--        {{ record }}-->
           <a-list item-layout="horizontal" :data-source="record.options">
@@ -16,9 +15,9 @@
               <span slot="actions">
                 <!--                <a-button size="small" ghost type="primary" >编辑</a-button>-->
                 <a-space>
-                  <a-switch :checked="item.right" @change="handleChangeOptionRight(item.id, item.right)">
-                    <a-icon slot="checkedChildren" type="check"/>
-                    <a-icon slot="unCheckedChildren" type="close"/>
+                  <a-switch :checked="item.right" @change="handleChangeOptionRight(item.id, item.right)" >
+                    <a-icon slot="checkedChildren" type="check" />
+                    <a-icon slot="unCheckedChildren" type="close" />
                   </a-switch>
                   <a-popconfirm
                     title="确定删除吗？"
@@ -34,12 +33,12 @@
               <a-list-item-meta
               >
                 <template slot="description">
-                  <a-input @change="handleChangeOptionContent(item)" v-model="item.content"/>
+                  <a-input @change="handleChangeOptionContent(item)" v-model="item.content" />
                 </template>
               </a-list-item-meta>
             </a-list-item>
           </a-list>
-          <!--        <div :key="r.id" v-for="r in record.options">{{ r.content }}</div>-->
+        <!--        <div :key="r.id" v-for="r in record.options">{{ r.content }}</div>-->
         </div>
 
         <template slot="action" slot-scope="record">
@@ -76,7 +75,7 @@
         :rules="rules"
       >
         <a-form-model-item label="问题内容" prop="title">
-          <a-input v-model="form.title"/>
+          <a-input v-model="form.title" />
         </a-form-model-item>
         <a-form-model-item label="问题类型" prop="type">
           <a-select v-model="form.type" placeholder="请选择题目">
@@ -117,7 +116,7 @@ import {
 
 export default {
   name: 'ExamEdit',
-  data() {
+data () {
     return {
       studentResult: [],
       studentResultColumns: [
@@ -134,7 +133,7 @@ export default {
           title: '操作',
           dataIndex: 'id',
           key: 'action',
-          scopedSlots: {customRender: 'action'}
+          scopedSlots: { customRender: 'action' }
 
         }
       ],
@@ -143,13 +142,13 @@ export default {
       inputSwitch: {},
       expendedKeys: [],
       modelTitle: '问题',
-      labelCol: {span: 4},
-      wrapperCol: {span: 14},
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
       form: {
         title: '',
         type: ''
       },
-      rules: {
+rules: {
         title: [
           {
             required: true,
@@ -171,164 +170,164 @@ export default {
       dataSource: []
     }
   },
-  methods: {
-    handleChangeOptionRight(id, right) {
-      changeOptionRight(id, right).then(res => {
-        this.$message.success('修改成功')
-      })
-    },
-    handleReviewStudentAnswer(id) {
-      const routeUrl = this.$router.resolve({
+methods: {
+  handleChangeOptionRight (id, right) {
+    changeOptionRight(id, right).then(res => {
+      this.$message.success('修改成功')
+    })
+  },
+  handleReviewStudentAnswer (id) {
+    const routeUrl = this.$router.resolve({
         path: '/exam/preview',
         query: {
           examId: this.$route.query.id,
           id: id
         }
-      })
-      window.open(routeUrl.href, '_blank')
-      // this.$router.push({x
-      //   path: '/exam/preview',
-      //   query: {
-      //     examId: this.$route.query.id,
-      //     id: id
-      //   }
-      // })
-    },
-    handleChangeOptionContent(item) {
-      item['updateFlag'] = true
-    },
-    handleCheckStudentResult() {
-      this.checkResultVisible = true
-      getStudentResultByExamId(this.$route.query.id).then(res => {
-        console.log('check', res.data)
-        this.studentResult = res.data
-      })
-    },
-    handleSavePaper() {
-      // eslint-disable-next-line promise/param-names
-      new Promise((res, rej) => {
-        const uploadList = []
-        for (const item of this.dataSource) {
-          for (const item2 of item.options) {
-            if (item2['content'] === '') continue
-            if (item2['updateFlag'] === true) {
-              uploadList.push(item2)
-            }
+    })
+    window.open(routeUrl.href, '_blank')
+    // this.$router.push({x
+    //   path: '/exam/preview',
+    //   query: {
+    //     examId: this.$route.query.id,
+    //     id: id
+    //   }
+    // })
+  },
+  handleChangeOptionContent (item) {
+    item['updateFlag'] = true
+  },
+  handleCheckStudentResult () {
+    this.checkResultVisible = true
+    getStudentResultByExamId(this.$route.query.id).then(res => {
+      console.log('check', res.data)
+      this.studentResult = res.data
+    })
+  },
+  handleSavePaper () {
+    // eslint-disable-next-line promise/param-names
+    new Promise((res, rej) => {
+      const uploadList = []
+      for (const item of this.dataSource) {
+        for (const item2 of item.options) {
+          if (item2['content'] === '') continue
+          if (item2['updateFlag'] === true) {
+            uploadList.push(item2)
           }
         }
-        res(uploadList)
-      }).then((res) => {
-        saveExamsOptions(this.$route.query['id'], res).then((res2) => {
-          this.$message.success('保存成功')
-        })
-      })
-    },
-    handleEditOption(id) {
-      this.inputSwitch[id] = true
-    },
-    expandedRowsChange(expandedRowKeys) {
-      this.expendedKeys = expandedRowKeys
-    },
-    handleAddOption(record) {
-      const option = {
-        id: null,
-        updateFlag: true,
-        content: '',
-        questionId: record.id,
-        right: false
       }
-      record.options.push(option)
-    },
-    handleNewQuestion() {
-      this.modelTitle = '创建问题'
-      this.createExamVisible = true
-    },
-    handleCreateExamOk() {
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          this.createExamConfirmLoading = true
-          questionSaveOrUpdate(
-            {...this.form, examId: this.$route.query['id']}
-          ).then((res) => {
-            if (res.data === 'success') {
-              this.$message.success('创建成功')
-            }
-            this.createExamVisible = false
-            this.createExamConfirmLoading = false
-          }).finally(() => {
-            this.fetchData()
-          })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+      res(uploadList)
+    }).then((res) => {
+      saveExamsOptions(this.$route.query['id'], res).then((res2) => {
+        this.$message.success('保存成功')
       })
-    },
-    handleCreateExamCancel() {
-      this.createExamVisible = false
-      this.checkResultVisible = false
-      this.resetForm()
-    },
-    resetForm() {
-      this.$refs.ruleForm.resetFields()
-    },
-    removeQuestionOption(record, optionId) {
-      const after = record.options.filter(item => item.id !== optionId)
-      record.options = after
-      if (optionId) {
-        QuestionOptionRemove(optionId).then(res => {
-          this.$message.success('删除成功')
+    })
+  },
+  handleEditOption (id) {
+    this.inputSwitch[id] = true
+  },
+  expandedRowsChange (expandedRowKeys) {
+    this.expendedKeys = expandedRowKeys
+  },
+  handleAddOption (record) {
+    const option = {
+      id: null,
+      updateFlag: true,
+      content: '',
+      questionId: record.id,
+      right: false
+    }
+    record.options.push(option)
+  },
+  handleNewQuestion () {
+    this.modelTitle = '创建问题'
+    this.createExamVisible = true
+  },
+  handleCreateExamOk () {
+    this.$refs.ruleForm.validate(valid => {
+      if (valid) {
+        this.createExamConfirmLoading = true
+        questionSaveOrUpdate(
+          { ...this.form, examId: this.$route.query['id'] }
+        ).then((res) => {
+          if (res.data === 'success') {
+            this.$message.success('创建成功')
+          }
+          this.createExamVisible = false
+          this.createExamConfirmLoading = false
+        }).finally(() => {
+          this.fetchData()
         })
+      } else {
+        console.log('error submit!!')
+        return false
       }
-    },
-    removeQuestion(questionId) {
-      QuestionRemove(questionId).then(res => {
+    })
+  },
+handleCreateExamCancel () {
+    this.createExamVisible = false
+    this.checkResultVisible = false
+    this.resetForm()
+  },
+resetForm () {
+    this.$refs.ruleForm.resetFields()
+  },
+  removeQuestionOption (record, optionId) {
+    const after = record.options.filter(item => item.id !== optionId)
+    record.options = after
+    if (optionId) {
+      QuestionOptionRemove(optionId).then(res => {
         this.$message.success('删除成功')
-      }).finally(() => {
-        const after = this.dataSource.filter((item) => item.id !== questionId)
-        this.dataSource = after
-        // this.fetchData()
-      })
-    },
-    fetchData() {
-      this.tableLoading = true
-      getExamDetailById(this.$route.query['id']).then((res) => {
-        console.log(res.data)
-        this.exam = res.data
-        for (const item of res.data.question_set) {
-          for (const item2 of item.options) {
-            item2['updateFlag'] = false
-          }
-        }
-        // console.log('de', res.data.question_set)
-        this.dataSource = res.data.question_set
-      }).finally(() => {
-        this.tableLoading = false
       })
     }
   },
-  created() {
+  removeQuestion (questionId) {
+    QuestionRemove(questionId).then(res => {
+      this.$message.success('删除成功')
+    }).finally(() => {
+      const after = this.dataSource.filter((item) => item.id !== questionId)
+      this.dataSource = after
+      // this.fetchData()
+    })
+  },
+fetchData () {
+    this.tableLoading = true
+  getExamDetailById(this.$route.query['id']).then((res) => {
+    console.log(res.data)
+    this.exam = res.data
+    for (const item of res.data.question_set) {
+      for (const item2 of item.options) {
+        item2['updateFlag'] = false
+      }
+    }
+    // console.log('de', res.data.question_set)
+    this.dataSource = res.data.question_set
+  }).finally(() => {
+    this.tableLoading = false
+  })
+  }
+  },
+created () {
     this.fetchData()
     this.columns = [
       {
         title: '题目名',
         dataIndex: 'title',
         key: 'title',
-        slots: {customRender: 'title'},
-        scopedSlots: {customRender: 'title'}
+        slots: { customRender: 'title' },
+        scopedSlots: { customRender: 'title' }
       },
       {
         title: '类型',
         dataIndex: 'type',
         key: 'type',
-        slots: {customRender: 'type'},
-        scopedSlots: {customRender: 'type'}
+        slots: { customRender: 'type' },
+        scopedSlots: { customRender: 'type' }
       },
       {
         title: '操作',
         key: 'action',
-        slots: {customRender: 'action'},
-        scopedSlots: {customRender: 'action'}
+        slots: { customRender: 'action' },
+        scopedSlots: { customRender: 'action' }
       }
 
     ]

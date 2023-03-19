@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import {CheckMonitorStudent} from '@/api/classroom'
+import { CheckMonitorStudent } from '@/api/classroom'
 
 export default {
   name: 'CheckMonitor',
-  data() {
+  data () {
     return {
       monitor: [],
       columns: [
@@ -41,39 +41,39 @@ export default {
           title: '姓名',
           dataIndex: 'name',
           key: 'name',
-          scopedSlots: {customRender: 'name'}
+          scopedSlots: { customRender: 'name' }
         },
         {
           title: '学号',
           dataIndex: 'username',
           key: 'username',
-          scopedSlots: {customRender: 'username'}
+          scopedSlots: { customRender: 'username' }
         },
         {
           title: '邮箱',
           dataIndex: 'email',
           key: 'email',
-          scopedSlots: {customRender: 'email'}
+          scopedSlots: { customRender: 'email' }
         },
         {
           title: '电话',
           dataIndex: 'telephone',
           key: 'telephone',
-          scopedSlots: {customRender: 'telephone'}
+          scopedSlots: { customRender: 'telephone' }
         },
         {
           title: '备注',
           key: 'remake',
-          scopedSlots: {customRender: 'remake'}
+          scopedSlots: { customRender: 'remake' }
         }
       ]
     }
   },
-  created() {
+  created () {
     this.CheckMonitorStudent()
   },
   methods: {
-    CheckMonitorStudent() {
+    CheckMonitorStudent () {
       CheckMonitorStudent().then((res) => {
         this.monitor = res.data
       })
@@ -83,9 +83,9 @@ export default {
 </script>
 
 <style scoped>
-.monitor_back {
+.monitor_back{
   width: 90%;
-  margin: 0 auto;
+  margin:0 auto;
   background: #76EEC6;
 }
 </style>

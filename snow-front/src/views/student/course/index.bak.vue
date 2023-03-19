@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-input-search placeholder="input search text" style="width: 200px" @search="onSearch"/>
+    <a-input-search placeholder="input search text" style="width: 200px" @search="onSearch" />
 
     <a-table :columns="columns" :data-source="courseList" :pagination="paginationOpt">
 
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import {courseGet} from '@/api/test-back'
+import { courseGet } from '@/api/test-back'
 
 export default {
   name: 'StudentCourseIndex',
-  data() {
+  data () {
     return {
       keyword: '',
       // 分页
@@ -51,24 +51,24 @@ export default {
           title: 'ID',
           dataIndex: 'id',
           key: 'id',
-          scopedSlots: {customRender: 'id'}
+          scopedSlots: { customRender: 'id' }
         },
         {
           title: '姓名',
           dataIndex: 'name',
           key: 'name',
-          scopedSlots: {customRender: 'name'}
+          scopedSlots: { customRender: 'name' }
         },
         {
           title: '开启日期',
           dataIndex: 'open_time',
           key: 'open_time',
-          scopedSlots: {customRender: 'open_time'}
+          scopedSlots: { customRender: 'open_time' }
         }, {
           title: '是否完成',
           dataIndex: 'completed',
           key: 'completed',
-          scopedSlots: {customRender: 'completed'}
+          scopedSlots: { customRender: 'completed' }
         }
       ],
       courseList: [{
@@ -79,7 +79,7 @@ export default {
     }
   },
   methods: {
-    fetchData(keyword = '') {
+    fetchData (keyword = '') {
       courseGet({
         page: this.paginationOpt.defaultCurrent,
         page_size: this.paginationOpt.defaultPageSize,
@@ -89,11 +89,11 @@ export default {
         this.paginationOpt.total = res.count
       })
     },
-    onSearch(keyword) {
+    onSearch (keyword) {
       this.fetchData(keyword)
     }
   },
-  created() {
+  created () {
     this.fetchData()
   }
 }

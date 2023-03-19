@@ -3,7 +3,7 @@
     <div>
       <a-space>
 
-        <a-button @click="handleCreateExamWindow">
+        <a-button @click="handleCreateExamWindow" >
           创建考试
         </a-button>
 
@@ -12,12 +12,8 @@
     <div style="height: 10px"></div>
     <a-table size="middle" :columns="columns" :data-source="examList" :pagination="pagination">
       <template slot="type" slot-scope="type">
-        <a-tag :color="type === '线上'?'green':'orange'">{{ type }}</a-tag>
-      </template>
-      <template slot="start_time" slot-scope="start_time">{{
-          moment(start_time).format('YYYY-MM-DD HH:mm:ss')
-        }}
-      </template>
+        <a-tag :color="type === '线上'?'green':'orange'">{{ type }}</a-tag></template>
+      <template slot="start_time" slot-scope="start_time">{{ moment(start_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
       <template slot="end_time" slot-scope="end_time">{{ moment(end_time).format('YYYY-MM-DD HH:mm:ss') }}</template>
       <template slot="state" slot-scope="state">
 
@@ -54,7 +50,7 @@
         :rules="rules"
       >
         <a-form-model-item label="考试名" prop="name">
-          <a-input v-model="form.name"/>
+          <a-input v-model="form.name" />
         </a-form-model-item>
         <a-form-model-item label="考试类型" prop="type">
           <a-select v-model="form.type" placeholder="请选择考试类型">
@@ -81,9 +77,9 @@
 </template>
 
 <script>
-import {examRemove, getExamByCourse, teacherCreateExam} from '@/api/exam'
+import { examRemove, getExamByCourse, teacherCreateExam } from '@/api/exam'
 import moment from 'moment'
-import {calcState} from '@/utils/custom'
+import { calcState } from '@/utils/custom'
 
 export default {
   props: {
@@ -92,11 +88,11 @@ export default {
       default: -1
     }
   },
-  data() {
+  data () {
     return {
       modelTitle: '考试',
-      labelCol: {span: 4},
-      wrapperCol: {span: 14},
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
       form: {
         name: '',
         type: '',
@@ -122,38 +118,38 @@ export default {
           title: '考试类型',
           dataIndex: 'type',
           key: 'type',
-          scopedSlots: {customRender: 'type'}
+          scopedSlots: { customRender: 'type' }
         },
         {
           title: '开始时间',
           dataIndex: 'start_time',
           key: 'start_time',
-          scopedSlots: {customRender: 'start_time'}
+          scopedSlots: { customRender: 'start_time' }
         }, {
           title: '结束时间',
           dataIndex: 'end_time',
           key: 'end_time',
-          scopedSlots: {customRender: 'end_time'}
+          scopedSlots: { customRender: 'end_time' }
         },
         {
           title: '状态',
           key: 'state',
-          scopedSlots: {customRender: 'state'}
+          scopedSlots: { customRender: 'state' }
         },
         {
           title: '操作',
           dataIndex: 'id',
           key: 'action',
           fixed: 'right',
-          scopedSlots: {customRender: 'action'}
+          scopedSlots: { customRender: 'action' }
         }
-      ],
+        ],
       rules: {
         name: [
-          {required: true, message: '考试名不能为空', trigger: 'blur'}
+          { required: true, message: '考试名不能为空', trigger: 'blur' }
         ],
         date: [
-          {required: true, message: '请选择起止时间', trigger: 'change'}
+          { required: true, message: '请选择起止时间', trigger: 'change' }
         ],
         type: [
           {
@@ -162,38 +158,38 @@ export default {
             trigger: 'change'
           }
         ]
-      }
+             }
     }
   },
-  created() {
+created () {
     this.fetchData()
   },
   methods: {
-    removeExam(id) {
+    removeExam (id) {
       examRemove(id).then(res => {
         this.$message.success('删除成功')
         this.fetchData()
       })
     },
-    editExam(id) {
-      this.form = {...this.examList.filter(item => item.id === id)[0]}
+    editExam (id) {
+      this.form = { ...this.examList.filter(item => item.id === id)[0] }
       this.form['date'] = [this.form.start_time, this.form.end_time]
       this.form['id'] = id
       this.modelTitle = '修改考试'
       this.createExamVisible = true
     },
-    resetForm() {
+    resetForm () {
       this.$refs.ruleForm.resetFields()
     },
 
-    onSubmit() {
+    onSubmit () {
     },
-    handleCreateExamOk() {
+    handleCreateExamOk () {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.createExamConfirmLoading = true
           teacherCreateExam(
-            {...this.form, course_id: this.$route.query['id']}
+            { ...this.form, course_id: this.$route.query['id'] }
           ).then((res) => {
             if (res.data === 'success') {
               this.$message.success('创建成功')
@@ -209,11 +205,11 @@ export default {
         }
       })
     },
-    handleCreateExamCancel() {
-      this.createExamVisible = false
-      this.resetForm()
+handleCreateExamCancel () {
+    this.createExamVisible = false
+    this.resetForm()
     },
-    handleCreateExamWindow() {
+    handleCreateExamWindow () {
       this.createExamVisible = true
       this.resetForm()
       this.modelTitle = '创建考试'
@@ -225,27 +221,27 @@ export default {
       // })
     },
     calcState,
-    checkQualification() {
+    checkQualification () {
 
     },
     // eslint-disable-next-line camelcase
-    fetchData() {
+    fetchData () {
       getExamByCourse(this.courseId).then((res) => {
         this.examList = res.data
         console.log(res)
       })
     },
-    handleSearch(selectedKeys, confirm, dataIndex) {
+    handleSearch (selectedKeys, confirm, dataIndex) {
       confirm()
       this.searchText = selectedKeys[0]
       this.searchedColumn = dataIndex
     },
 
-    handleReset(clearFilters) {
+    handleReset (clearFilters) {
       clearFilters()
       this.searchText = ''
     },
-    entryExam(id) {
+    entryExam (id) {
       this.$router.push({
         path: '/exam/edit',
         query: {

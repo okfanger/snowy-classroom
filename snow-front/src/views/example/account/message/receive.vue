@@ -5,7 +5,7 @@
       placeholder="请输入要搜索的邮件"
       enter-button
       v-model="searchMsg"
-      @search="ReceiveMail"/>
+      @search="ReceiveMail" />
     <a-date-picker
       @change="ReceiveMail"
       class="note_search"
@@ -31,7 +31,7 @@
               </a>
             </a-list-item-meta>
           </div>
-          <a-divider type="vertical" style="height: 40px"/>
+          <a-divider type="vertical" style="height: 40px" />
           <div style="margin-right: 25px">
             <span class="is_read_span" v-if="item.is_read === true">
               <img class="is_read_img" src="../../../../assets/innerMail/yes.png">
@@ -49,15 +49,15 @@
 </template>
 
 <script>
-import {mailNotice, ReceiveMail} from '@/api/innermail'
+import { mailNotice, ReceiveMail } from '@/api/innermail'
 import moment from 'moment'
 
 export default {
   name: 'Receive',
-  created() {
+  created () {
     this.ReceiveMail()
   },
-  data() {
+  data () {
     return {
       mail: [],
       searchMsg: '',
@@ -66,7 +66,7 @@ export default {
   },
 
   methods: {
-    noticeActive(mailId, isRead, thisMail) {
+    noticeActive (mailId, isRead, thisMail) {
       console.log(mailId)
       if (isRead === false) {
         mailNotice(mailId)
@@ -79,12 +79,12 @@ export default {
         }
       })
     },
-    ReceiveMail() {
+    ReceiveMail () {
       const searchMsg = this.searchMsg
       const searchTime = moment(this.searchTime).format('YYYY-MM-DD')
       ReceiveMail(searchMsg, searchTime).then((res) => {
-        this.mail = res.data
-        console.log(this.mail)
+          this.mail = res.data
+          console.log(this.mail)
       })
     }
   }
@@ -97,7 +97,6 @@ export default {
   margin-left: 10%;
   width: 300px;
 }
-
 .mail_back {
   width: 80%;
   margin: 0 auto;

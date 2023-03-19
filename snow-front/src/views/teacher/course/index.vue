@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <a-input-search placeholder="搜索课程" style="width: 200px" v-model="keyword"/>
+    <a-input-search placeholder="搜索课程" style="width: 200px" v-model="keyword" />
     <div style="height: 10px"></div>
     <div class="card-gird">
       <template
@@ -20,8 +20,8 @@
             </template>
 
             <template #description>
-              <span class="card-desc">{{ item.teacher_set.map(_ => _.user.name).join() }}
-                <br/> {{ moment(item.open_time).format("yyyy-MM-DD") }} 开课
+              <span class="card-desc">{{ item.teacher_set.map(_=>_.user.name).join() }}
+                <br /> {{ moment(item.open_time).format("yyyy-MM-DD") }} 开课
               </span>
 
             </template>
@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import {getTeacherAll} from '@/api/course'
+import { getTeacherAll } from '@/api/course'
 import moment from 'moment'
-import {style2mask} from '@/utils/custom'
+import { style2mask } from '@/utils/custom'
 
 export default {
   name: 'TeacherCourseIndex',
-  data() {
+  data () {
     return {
       courseListBak: [],
       keyword: '',
@@ -57,12 +57,12 @@ export default {
     }
   },
   computed: {
-    courseList() {
+    courseList () {
       return this.courseListBak.filter((item) => item.name.includes(this.keyword))
     }
   },
   methods: {
-    handleTargetTo(id) {
+    handleTargetTo (id) {
       this.$router.push({
         path: '/course/detail',
         query: {
@@ -70,13 +70,13 @@ export default {
         }
       })
     },
-    fetchData() {
+    fetchData () {
       getTeacherAll().then((res) => {
         this.courseListBak = res.data.result
       })
     }
   },
-  created() {
+  created () {
     this.fetchData()
   }
 }
@@ -85,9 +85,9 @@ export default {
 <style scoped lang="less">
 @import "@/assets/yuketang.css";
 
-@media screen and (max-width: 960px) {
-  .card {
-    user-select: none;
+@media screen and (max-width:960px) {
+  .card{
+    user-select:none;
     margin-top: 10px;
     margin-right: 10px;
     /*width:100%;*/
@@ -106,7 +106,6 @@ export default {
     //z-index: 12;
   }
 }
-
 @media screen and (min-width: 960px) {
   .card {
     user-select: none;
@@ -128,14 +127,12 @@ export default {
     z-index: 12;
   }
 }
-
 .card-gird {
   display: flex;
   align-content: flex-start;
   justify-content: left;
   flex-flow: row wrap;
 }
-
 .card-mask {
   position: absolute;
   top: 0;

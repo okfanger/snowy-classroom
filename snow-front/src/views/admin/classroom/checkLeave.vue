@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="leaveList.length === 0">
-      <a-empty/>
+      <a-empty />
     </div>
     <div class="note_div" v-else>
       <a-descriptions class="note_descriptions" bordered v-for="(item,id) in this.leaveList" :key="id">
@@ -29,10 +29,10 @@
         <a-descriptions-item label="审批状态">
           <!-- status="success" 审批通过 -->
           <!-- status="warning" 正在审批 -->
-          <a-badge v-if="item.status === 0" status="warning" text="正在审批"/>
-          <a-badge v-if="item.status === 1" status="success" text="通过"/>
-          <a-badge v-if="item.status === 2" status="error" text="未通过"/>
-          <a-badge v-if="item.status === 3" status="default" text="已销假"/>
+          <a-badge v-if="item.status === 0" status="warning" text="正在审批" />
+          <a-badge v-if="item.status === 1" status="success" text="通过" />
+          <a-badge v-if="item.status === 2" status="error" text="未通过" />
+          <a-badge v-if="item.status === 3" status="default" text="已销假" />
         </a-descriptions-item>
       </a-descriptions>
     </div>
@@ -40,21 +40,21 @@
 </template>
 
 <script>
-import {CheckLeaveAdmin} from '@/api/classroom'
+import { CheckLeaveAdmin } from '@/api/classroom'
 
 export default {
   name: 'CheckLeave',
-  data() {
+  data () {
     return {
       leaveList: [],
       searchTime: ''
     }
   },
-  created() {
+  created () {
     this.CheckLeaveAdmin()
   },
   methods: {
-    CheckLeaveAdmin() {
+    CheckLeaveAdmin () {
       CheckLeaveAdmin().then((res) => {
         this.leaveList = res.data
         console.log(this.leaveList)

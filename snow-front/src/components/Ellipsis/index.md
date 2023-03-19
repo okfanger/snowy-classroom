@@ -2,6 +2,8 @@
 
 文本过长自动处理省略号，支持按照文本长度和最大行数两种方式截取。
 
+
+
 引用方式：
 
 ```javascript
@@ -14,6 +16,8 @@ export default {
 }
 ```
 
+
+
 ## 代码演示  [demo](https://pro.loacg.com/test/home)
 
 ```html
@@ -23,7 +27,10 @@ export default {
 </ellipsis>
 ```
 
+
+
 ## API
+
 
 参数 | 说明 | 类型 | 默认值
 ----|------|-----|------

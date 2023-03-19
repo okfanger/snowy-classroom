@@ -136,13 +136,13 @@ export const questionOptionSaveOrUpdate = (form) => {
 
 export const saveExamsOptions = (examId, options) => {
   return request({
-    url: '/exam/save-options/',
-    method: 'POST',
-    data: {
-      'examId': examId,
-      'options': options
-    }
-  })
+      url: '/exam/save-options/',
+      method: 'POST',
+      data: {
+        'examId': examId,
+        'options': options
+      }
+    })
 }
 
 export const getStudentResultByExamId = (examId) => {

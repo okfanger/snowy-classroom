@@ -20,13 +20,13 @@
         <a-form-item label="主题">
           <a-input
             v-decorator="['title', { rules: [{ required: true, message: '请输入主题' }] }]"
-            placeholder="请输入主题"/>
+            placeholder="请输入主题" />
         </a-form-item>
         <a-form-item label="内容">
           <a-textarea
             v-decorator="['content', { rules: [{ required: true, message: '请输入内容' }] }]"
             :auto-size="{ minRows: 3, maxRows: 5 }"
-            placeholder="请输入内容"/>
+            placeholder="请输入内容" />
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
           <a-button type="primary" html-type="submit" style="margin-right:40px;">
@@ -39,21 +39,21 @@
 </template>
 
 <script>
-import {CheckCourse, publishNotice} from '@/api/classroom'
+import { CheckCourse, publishNotice } from '@/api/classroom'
 
 export default {
   name: 'Notice',
-  data() {
+  data () {
     return {
       classrooms: [],
-      form: this.$form.createForm(this, {name: 'coordinated'})
+      form: this.$form.createForm(this, { name: 'coordinated' })
     }
   },
-  created() {
+  created () {
     this.CheckCourse()
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -64,7 +64,7 @@ export default {
         }
       })
     },
-    CheckCourse() {
+    CheckCourse () {
       CheckCourse().then((res) => {
         this.classrooms = res.data
         console.log(this.classrooms)

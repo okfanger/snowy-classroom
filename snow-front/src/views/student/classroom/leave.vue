@@ -62,18 +62,18 @@
 </template>
 
 <script>
-import {getAllCourse, StudentLeave} from '@/api/classroom'
+import { getAllCourse, StudentLeave } from '@/api/classroom'
 import moment from 'moment'
 
 export default {
   name: 'Leave',
-  data() {
+  data () {
     return {
       all_course: [],
-      form: this.$form.createForm(this, {name: 'coordinated'})
+      form: this.$form.createForm(this, { name: 'coordinated' })
     }
   },
-  created() {
+  created () {
     if (this.all_course === null || this.all_course.length === 0) {
       this.getAllCourse()
     } else {
@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         values.start_time = values['start_time'].format('YYYY-MM-DD HH:mm')
@@ -99,12 +99,12 @@ export default {
         }
       })
     },
-    getAllCourse() {
+    getAllCourse () {
       getAllCourse().then((res) => {
         this.all_course = res.data
       })
     },
-    disabledDate(current) {
+    disabledDate (current) {
       // 不能选择过去的日期
       return current && current < moment().add(-1, 'd')
     }

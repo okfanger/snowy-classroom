@@ -7,7 +7,7 @@
       :data="data"
       :scale="scale"
       :padding="0">
-      <v-tooltip/>
+      <v-tooltip />
       <v-interval
         :shape="['liquid-fill-gauge']"
         position="transfer*value"

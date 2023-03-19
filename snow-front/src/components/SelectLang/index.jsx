@@ -1,7 +1,7 @@
 import './index.less'
 
-import {Icon, Menu, Dropdown} from 'ant-design-vue'
-import {i18nRender} from '@/locales'
+import { Icon, Menu, Dropdown } from 'ant-design-vue'
+import { i18nRender } from '@/locales'
 import i18nMixin from '@/store/i18n-mixin'
 
 const locales = ['zh-CN', 'en-US']
@@ -24,9 +24,9 @@ const SelectLang = {
   },
   name: 'SelectLang',
   mixins: [i18nMixin],
-  render() {
-    const {prefixCls} = this
-    const changeLang = ({key}) => {
+  render () {
+    const { prefixCls } = this
+    const changeLang = ({ key }) => {
       this.setLang(key)
     }
     const langMenu = (
@@ -44,7 +44,7 @@ const SelectLang = {
     return (
       <Dropdown overlay={langMenu} placement="bottomRight">
         <span class={prefixCls}>
-          <Icon type="global" title={i18nRender('navBar.lang')}/>
+          <Icon type="global" title={i18nRender('navBar.lang')} />
         </span>
       </Dropdown>
     )

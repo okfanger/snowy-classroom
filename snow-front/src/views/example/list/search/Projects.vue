@@ -55,7 +55,7 @@
       <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card class="ant-pro-pages-list-projects-card" hoverable>
-            <img slot="cover" :src="item.cover" :alt="item.title"/>
+            <img slot="cover" :src="item.cover" :alt="item.title" />
             <a-card-meta :title="item.title">
               <template slot="description">
                 <ellipsis :length="50">{{ item.description }}</ellipsis>
@@ -83,8 +83,7 @@
 
 <script>
 import moment from 'moment'
-import {TagSelect, StandardFormRow, Ellipsis, AvatarList} from '@/components'
-
+import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
 const TagSelectOption = TagSelect.Option
 const AvatarListItem = AvatarList.Item
 
@@ -97,7 +96,7 @@ export default {
     TagSelectOption,
     StandardFormRow
   },
-  data() {
+  data () {
     return {
       data: [],
       form: this.$form.createForm(this),
@@ -105,19 +104,19 @@ export default {
     }
   },
   filters: {
-    fromNow(date) {
+    fromNow (date) {
       return moment(date).fromNow()
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    handleChange(value) {
+    handleChange (value) {
       console.log(`selected ${value}`)
     },
-    getList() {
-      this.$http.get('/list/article', {params: {count: 8}}).then(res => {
+    getList () {
+      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false
@@ -135,7 +134,6 @@ export default {
     font-size: 14px;
   }
 }
-
 .ant-pro-pages-list-projects-cardList {
   margin-top: 24px;
 
@@ -158,7 +156,7 @@ export default {
 
     > span {
       flex: 1 1;
-      color: rgba(0, 0, 0, .45);
+      color: rgba(0,0,0,.45);
       font-size: 12px;
     }
 

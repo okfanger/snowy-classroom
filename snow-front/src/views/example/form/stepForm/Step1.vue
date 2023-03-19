@@ -36,30 +36,26 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input
-          v-decorator="['name', { initialValue: 'Alex', rules: [{required: true, message: '收款人名称必须核对'}] }]"/>
+        <a-input v-decorator="['name', { initialValue: 'Alex', rules: [{required: true, message: '收款人名称必须核对'}] }]"/>
       </a-form-item>
       <a-form-item
         label="转账金额"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input prefix="￥"
-                 v-decorator="['momey', { initialValue: '5000', rules: [{required: true, message: '转账金额必须填写'}] }]"/>
+        <a-input prefix="￥" v-decorator="['momey', { initialValue: '5000', rules: [{required: true, message: '转账金额必须填写'}] }]"/>
       </a-form-item>
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
         <a-button type="primary" @click="nextStep">下一步</a-button>
       </a-form-item>
     </a-form>
-    <a-divider/>
+    <a-divider />
     <div class="step-form-style-desc">
       <h3>说明</h3>
       <h4>转账到支付宝账户</h4>
-      <p>
-        如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
+      <p>如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
       <h4>转账到银行卡</h4>
-      <p>
-        如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
+      <p>如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
     </div>
   </div>
 </template>
@@ -67,16 +63,16 @@
 <script>
 export default {
   name: 'Step1',
-  data() {
+  data () {
     return {
-      labelCol: {lg: {span: 5}, sm: {span: 5}},
-      wrapperCol: {lg: {span: 19}, sm: {span: 19}},
+      labelCol: { lg: { span: 5 }, sm: { span: 5 } },
+      wrapperCol: { lg: { span: 19 }, sm: { span: 19 } },
       form: this.$form.createForm(this)
     }
   },
   methods: {
-    nextStep() {
-      const {form: {validateFields}} = this
+    nextStep () {
+      const { form: { validateFields } } = this
       // 先校验，通过表单校验后，才进入下一步
       validateFields((err, values) => {
         if (!err) {
@@ -91,18 +87,18 @@ export default {
 <style lang="less" scoped>
 .step-form-style-desc {
   padding: 0 56px;
-  color: rgba(0, 0, 0, .45);
+  color: rgba(0,0,0,.45);
 
   h3 {
     margin: 0 0 12px;
-    color: rgba(0, 0, 0, .45);
+    color: rgba(0,0,0,.45);
     font-size: 16px;
     line-height: 32px;
   }
 
   h4 {
     margin: 0 0 4px;
-    color: rgba(0, 0, 0, .45);
+    color: rgba(0,0,0,.45);
     font-size: 14px;
     line-height: 22px;
   }

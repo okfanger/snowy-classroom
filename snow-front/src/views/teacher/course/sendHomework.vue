@@ -69,28 +69,26 @@
     </a-modal>
     <div>
       <a-table :columns="columns" :dataSource="dataSource">
-        <template slot="operation" slot-scope="id">
-          <a-button @click="delWork(id)">删除</a-button>
-        </template>
+        <template slot="operation" slot-scope="id"><a-button @click="delWork(id)">删除</a-button></template>
       </a-table>
     </div>
   </div>
 </template>
 
 <script>
-import {releaseHomework} from '@/api/homework'
-import {CheckCourse} from '@/api/classroom'
+import { releaseHomework } from '@/api/homework'
+import { CheckCourse } from '@/api/classroom'
 import moment from 'moment/moment'
 
 export default {
   name: 'SendHomework',
-  data() {
+  data () {
     const data = new Date()
     const year = data.getFullYear()
     const month = data.getMonth() + 1
     const day = data.getDate()
     return {
-      form: this.$form.createForm(this, {name: 'coordinated'}),
+      form: this.$form.createForm(this, { name: 'coordinated' }),
       visible: false,
       confirmLoading: false,
       coursesList: [],
@@ -100,14 +98,14 @@ export default {
           title: '第一次作业',
           endDate: year + '.' + month + '.' + (day + 3),
           startDate: year + '.' + month + '.' + day,
-          operation: {customRender: 'operation'}
+          operation: { customRender: 'operation' }
         },
         {
 
           title: '第二次作业',
           endDate: year + '.' + month + '.' + (day + 4),
           startDate: year + '.' + month + '.' + day,
-          operation: {customRender: 'operation'}
+          operation: { customRender: 'operation' }
         }
       ],
 
@@ -131,16 +129,16 @@ export default {
           title: '操作',
           dataIndex: 'operation',
           key: 'operation',
-          scopedSlots: {customRender: 'operation'}
+          scopedSlots: { customRender: 'operation' }
         }
       ]
     }
   },
-  created() {
+  created () {
     this.CheckCourse()
   },
   methods: {
-    showModal() {
+    showModal () {
       this.visible = true
     },
     // handleOk (e) {
@@ -151,36 +149,36 @@ export default {
     //     this.confirmLoading = false
     //   }, 2000)
     // },
-    handleCancel(e) {
+    handleCancel (e) {
       console.log('Clicked cancel button')
       this.visible = false
     },
-    onChange(date, dateString) {
-      console.log(date, dateString)
-    },
-    handleSubmit(e) {
-      e.preventDefault()
-      this.form.validateFields((err, values) => {
-        values.start_time = values['start_time'].format('YYYY-MM-DD HH:mm')
-        values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
-        if (values.end_time > values.start_time) {
-          if (!err) {
-            releaseHomework(values.course, values.title, values.content, values.start_time, values.end_time).then(() => {
-              this.$message.success('发布成功')
-              this.form.resetFields()
-            })
-          }
-        } else {
-          this.$message.error('结束时间要在开始时间之后')
+  onChange (date, dateString) {
+    console.log(date, dateString)
+  },
+  handleSubmit (e) {
+    e.preventDefault()
+    this.form.validateFields((err, values) => {
+      values.start_time = values['start_time'].format('YYYY-MM-DD HH:mm')
+      values.end_time = values['end_time'].format('YYYY-MM-DD HH:mm')
+      if (values.end_time > values.start_time) {
+        if (!err) {
+          releaseHomework(values.course, values.title, values.content, values.start_time, values.end_time).then(() => {
+            this.$message.success('发布成功')
+            this.form.resetFields()
+          })
         }
-      })
-    },
-    CheckCourse() {
+      } else {
+        this.$message.error('结束时间要在开始时间之后')
+      }
+    })
+  },
+    CheckCourse () {
       CheckCourse().then((res) => {
         this.coursesList = res.data
       })
     },
-    disabledDate(current) {
+    disabledDate (current) {
       // 不能选择过去的日期
       return current && current < moment().add(-1, 'd')
     }

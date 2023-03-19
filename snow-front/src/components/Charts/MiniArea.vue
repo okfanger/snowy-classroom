@@ -2,8 +2,8 @@
   <div class="antv-chart-mini">
     <div class="chart-wrapper" :style="{ height: 46 }">
       <v-chart :force-fit="true" :height="height" :data="data" :padding="[36, 0, 18, 0]">
-        <v-tooltip/>
-        <v-smooth-area position="x*y"/>
+        <v-tooltip />
+        <v-smooth-area position="x*y" />
       </v-chart>
     </div>
   </div>
@@ -11,7 +11,6 @@
 
 <script>
 import moment from 'moment'
-
 const data = []
 const beginDay = new Date().getTime()
 
@@ -41,7 +40,7 @@ const scale = [{
 
 export default {
   name: 'MiniArea',
-  data() {
+  data () {
     return {
       data,
       tooltip,
@@ -53,5 +52,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "chart";
+  @import "chart";
 </style>

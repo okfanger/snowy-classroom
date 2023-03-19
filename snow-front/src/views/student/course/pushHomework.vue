@@ -22,7 +22,7 @@
       </div>
       <div>
         <p>请输入答案：</p>
-        <a-textarea v-model="submitDetail" placeholder="请输入内容" :rows="4"/>
+        <a-textarea v-model="submitDetail" placeholder="请输入内容" :rows="4" />
       </div>
       <div>
         <a-button @click="submitWork(homeworkId, courseId, submitDetail)">提交</a-button>
@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import {checkWork, submitWork} from '@/api/homework'
+import { checkWork, submitWork } from '@/api/homework'
 
 export default {
   name: 'PushHomework',
-  data() {
+  data () {
     return {
       courseId: '',
       homeworkId: '',
@@ -44,19 +44,19 @@ export default {
       homework: []
     }
   },
-  created() {
+  created () {
     this.homeworkId = this.$route.query['homeworkId']
     this.courseId = this.$route.query['courseId']
     console.log()
     this.checkWork(this.homeworkId, this.courseId)
   },
   methods: {
-    checkWork() {
+    checkWork () {
       checkWork(this.courseId, this.homeworkId).then((res) => {
         this.homework = res.data[0]
       })
     },
-    submitWork(homeworkId, courseId, submitDetail) {
+    submitWork (homeworkId, courseId, submitDetail) {
       submitWork(homeworkId, courseId, submitDetail).then(() => {
         this.$message.success('提交成功')
         this.$router.go(-1)

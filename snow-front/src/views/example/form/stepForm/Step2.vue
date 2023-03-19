@@ -38,7 +38,7 @@
       >
         ￥ 5,000.00
       </a-form-item>
-      <a-divider/>
+      <a-divider />
       <a-form-item
         label="支付密码"
         :labelCol="labelCol"
@@ -48,7 +48,7 @@
         <a-input
           type="password"
           style="width: 80%;"
-          v-decorator="['paymentPassword', { initialValue: '123456', rules: [{required: true, message: '请输入支付密码'}] }]"/>
+          v-decorator="['paymentPassword', { initialValue: '123456', rules: [{required: true, message: '请输入支付密码'}] }]" />
       </a-form-item>
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
         <a-button :loading="loading" type="primary" @click="nextStep">提交</a-button>
@@ -61,19 +61,19 @@
 <script>
 export default {
   name: 'Step2',
-  data() {
+  data () {
     return {
-      labelCol: {lg: {span: 5}, sm: {span: 5}},
-      wrapperCol: {lg: {span: 19}, sm: {span: 19}},
+      labelCol: { lg: { span: 5 }, sm: { span: 5 } },
+      wrapperCol: { lg: { span: 19 }, sm: { span: 19 } },
       form: this.$form.createForm(this),
       loading: false,
       timer: 0
     }
   },
   methods: {
-    nextStep() {
+    nextStep () {
       const that = this
-      const {form: {validateFields}} = this
+      const { form: { validateFields } } = this
       that.loading = true
       validateFields((err, values) => {
         if (!err) {
@@ -87,24 +87,24 @@ export default {
         }
       })
     },
-    prevStep() {
+    prevStep () {
       this.$emit('prevStep')
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     clearTimeout(this.timer)
   }
 }
 </script>
 
 <style lang="less" scoped>
-.stepFormText {
-  margin-bottom: 24px;
+  .stepFormText {
+    margin-bottom: 24px;
 
-  .ant-form-item-label,
-  .ant-form-item-control {
-    line-height: 22px;
+    .ant-form-item-label,
+    .ant-form-item-control {
+      line-height: 22px;
+    }
   }
-}
 
 </style>

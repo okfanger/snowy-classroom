@@ -9,4 +9,4 @@
 import bxAnaalyse from '@/assets/icons/bx-analyse.svg?inline' // path to your '*.svg?inline' file.
 import OnlineJudge from '@/assets/icons/suffix-acm.svg'
 
-export {bxAnaalyse, OnlineJudge}
+export { bxAnaalyse, OnlineJudge }

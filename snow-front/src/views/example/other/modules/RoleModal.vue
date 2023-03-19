@@ -15,27 +15,27 @@
         </template>
         <span slot="description">This is a description.</span>
       </a-step>
-      <a-step title="In Progress" description="This is a description."/>
-      <a-step title="Waiting" description="This is a description."/>
+      <a-step title="In Progress" description="This is a description." />
+      <a-step title="Waiting" description="This is a description." />
     </a-steps>
   </a-modal>
 </template>
 
 <script>
-import {getPermissions} from '@/api/manage'
+import { getPermissions } from '@/api/manage'
 import pick from 'lodash.pick'
 
 export default {
   name: 'RoleModal',
-  data() {
+  data () {
     return {
       labelCol: {
-        xs: {span: 24},
-        sm: {span: 5}
+        xs: { span: 24 },
+        sm: { span: 5 }
       },
       wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 16}
+        xs: { span: 24 },
+        sm: { span: 16 }
       },
       visible: false,
       confirmLoading: false,
@@ -45,14 +45,14 @@ export default {
       permissions: []
     }
   },
-  created() {
+  created () {
     this.loadPermissions()
   },
   methods: {
-    add() {
-      this.edit({id: 0})
+    add () {
+      this.edit({ id: 0 })
     },
-    edit(record) {
+    edit (record) {
       this.mdl = Object.assign({}, record)
       this.visible = true
 
@@ -74,11 +74,11 @@ export default {
       })
       console.log('this.mdl', this.mdl)
     },
-    close() {
+    close () {
       this.$emit('close')
       this.visible = false
     },
-    handleOk() {
+    handleOk () {
       const _this = this
       // 触发表单验证
       this.form.validateFields((err, values) => {
@@ -103,21 +103,21 @@ export default {
         }
       })
     },
-    handleCancel() {
+    handleCancel () {
       this.close()
     },
-    onChangeCheck(permission) {
+    onChangeCheck (permission) {
       permission.indeterminate = !!permission.selected.length && (permission.selected.length < permission.actionsOptions.length)
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
     },
-    onChangeCheckAll(e, permission) {
+    onChangeCheckAll (e, permission) {
       Object.assign(permission, {
         selected: e.target.checked ? permission.actionsOptions.map(obj => obj.value) : [],
         indeterminate: false,
         checkedAll: e.target.checked
       })
     },
-    loadPermissions() {
+    loadPermissions () {
       const that = this
       getPermissions().then(res => {
         const result = res.result

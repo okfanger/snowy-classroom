@@ -1,4 +1,4 @@
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 const i18nMixin = {
   computed: {
@@ -7,7 +7,7 @@ const i18nMixin = {
     })
   },
   methods: {
-    setLang(lang) {
+    setLang (lang) {
       this.$store.dispatch('setLang', lang)
     }
   }

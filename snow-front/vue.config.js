@@ -6,19 +6,17 @@ const GitRevision = new GitRevisionPlugin()
 const buildDate = JSON.stringify(new Date().toLocaleString())
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
 // check Git
-function getGitHash() {
+function getGitHash () {
   try {
     return GitRevision.version()
-  } catch (e) {
-  }
+  } catch (e) {}
   return 'unknown'
 }
-
 // eslint-disable-next-line no-unused-vars
 const isProd = process.env.NODE_ENV === 'production'
 // eslint-disable-next-line no-unused-vars

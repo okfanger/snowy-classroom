@@ -1,5 +1,5 @@
 import Mock from 'mockjs2'
-import {builder, getQueryParameters} from '../util'
+import { builder, getQueryParameters } from '../util'
 
 const titles = [
   'Alipay',
@@ -59,7 +59,7 @@ const article = (options) => {
       message: Mock.mock('@integer(1, 999)'),
       description: description,
       href: href,
-      title: titles[i % 8],
+      title: titles[ i % 8 ],
       updatedAt: Mock.mock('@datetime'),
       members: [
         {

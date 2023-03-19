@@ -23,37 +23,37 @@
 
 <script>
 
-import {studentSignInRecord} from '@/api/attend'
-import {mapGetters} from 'vuex'
+import { studentSignInRecord } from '@/api/attend'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SignIn',
-  data() {
+  data () {
     return {
       success: false
     }
   },
-  computed: {
+computed: {
     ...mapGetters(['userInfo'])
   },
   methods: {
-    handleGoHome() {
+    handleGoHome () {
       this.$router.push({
         path: '/'
       })
     },
-    handleSignIn() {
+    handleSignIn () {
       studentSignInRecord(this.$route.query['task'])
         .then((res) => {
-          if (res.data === 'success') {
-            this.success = true
-          }
-        }).catch((fail) => {
+        if (res.data === 'success') {
+          this.success = true
+        }
+      }).catch((fail) => {
         console.log('fail', fail)
       })
     }
   },
-  created() {
+  created () {
     if (Object.keys(this.userInfo).length !== 0) {
       this.handleSignIn()
     } else {

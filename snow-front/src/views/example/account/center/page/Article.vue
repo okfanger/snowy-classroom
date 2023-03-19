@@ -8,9 +8,9 @@
   >
     <a-list-item :key="item.id" slot="renderItem" slot-scope="item">
       <template slot="actions">
-        <icon-text type="star-o" :text="item.star"/>
-        <icon-text type="like-o" :text="item.like"/>
-        <icon-text type="message" :text="item.message"/>
+        <icon-text type="star-o" :text="item.star" />
+        <icon-text type="like-o" :text="item.like" />
+        <icon-text type="message" :text="item.message" />
       </template>
       <a-list-item-meta>
         <a slot="title" href="https://vue.ant.design/">{{ item.title }}</a>
@@ -22,8 +22,7 @@
           </span>
         </template>
       </a-list-item-meta>
-      <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href"
-                            :updateAt="item.updatedAt"/>
+      <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href" :updateAt="item.updatedAt" />
     </a-list-item>
     <div slot="footer" v-if="data.length > 0" style="text-align: center; margin-top: 16px;">
       <a-button @click="loadMore" :loading="loadingMore">加载更多</a-button>
@@ -32,7 +31,7 @@
 </template>
 
 <script>
-import {ArticleListContent} from '@/components'
+import { ArticleListContent } from '@/components'
 import IconText from '@/views/example/list/search/components/IconText'
 
 export default {
@@ -41,25 +40,25 @@ export default {
     IconText,
     ArticleListContent
   },
-  data() {
+  data () {
     return {
       loading: true,
       loadingMore: false,
       data: []
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       this.$http.get('/list/article').then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false
       })
     },
-    loadMore() {
+    loadMore () {
       this.loadingMore = true
       this.$http.get('/list/article').then(res => {
         this.data = this.data.concat(res.result)

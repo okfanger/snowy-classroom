@@ -1,27 +1,27 @@
 export const PERMISSION_ENUM = {
-  'add': {key: 'add', label: '新增'},
-  'delete': {key: 'delete', label: '删除'},
-  'edit': {key: 'edit', label: '修改'},
-  'query': {key: 'query', label: '查询'},
-  'get': {key: 'get', label: '详情'},
-  'enable': {key: 'enable', label: '启用'},
-  'disable': {key: 'disable', label: '禁用'},
-  'import': {key: 'import', label: '导入'},
-  'export': {key: 'export', label: '导出'}
+  'add': { key: 'add', label: '新增' },
+  'delete': { key: 'delete', label: '删除' },
+  'edit': { key: 'edit', label: '修改' },
+  'query': { key: 'query', label: '查询' },
+  'get': { key: 'get', label: '详情' },
+  'enable': { key: 'enable', label: '启用' },
+  'disable': { key: 'disable', label: '禁用' },
+  'import': { key: 'import', label: '导入' },
+  'export': { key: 'export', label: '导出' }
 }
 
 /**
  * <a-button v-if="$auth('form.edit')">Button</a-button>
  * @param Vue
  */
-function plugin(Vue) {
+function plugin (Vue) {
   if (plugin.installed) {
     return
   }
 
   !Vue.prototype.$auth && Object.defineProperties(Vue.prototype, {
     $auth: {
-      get() {
+      get () {
         const _this = this
         return (permissions) => {
           const [permission, action] = permissions.split('.')
@@ -38,7 +38,7 @@ function plugin(Vue) {
 
   !Vue.prototype.$enum && Object.defineProperties(Vue.prototype, {
     $enum: {
-      get() {
+      get () {
         // const _this = this;
         return (val) => {
           let result = PERMISSION_ENUM

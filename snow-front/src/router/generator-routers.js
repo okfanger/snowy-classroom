@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import * as loginService from '@/api/login'
 // eslint-disable-next-line
-import {BasicLayout, BlankLayout, PageView, RouteView} from '@/layouts'
+import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
 
 // 前端路由表
 const constantRouterComponents = {
@@ -114,7 +114,7 @@ export const generatorDynamicRouter = token => {
  */
 export const generator = (routerMap, parent) => {
   return routerMap.map(item => {
-    const {title, show, hideChildren, hiddenHeaderContent, target, icon} = item.meta || {}
+    const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
       path: item.path || `${(parent && parent.path) || ''}/${item.key}`,

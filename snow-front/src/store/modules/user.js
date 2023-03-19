@@ -1,8 +1,8 @@
 import storage from 'store'
 import expirePlugin from 'store/plugins/expire'
-import {login, getInfo} from '@/api/login'
-import {ACCESS_TOKEN} from '@/store/mutation-types'
-import {welcome} from '@/utils/util'
+import { login, getInfo } from '@/api/login'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { welcome } from '@/utils/util'
 
 storage.addPlugin(expirePlugin)
 const user = {
@@ -19,7 +19,7 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_NAME: (state, {name, welcome}) => {
+    SET_NAME: (state, { name, welcome }) => {
       state.name = name
       state.welcome = welcome
     },
@@ -36,7 +36,7 @@ const user = {
 
   actions: {
     // 登录
-    Login({commit}, userInfo) {
+    Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
           console.log(response)
@@ -51,7 +51,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({commit}) {
+    GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
           const result = response.data
@@ -73,7 +73,7 @@ const user = {
             reject(new Error('getInfo: roles must be a non-null array !'))
           }
           commit('SET_INFO', result)
-          commit('SET_NAME', {name: result.name, welcome: welcome()})
+          commit('SET_NAME', { name: result.name, welcome: welcome() })
           // commit('SET_AVATAR', result.avatar)
           resolve(response)
         }).catch(error => {
@@ -82,12 +82,12 @@ const user = {
       })
     },
     // 登出
-    Logout({commit, state}) {
+    Logout ({ commit, state }) {
       // return new Promise((resolve) => {
       //   logout(state.token).then(() => {
-      commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
-      storage.remove(ACCESS_TOKEN)
+          commit('SET_TOKEN', '')
+          commit('SET_ROLES', [])
+          storage.remove(ACCESS_TOKEN)
       //     resolve()
       //   }).catch((err) => {
       //     console.log('logout fail:', err)

@@ -7,8 +7,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store/'
 import i18n from './locales'
-import {VueAxios} from './utils/request'
-import ProLayout, {PageHeaderWrapper} from '@ant-design-vue/pro-layout'
+import { VueAxios } from './utils/request'
+import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
 
 // mock

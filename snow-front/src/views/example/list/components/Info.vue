@@ -2,7 +2,7 @@
   <div class="header-info">
     <span>{{ title }}</span>
     <p>{{ value }}</p>
-    <em v-if="bordered"/>
+    <em v-if="bordered" />
   </div>
 </template>
 
@@ -32,7 +32,6 @@ export default {
 .header-info {
   position: relative;
   text-align: center;
-
   & > span {
     display: inline-block;
     margin-bottom: 4px;
@@ -40,14 +39,12 @@ export default {
     font-size: @font-size-base;
     line-height: 22px;
   }
-
   & > p {
     margin: 0;
     color: @heading-color;
     font-size: 24px;
     line-height: 32px;
   }
-
   & > em {
     position: absolute;
     top: 0;

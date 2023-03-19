@@ -1,10 +1,11 @@
 import request from 'axios'
-
 export const getWeather = () => {
   return request({
     url: '/tenapi/yiyan/?format=json',
     method: 'GET',
-    data: {}
+    data: {
+
+    }
   })
 }
 /*
@@ -32,6 +33,7 @@ export const getTelPost = (tel) => {
   return request({
     url: `/tenapi/tel/`,
     method: 'POST',
-    data: {}
+    data: {
+    }
   })
 }

@@ -3,7 +3,7 @@
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger"/>
+        <select-lang class="select-lang-trigger" />
       </div>
       <div class="user-layout-content">
         <div class="top">
@@ -14,17 +14,17 @@
             </a>
           </div>
           <div class="desc">
-            {{ $t('layouts.userLayout.title') }} <br/>
+            {{ $t('layouts.userLayout.title') }} <br />
           </div>
         </div>
 
-        <router-view/>
+        <router-view />
 
         <div class="footer">
           <div class="links">
-            <!--            <a href="_self">帮助</a>-->
-            <!--            <a href="_self">隐私</a>-->
-            <!--            <a href="_self">条款</a>-->
+<!--            <a href="_self">帮助</a>-->
+<!--            <a href="_self">隐私</a>-->
+<!--            <a href="_self">条款</a>-->
           </div>
           <div class="copyright">
             Copyright &copy; 2022 snowy-classroom
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {deviceMixin} from '@/store/device-mixin'
+import { deviceMixin } from '@/store/device-mixin'
 import SelectLang from '@/components/SelectLang'
 
 export default {
@@ -45,10 +45,10 @@ export default {
     SelectLang
   },
   mixins: [deviceMixin],
-  mounted() {
+  mounted () {
     document.body.classList.add('userLayout')
   },
-  beforeDestroy() {
+  beforeDestroy () {
     document.body.classList.remove('userLayout')
   }
 }
@@ -129,7 +129,6 @@ export default {
             top: 2px;
           }
         }
-
         .desc {
           font-size: 14px;
           color: rgba(0, 0, 0, 0.45);
@@ -155,17 +154,14 @@ export default {
         .links {
           margin-bottom: 8px;
           font-size: 14px;
-
           a {
             color: rgba(0, 0, 0, 0.45);
             transition: all 0.3s;
-
             &:not(:last-child) {
               margin-right: 40px;
             }
           }
         }
-
         .copyright {
           color: rgba(0, 0, 0, 0.45);
           font-size: 14px;

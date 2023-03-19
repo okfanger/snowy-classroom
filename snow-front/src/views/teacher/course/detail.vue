@@ -32,7 +32,7 @@
           <Attend :course-id="parseInt($route.query['id'])"></Attend>
         </a-tab-pane>
         <a-tab-pane key="3" tab="成员 & 小组">
-          <Member :course-id="parseInt($route.query['id'])"></Member>
+          <Member :course-id="parseInt($route.query['id'])"> </Member>
         </a-tab-pane>
         <a-tab-pane key="4" tab="考试">
           <Exam :course-id="parseInt($route.query['id'])"></Exam>
@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import {getStudentOne} from '@/api/course'
-import {style2mask} from '@/utils/custom'
+import { getStudentOne } from '@/api/course'
+import { style2mask } from '@/utils/custom'
 import moment from 'moment'
 
 const homeworkComponent = () => import('./homework.vue')
@@ -64,17 +64,19 @@ export default {
     'Attend': attendComponent,
     'Homework': homeworkComponent
   },
-  data() {
+  data () {
     return {
       defaultActiveKey: '1',
       examId: 0,
-      course: {},
+      course: {
+
+      },
       style2mask,
       moment,
       tabValue: 'a'
     }
   },
-  created() {
+  created () {
     if (this.$route.query['key']) {
       this.defaultActiveKey = this.$route.query['key']
     }
@@ -98,8 +100,8 @@ export default {
   }
 }
 
-.card {
-  user-select: none;
+.card{
+  user-select:none;
   /*margin-top: 10px;*/
   /*margin-right: 10px;*/
   /*width:100%;*/

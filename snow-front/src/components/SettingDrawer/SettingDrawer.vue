@@ -56,7 +56,7 @@
 
           </div>
         </div>
-        <a-divider/>
+        <a-divider />
 
         <div :style="{ marginBottom: '24px' }">
           <h3 class="setting-drawer-index-title">导航模式</h3>
@@ -93,8 +93,7 @@
                   <template slot="title">
                     该设定仅 [顶部栏导航] 时有效
                   </template>
-                  <a-select size="small" style="width: 80px;" :defaultValue="contentWidth"
-                            @change="handleContentWidthChange">
+                  <a-select size="small" style="width: 80px;" :defaultValue="contentWidth" @change="handleContentWidthChange">
                     <a-select-option value="Fixed">固定</a-select-option>
                     <a-select-option value="Fluid" v-if="layoutMode !== 'sidemenu'">流式</a-select-option>
                   </a-select>
@@ -104,14 +103,13 @@
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="fixedHeader" @change="handleFixedHeader"/>
+                <a-switch slot="actions" size="small" :defaultChecked="fixedHeader" @change="handleFixedHeader" />
                 <a-list-item-meta>
                   <div slot="title">固定 Header</div>
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :disabled="!fixedHeader" :defaultChecked="autoHideHeader"
-                          @change="handleFixedHeaderHidden"/>
+                <a-switch slot="actions" size="small" :disabled="!fixedHeader" :defaultChecked="autoHideHeader" @change="handleFixedHeaderHidden" />
                 <a-list-item-meta>
                   <a-tooltip slot="title" placement="left">
                     <template slot="title">固定 Header 时可配置</template>
@@ -119,32 +117,29 @@
                   </a-tooltip>
                 </a-list-item-meta>
               </a-list-item>
-              <a-list-item>
-                <a-switch slot="actions" size="small" :disabled="(layoutMode === 'topmenu')"
-                          :defaultChecked="fixSiderbar" @change="handleFixSiderbar"/>
+              <a-list-item >
+                <a-switch slot="actions" size="small" :disabled="(layoutMode === 'topmenu')" :defaultChecked="fixSiderbar" @change="handleFixSiderbar" />
                 <a-list-item-meta>
-                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">
-                    固定侧边菜单
-                  </div>
+                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">固定侧边菜单</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
           </div>
         </div>
-        <a-divider/>
+        <a-divider />
 
         <div :style="{ marginBottom: '24px' }">
           <h3 class="setting-drawer-index-title">其他设置</h3>
           <div>
             <a-list :split="false">
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="colorWeak" @change="onColorWeak"/>
+                <a-switch slot="actions" size="small" :defaultChecked="colorWeak" @change="onColorWeak" />
                 <a-list-item-meta>
                   <div slot="title">色弱模式</div>
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="multiTab" @change="onMultiTab"/>
+                <a-switch slot="actions" size="small" :defaultChecked="multiTab" @change="onMultiTab" />
                 <a-list-item-meta>
                   <div slot="title">多页签模式</div>
                 </a-list-item-meta>
@@ -152,19 +147,17 @@
             </a-list>
           </div>
         </div>
-        <a-divider/>
+        <a-divider />
         <div :style="{ marginBottom: '24px' }">
           <a-button
             @click="doCopy"
             icon="copy"
             block
-          >拷贝设置
-          </a-button>
+          >拷贝设置</a-button>
           <a-alert type="warning" :style="{ marginTop: '24px' }">
             <span slot="message">
               配置栏只在开发环境用于预览，生产环境不会展现，请手动修改配置文件。修改配置文件后，需要清空本地缓存和LocalStorage
-              <a href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js"
-                 target="_blank">src/config/defaultSettings.js</a>
+              <a href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js" target="_blank">src/config/defaultSettings.js</a>
             </span>
           </a-alert>
         </div>
@@ -180,47 +173,49 @@
 <script>
 import SettingItem from './SettingItem'
 import config from '@/config/defaultSettings'
-import {updateTheme, updateColorWeak, colorList} from './settingConfig'
+import { updateTheme, updateColorWeak, colorList } from './settingConfig'
 
 export default {
   components: {
     SettingItem
   },
   mixins: [],
-  data() {
+  data () {
     return {
       visible: false,
       colorList
     }
   },
-  watch: {},
-  mounted() {
+  watch: {
+
+  },
+  mounted () {
     updateTheme(this.primaryColor)
     if (this.colorWeak !== config.colorWeak) {
       updateColorWeak(this.colorWeak)
     }
   },
   methods: {
-    showDrawer() {
+    showDrawer () {
       this.visible = true
     },
-    onClose() {
+    onClose () {
       this.visible = false
     },
-    toggle() {
+    toggle () {
       this.visible = !this.visible
     },
-    onColorWeak(checked) {
+    onColorWeak (checked) {
       this.$store.dispatch('ToggleWeak', checked)
       updateColorWeak(checked)
     },
-    onMultiTab(checked) {
+    onMultiTab (checked) {
       this.$store.dispatch('ToggleMultiTab', checked)
     },
-    handleMenuTheme(theme) {
+    handleMenuTheme (theme) {
       this.$store.dispatch('ToggleTheme', theme)
     },
-    doCopy() {
+    doCopy () {
       // get current settings from mixin or this.$store.state.app, pay attention to the property name
       const text = `export default {
   primaryColor: '${this.primaryColor}', // primary color of ant design
@@ -242,27 +237,27 @@ export default {
         this.$message.error('复制失败')
       })
     },
-    handleLayout(mode) {
+    handleLayout (mode) {
       this.$store.dispatch('ToggleLayoutMode', mode)
       // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
       this.handleFixSiderbar(false)
     },
-    handleContentWidthChange(type) {
+    handleContentWidthChange (type) {
       this.$store.dispatch('ToggleContentWidth', type)
     },
-    changeColor(color) {
+    changeColor (color) {
       if (this.primaryColor !== color) {
         this.$store.dispatch('ToggleColor', color)
         updateTheme(color)
       }
     },
-    handleFixedHeader(fixed) {
+    handleFixedHeader (fixed) {
       this.$store.dispatch('ToggleFixedHeader', fixed)
     },
-    handleFixedHeaderHidden(autoHidden) {
+    handleFixedHeaderHidden (autoHidden) {
       this.$store.dispatch('ToggleFixedHeaderHidden', autoHidden)
     },
-    handleFixSiderbar(fixed) {
+    handleFixSiderbar (fixed) {
       if (this.layoutMode === 'topmenu') {
         this.$store.dispatch('ToggleFixSiderbar', false)
         return
@@ -275,75 +270,74 @@ export default {
 
 <style lang="less" scoped>
 
-.setting-drawer-index-content {
+  .setting-drawer-index-content {
 
-  .setting-drawer-index-blockChecbox {
-    display: flex;
+    .setting-drawer-index-blockChecbox {
+      display: flex;
 
-    .setting-drawer-index-item {
-      margin-right: 16px;
-      position: relative;
-      border-radius: 4px;
-      cursor: pointer;
+      .setting-drawer-index-item {
+        margin-right: 16px;
+        position: relative;
+        border-radius: 4px;
+        cursor: pointer;
 
-      img {
-        width: 48px;
+        img {
+          width: 48px;
+        }
+
+        .setting-drawer-index-selectIcon {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          padding-top: 15px;
+          padding-left: 24px;
+          height: 100%;
+          color: #1890ff;
+          font-size: 14px;
+          font-weight: 700;
+        }
       }
+    }
+    .setting-drawer-theme-color-colorBlock {
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      float: left;
+      cursor: pointer;
+      margin-right: 8px;
+      padding-left: 0px;
+      padding-right: 0px;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
 
-      .setting-drawer-index-selectIcon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100%;
-        padding-top: 15px;
-        padding-left: 24px;
-        height: 100%;
-        color: #1890ff;
+      i {
         font-size: 14px;
-        font-weight: 700;
       }
     }
   }
 
-  .setting-drawer-theme-color-colorBlock {
-    width: 20px;
-    height: 20px;
-    border-radius: 2px;
-    float: left;
+  .setting-drawer-index-handle {
+    position: absolute;
+    top: 240px;
+    background: #1890ff;
+    width: 48px;
+    height: 48px;
+    right: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    margin-right: 8px;
-    padding-left: 0px;
-    padding-right: 0px;
+    pointer-events: auto;
+    z-index: 1001;
     text-align: center;
-    color: #fff;
-    font-weight: 700;
+    font-size: 16px;
+    border-radius: 4px 0 0 4px;
 
     i {
-      font-size: 14px;
+      color: rgb(255, 255, 255);
+      font-size: 20px;
     }
   }
-}
-
-.setting-drawer-index-handle {
-  position: absolute;
-  top: 240px;
-  background: #1890ff;
-  width: 48px;
-  height: 48px;
-  right: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  pointer-events: auto;
-  z-index: 1001;
-  text-align: center;
-  font-size: 16px;
-  border-radius: 4px 0 0 4px;
-
-  i {
-    color: rgb(255, 255, 255);
-    font-size: 20px;
-  }
-}
 </style>

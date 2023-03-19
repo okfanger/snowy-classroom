@@ -5,7 +5,7 @@
       placeholder="请输入要学生"
       enter-button
       v-model="searchMsg"
-      @search="CheckStudents"/>
+      @search="CheckStudents" />
     <a-button
       type="primary"
       style="margin-left: 30px"
@@ -56,12 +56,12 @@
 </template>
 
 <script>
-import {CheckStudents, PickMonitor} from '@/api/classroom'
-import {mapGetters} from 'vuex'
+import { CheckStudents, PickMonitor } from '@/api/classroom'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'PickMonitor',
-  data() {
+  data () {
     return {
       students: [],
       monitor_id: '',
@@ -74,52 +74,52 @@ export default {
           title: 'ID',
           dataIndex: 'id',
           key: 'id',
-          scopedSlots: {customRender: 'id'}
+          scopedSlots: { customRender: 'id' }
         },
         {
           title: '姓名',
           dataIndex: 'name',
           key: 'name',
-          scopedSlots: {customRender: 'name'}
+          scopedSlots: { customRender: 'name' }
         },
         {
           title: '学号',
           dataIndex: 'username',
           key: 'username',
-          scopedSlots: {customRender: 'username'}
+          scopedSlots: { customRender: 'username' }
         },
         {
           title: '邮箱',
           dataIndex: 'email',
           key: 'email',
-          scopedSlots: {customRender: 'email'}
+          scopedSlots: { customRender: 'email' }
         },
         {
           title: '电话',
           dataIndex: 'telephone',
           key: 'telephone',
-          scopedSlots: {customRender: 'telephone'}
+          scopedSlots: { customRender: 'telephone' }
         },
         {
           title: '备注',
           dataIndex: 'id',
           key: 'monitor',
-          scopedSlots: {customRender: 'monitor'}
+          scopedSlots: { customRender: 'monitor' }
         },
         {
           title: '操作',
           dataIndex: 'id',
           key: 'action',
-          scopedSlots: {customRender: 'action'}
+          scopedSlots: { customRender: 'action' }
         }
       ]
     }
   },
-  created() {
+  created () {
     this.CheckStudents()
   },
   methods: {
-    CheckStudents() {
+    CheckStudents () {
       const searchMsg = this.searchMsg
       CheckStudents(searchMsg).then((res) => {
         console.log(searchMsg)
@@ -127,7 +127,7 @@ export default {
         this.monitor_id = res.data[1]
       })
     },
-    PickMonitor(stuId) {
+    PickMonitor (stuId) {
       PickMonitor(stuId).then(() => {
         this.CheckStudents()
       })
@@ -144,7 +144,6 @@ export default {
   margin-left: 5%;
   width: 300px;
 }
-
 .monitor_back {
   width: 90%;
   margin: 0 auto;

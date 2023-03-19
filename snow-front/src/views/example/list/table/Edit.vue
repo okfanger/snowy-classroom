@@ -26,7 +26,7 @@
         hasFeedback
         validateStatus="success"
       >
-        <a-input-number :min="1" style="width: 100%" v-decorator="['callNo', {rules: [{ required: true }]}]"/>
+        <a-input-number :min="1" style="width: 100%" v-decorator="['callNo', {rules: [{ required: true }]}]" />
       </a-form-item>
 
       <a-form-item
@@ -50,7 +50,7 @@
         hasFeedback
         help="请填写一段描述"
       >
-        <a-textarea :rows="5" placeholder="..." v-decorator="['description', {rules: [{ required: true }]}]"/>
+        <a-textarea :rows="5" placeholder="..." v-decorator="['description', {rules: [{ required: true }]}]" />
       </a-form-item>
 
       <a-form-item
@@ -98,20 +98,20 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       labelCol: {
-        xs: {span: 24},
-        sm: {span: 5}
+        xs: { span: 24 },
+        sm: { span: 5 }
       },
       wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 12}
+        xs: { span: 24 },
+        sm: { span: 12 }
       },
       buttonCol: {
         wrapperCol: {
-          xs: {span: 24},
-          sm: {span: 12, offset: 5}
+          xs: { span: 24 },
+          sm: { span: 12, offset: 5 }
         }
       },
       form: this.$form.createForm(this),
@@ -121,17 +121,17 @@ export default {
   // beforeCreate () {
   //   this.form = this.$form.createForm(this)
   // },
-  mounted() {
+  mounted () {
     this.$nextTick(() => {
       this.loadEditInfo(this.record)
     })
   },
   methods: {
-    handleGoBack() {
+    handleGoBack () {
       this.$emit('onGoBack')
     },
-    handleSubmit() {
-      const {form: {validateFields}} = this
+    handleSubmit () {
+      const { form: { validateFields } } = this
       validateFields((err, values) => {
         if (!err) {
           // eslint-disable-next-line no-console
@@ -139,11 +139,11 @@ export default {
         }
       })
     },
-    handleGetInfo() {
+    handleGetInfo () {
 
     },
-    loadEditInfo(data) {
-      const {form} = this
+    loadEditInfo (data) {
+      const { form } = this
       // ajax
       console.log(`将加载 ${this.id} 信息到表单`)
       new Promise((resolve) => {

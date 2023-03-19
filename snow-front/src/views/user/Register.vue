@@ -17,9 +17,9 @@
         :getPopupContainer="(trigger) => trigger.parentElement"
         v-model="state.passwordLevelChecked">
         <template slot="content">
-          <div :style="{ width: '240px' }">
+          <div :style="{ width: '240px' }" >
             <div :class="['user-register', passwordLevelClass]">{{ $t(passwordLevelName) }}</div>
-            <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor "/>
+            <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor " />
             <div style="margin-top: 10px;">
               <span>{{ $t('user.register.password.popover-message') }}
               </span>
@@ -45,8 +45,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-input size="large" :placeholder="$t('user.login.mobile.placeholder')"
-                 v-decorator="['mobile', {rules: [{ required: true, message: $t('user.phone-number.required'), pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
+        <a-input size="large" :placeholder="$t('user.login.mobile.placeholder')" v-decorator="['mobile', {rules: [{ required: true, message: $t('user.phone-number.required'), pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
           <a-select slot="addonBefore" size="large" defaultValue="+86">
             <a-select-option value="+86">+86</a-select-option>
             <a-select-option value="+87">+87</a-select-option>
@@ -64,8 +63,7 @@
       <a-row :gutter="16">
         <a-col class="gutter-row" :span="16">
           <a-form-item>
-            <a-input size="large" type="text" :placeholder="$t('user.login.mobile.verification-code.placeholder')"
-                     v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
+            <a-input size="large" type="text" :placeholder="$t('user.login.mobile.verification-code.placeholder')" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
               <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
@@ -98,9 +96,9 @@
 </template>
 
 <script>
-import {getSmsCaptcha} from '@/api/login'
-import {deviceMixin} from '@/store/device-mixin'
-import {scorePassword} from '@/utils/util'
+import { getSmsCaptcha } from '@/api/login'
+import { deviceMixin } from '@/store/device-mixin'
+import { scorePassword } from '@/utils/util'
 
 const levelNames = {
   0: 'user.password.strength.short',
@@ -122,9 +120,10 @@ const levelColor = {
 }
 export default {
   name: 'Register',
-  components: {},
+  components: {
+  },
   mixins: [deviceMixin],
-  data() {
+  data () {
     return {
       form: this.$form.createForm(this),
 
@@ -141,20 +140,20 @@ export default {
     }
   },
   computed: {
-    passwordLevelClass() {
+    passwordLevelClass () {
       return levelClass[this.state.passwordLevel]
     },
-    passwordLevelName() {
+    passwordLevelName () {
       return levelNames[this.state.passwordLevel]
     },
-    passwordLevelColor() {
+    passwordLevelColor () {
       return levelColor[this.state.passwordLevel]
     }
   },
   methods: {
-    handlePasswordLevel(rule, value, callback) {
+    handlePasswordLevel (rule, value, callback) {
       if (!value) {
-        return callback()
+       return callback()
       }
       console.log('scorePassword ; ', scorePassword(value))
       if (value.length >= 6) {
@@ -162,10 +161,10 @@ export default {
           this.state.level = 1
         }
         if (scorePassword(value) >= 60) {
-          this.state.level = 2
+        this.state.level = 2
         }
         if (scorePassword(value) >= 80) {
-          this.state.level = 3
+        this.state.level = 3
         }
       } else {
         this.state.level = 0
@@ -177,7 +176,7 @@ export default {
       callback()
     },
 
-    handlePasswordCheck(rule, value, callback) {
+    handlePasswordCheck (rule, value, callback) {
       const password = this.form.getFieldValue('password')
       // console.log('value', value)
       if (value === undefined) {
@@ -189,7 +188,7 @@ export default {
       callback()
     },
 
-    handlePhoneCheck(rule, value, callback) {
+    handlePhoneCheck (rule, value, callback) {
       console.log('handlePhoneCheck, rule:', rule)
       console.log('handlePhoneCheck, value', value)
       console.log('handlePhoneCheck, callback', callback)
@@ -197,7 +196,7 @@ export default {
       callback()
     },
 
-    handlePasswordInputClick() {
+    handlePasswordInputClick () {
       if (!this.isMobile) {
         this.state.passwordLevelChecked = true
         return
@@ -205,21 +204,21 @@ export default {
       this.state.passwordLevelChecked = false
     },
 
-    handleSubmit() {
-      const {form: {validateFields}, state, $router} = this
-      validateFields({force: true}, (err, values) => {
+    handleSubmit () {
+      const { form: { validateFields }, state, $router } = this
+      validateFields({ force: true }, (err, values) => {
         if (!err) {
           state.passwordLevelChecked = false
-          $router.push({name: 'registerResult', params: {...values}})
+          $router.push({ name: 'registerResult', params: { ...values } })
         }
       })
     },
 
-    getCaptcha(e) {
+    getCaptcha (e) {
       e.preventDefault()
-      const {form: {validateFields}, state, $message, $notification} = this
+      const { form: { validateFields }, state, $message, $notification } = this
 
-      validateFields(['mobile'], {force: true},
+      validateFields(['mobile'], { force: true },
         (err, values) => {
           if (!err) {
             state.smsSendBtn = true
@@ -234,7 +233,7 @@ export default {
 
             const hide = $message.loading('验证码发送中..', 0)
 
-            getSmsCaptcha({mobile: values.mobile}).then(res => {
+            getSmsCaptcha({ mobile: values.mobile }).then(res => {
               setTimeout(hide, 2500)
               $notification['success']({
                 message: '提示',
@@ -252,7 +251,7 @@ export default {
         }
       )
     },
-    requestFailed(err) {
+    requestFailed (err) {
       this.$notification['error']({
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
@@ -262,56 +261,56 @@ export default {
     }
   },
   watch: {
-    'state.passwordLevel'(val) {
+    'state.passwordLevel' (val) {
       console.log(val)
     }
   }
 }
 </script>
 <style lang="less">
-.user-register {
+  .user-register {
 
-  &.error {
-    color: #ff0000;
+    &.error {
+      color: #ff0000;
+    }
+
+    &.warning {
+      color: #ff7e05;
+    }
+
+    &.success {
+      color: #52c41a;
+    }
+
   }
 
-  &.warning {
-    color: #ff7e05;
+  .user-layout-register {
+    .ant-input-group-addon:first-child {
+      background-color: #fff;
+    }
   }
-
-  &.success {
-    color: #52c41a;
-  }
-
-}
-
-.user-layout-register {
-  .ant-input-group-addon:first-child {
-    background-color: #fff;
-  }
-}
 </style>
 <style lang="less" scoped>
-.user-layout-register {
+  .user-layout-register {
 
-  & > h3 {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
+    & > h3 {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
 
-  .getCaptcha {
-    display: block;
-    width: 100%;
-    height: 40px;
-  }
+    .getCaptcha {
+      display: block;
+      width: 100%;
+      height: 40px;
+    }
 
-  .register-button {
-    width: 50%;
-  }
+    .register-button {
+      width: 50%;
+    }
 
-  .login {
-    float: right;
-    line-height: 40px;
+    .login {
+      float: right;
+      line-height: 40px;
+    }
   }
-}
 </style>

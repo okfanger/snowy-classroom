@@ -1,16 +1,14 @@
 <template>
   <div>
 
-    <div>
-      <a-button v-if="signInSwitch" @click="handleSignIn">签到</a-button>
-    </div>
+    <div><a-button v-if="signInSwitch" @click="handleSignIn">签到</a-button></div>
 
   </div>
 </template>
 
 <script>
 
-import {getCourseAttendBeforeCreateStatus, studentSignInRecord} from '@/api/attend'
+import { getCourseAttendBeforeCreateStatus, studentSignInRecord } from '@/api/attend'
 
 export default {
   name: 'Attend',
@@ -20,21 +18,21 @@ export default {
       default: -1
     }
   },
-  data() {
+  data () {
     return {
       signInSwitch: false,
       asyncAttendRecord: null
     }
   },
-  methods: {
+methods: {
 
-    handleSignIn() {
-      studentSignInRecord(this.asyncAttendRecord.id).then((res) => {
-        console.log(res.data)
-      })
-    }
+  handleSignIn () {
+    studentSignInRecord(this.asyncAttendRecord.id).then((res) => {
+      console.log(res.data)
+    })
+  }
   },
-  created() {
+created () {
     getCourseAttendBeforeCreateStatus(this.courseId).then((res) => {
       this.attend_able = res.data.attend_able
       this.attend_expire_time = res.data.expire_time

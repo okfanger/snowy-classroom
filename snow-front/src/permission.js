@@ -1,15 +1,14 @@
-import router, {resetRouter} from './router'
+import router, { resetRouter } from './router'
 import store from './store'
 import storage from 'store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
-import {setDocumentTitle, domTitle} from '@/utils/domUtil'
-import {ACCESS_TOKEN} from '@/store/mutation-types'
-import {i18nRender} from '@/locales'
-import {generatorDynamicRouter} from '@/router/generator-routers'
-
-NProgress.configure({showSpinner: false}) // NProgress Configuration
+import { setDocumentTitle, domTitle } from '@/utils/domUtil'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { i18nRender } from '@/locales'
+import { generatorDynamicRouter } from '@/router/generator-routers'
+NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const allowList = ['login', 'register', 'registerResult', 'sign-in'] // no redirect allowList
 const loginRoutePath = '/user/login'
@@ -22,7 +21,7 @@ router.beforeEach((to, from, next) => {
   const token = storage.get(ACCESS_TOKEN)
   if (token) {
     if (to.path === loginRoutePath) {
-      next({path: defaultRoutePath})
+      next({ path: defaultRoutePath })
       NProgress.done()
     } else {
       // check login user.roles is null
@@ -46,10 +45,10 @@ router.beforeEach((to, from, next) => {
               const redirect = decodeURIComponent(from.query.redirect || to.path)
               if (to.path === redirect) {
                 // set the replace: true so the navigation will not leave a history record
-                next({...to, replace: true})
+                next({ ...to, replace: true })
               } else {
                 // 跳转到目的路由
-                next({path: redirect})
+                next({ path: redirect })
               }
             })
           })
@@ -60,7 +59,7 @@ router.beforeEach((to, from, next) => {
             })
             // 失败时，获取用户信息失败时，调用登出，来清空历史保留信息
             store.dispatch('Logout').then(() => {
-              next({path: loginRoutePath, query: {redirect: to.fullPath}})
+              next({ path: loginRoutePath, query: { redirect: to.fullPath } })
             })
           })
       } else {
@@ -72,7 +71,7 @@ router.beforeEach((to, from, next) => {
       // 在免登录名单，直接进入
       next()
     } else {
-      next({path: loginRoutePath, query: {redirect: to.fullPath}})
+      next({ path: loginRoutePath, query: { redirect: to.fullPath } })
       NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
     }
   }

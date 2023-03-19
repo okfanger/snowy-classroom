@@ -13,7 +13,7 @@
               {rules: [{ required: true, message: $t('form.basic-form.title.required') }]}
             ]"
             name="name"
-            :placeholder="$t('form.basic-form.title.placeholder')"/>
+            :placeholder="$t('form.basic-form.title.placeholder')" />
         </a-form-item>
         <a-form-item
           :label="$t('form.basic-form.date.label')"
@@ -25,7 +25,7 @@
             v-decorator="[
               'buildTime',
               {rules: [{ required: true, message: $t('form.basic-form.date.required') }]}
-            ]"/>
+            ]" />
         </a-form-item>
         <a-form-item
           :label="$t('form.basic-form.goal.label')"
@@ -37,7 +37,7 @@
             v-decorator="[
               'description',
               {rules: [{ required: true, message: $t('form.basic-form.goal.required') }]}
-            ]"/>
+            ]" />
         </a-form-item>
         <a-form-item
           :label="$t('form.basic-form.standard.label')"
@@ -49,7 +49,7 @@
             v-decorator="[
               'type',
               {rules: [{ required: true, message: $t('form.basic-form.standard.required') }]}
-            ]"/>
+            ]" />
         </a-form-item>
         <a-form-item
           :label="$t('form.basic-form.client.label')"
@@ -60,7 +60,7 @@
             v-decorator="[
               'customer',
               {rules: [{ required: true, message: $t('form.basic-form.client.required') }]}
-            ]"/>
+            ]" />
         </a-form-item>
         <a-form-item
           :label="$t('form.basic-form.invites.label')"
@@ -68,7 +68,7 @@
           :wrapperCol="{lg: {span: 10}, sm: {span: 17} }"
           :required="false"
         >
-          <a-input :placeholder="$t('form.basic-form.invites.placeholder')"/>
+          <a-input :placeholder="$t('form.basic-form.invites.placeholder')" />
         </a-form-item>
         <a-form-item
           :label="$t('form.basic-form.weight.label')"
@@ -76,7 +76,7 @@
           :wrapperCol="{lg: {span: 10}, sm: {span: 17} }"
           :required="false"
         >
-          <a-input-number :min="0" :max="100"/>
+          <a-input-number :min="0" :max="100" />
           <span> %</span>
         </a-form-item>
         <a-form-item
@@ -114,14 +114,14 @@
 <script>
 export default {
   name: 'BaseForm',
-  data() {
+  data () {
     return {
       form: this.$form.createForm(this)
     }
   },
   methods: {
     // handler
-    handleSubmit(e) {
+    handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {

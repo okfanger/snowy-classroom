@@ -13,7 +13,7 @@
         <a-descriptions-item label="联系电话">18100000000</a-descriptions-item>
         <a-descriptions-item label="常用快递">菜鸟仓储</a-descriptions-item>
         <a-descriptions-item label="取货地址">浙江省杭州市西湖区万塘路18号</a-descriptions-item>
-        <a-descriptions-item label="备注"> 无</a-descriptions-item>
+        <a-descriptions-item label="备注">	无</a-descriptions-item>
       </a-descriptions>
       <a-divider style="margin-bottom: 32px"/>
 
@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import {STable} from '@/components'
+import { STable } from '@/components'
 
 export default {
   components: {
     STable
   },
-  data() {
+  data () {
     return {
       goodsColumns: [
         {
@@ -151,7 +151,7 @@ export default {
           title: '状态',
           dataIndex: 'status',
           key: 'status',
-          scopedSlots: {customRender: 'status'}
+          scopedSlots: { customRender: 'status' }
         },
         {
           title: '操作员ID',
@@ -221,7 +221,7 @@ export default {
     }
   },
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         'processing': '进行中',
         'success': '完成',
@@ -231,7 +231,7 @@ export default {
     }
   },
   computed: {
-    title() {
+    title () {
       return this.$route.meta.title
     }
   }
@@ -240,10 +240,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.title {
-  color: rgba(0, 0, 0, .85);
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 16px;
-}
+  .title {
+    color: rgba(0,0,0,.85);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
 </style>

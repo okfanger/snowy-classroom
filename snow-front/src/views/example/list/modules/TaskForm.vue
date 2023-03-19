@@ -5,7 +5,7 @@
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
     >
-      <a-input v-decorator="['title', {rules:[{required: true, message: '请输入任务名称'}]}]"/>
+      <a-input v-decorator="['title', {rules:[{required: true, message: '请输入任务名称'}]}]" />
     </a-form-item>
     <a-form-item
       label="开始时间"
@@ -51,37 +51,37 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       labelCol: {
-        xs: {span: 24},
-        sm: {span: 7}
+        xs: { span: 24 },
+        sm: { span: 7 }
       },
       wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 13}
+        xs: { span: 24 },
+        sm: { span: 13 }
       },
       form: this.$form.createForm(this)
     }
   },
-  mounted() {
+  mounted () {
     this.record && this.form.setFieldsValue(pick(this.record, fields))
   },
   methods: {
-    onOk() {
+    onOk () {
       console.log('监听了 modal ok 事件')
       return new Promise(resolve => {
         resolve(true)
       })
     },
-    onCancel() {
+    onCancel () {
       console.log('监听了 modal cancel 事件')
       return new Promise(resolve => {
         resolve(true)
       })
     },
-    handleSubmit() {
-      const {form: {validateFields}} = this
+    handleSubmit () {
+      const { form: { validateFields } } = this
       this.visible = true
       validateFields((errors, values) => {
         if (!errors) {

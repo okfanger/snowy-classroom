@@ -14,7 +14,7 @@ import {
   // i18n
   APP_LANGUAGE
 } from '@/store/mutation-types'
-import {loadLanguageAsync} from '@/locales'
+import { loadLanguageAsync } from '@/locales'
 
 const app = {
   state: {
@@ -83,7 +83,7 @@ const app = {
     }
   },
   actions: {
-    setLang({commit}, lang) {
+    setLang ({ commit }, lang) {
       return new Promise((resolve, reject) => {
         commit(APP_LANGUAGE, lang)
         loadLanguageAsync(lang).then(() => {

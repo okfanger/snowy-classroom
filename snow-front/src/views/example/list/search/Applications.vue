@@ -58,22 +58,22 @@
           <a-card :body-style="{ paddingBottom: 20 }" hoverable>
             <a-card-meta :title="item.title">
               <template slot="avatar">
-                <a-avatar size="small" :src="item.avatar"/>
+                <a-avatar size="small" :src="item.avatar" />
               </template>
             </a-card-meta>
             <template slot="actions">
               <a-tooltip title="下载">
-                <a-icon type="download"/>
+                <a-icon type="download" />
               </a-tooltip>
               <a-tooltip title="编辑">
-                <a-icon type="edit"/>
+                <a-icon type="edit" />
               </a-tooltip>
               <a-tooltip title="分享">
-                <a-icon type="share-alt"/>
+                <a-icon type="share-alt" />
               </a-tooltip>
               <a-dropdown>
                 <a class="ant-dropdown-link">
-                  <a-icon type="ellipsis"/>
+                  <a-icon type="ellipsis" />
                 </a>
                 <a-menu slot="overlay">
                   <a-menu-item>
@@ -100,9 +100,8 @@
 
 <script>
 import moment from 'moment'
-import {TagSelect, StandardFormRow, Ellipsis, AvatarList} from '@/components'
+import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
 import CardInfo from './components/CardInfo'
-
 const TagSelectOption = TagSelect.Option
 const AvatarListItem = AvatarList.Item
 
@@ -116,7 +115,7 @@ export default {
     StandardFormRow,
     CardInfo
   },
-  data() {
+  data () {
     return {
       data: [],
       form: this.$form.createForm(this),
@@ -124,19 +123,19 @@ export default {
     }
   },
   filters: {
-    fromNow(date) {
+    fromNow (date) {
       return moment(date).fromNow()
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    handleChange(value) {
+    handleChange (value) {
       console.log(`selected ${value}`)
     },
-    getList() {
-      this.$http.get('/list/article', {params: {count: 8}}).then(res => {
+    getList () {
+      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false
@@ -154,7 +153,6 @@ export default {
     font-size: 14px;
   }
 }
-
 .ant-pro-pages-list-projects-cardList {
   margin-top: 24px;
 

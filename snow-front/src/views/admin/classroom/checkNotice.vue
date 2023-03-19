@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import {CheckNoticeAdmin} from '@/api/classroom'
+import { CheckNoticeAdmin } from '@/api/classroom'
 
 export default {
   name: 'CheckNotice',
-  data() {
+  data () {
     return {
       notices: [],
       loading: true,
@@ -39,11 +39,11 @@ export default {
       data: []
     }
   },
-  created() {
+  created () {
     this.CheckNoticeAdmin()
   },
   methods: {
-    go(thisNotice) {
+    go (thisNotice) {
       console.log(thisNotice)
       this.$router.push({
         path: '/classroom/checkNoticeDetail',
@@ -52,7 +52,7 @@ export default {
         }
       })
     },
-    CheckNoticeAdmin() {
+    CheckNoticeAdmin () {
       CheckNoticeAdmin().then((res) => {
         this.notices = res.data
         console.log(this.notices)
@@ -63,26 +63,23 @@ export default {
 </script>
 
 <style scoped>
-.notice_back {
+.notice_back{
   width: 80%;
   margin: 0 auto;
   background: white;
-  overflow: auto;
+  overflow:auto;
 }
-
-.notice_list_item {
+.notice_list_item{
   margin: 15px 120px 15px 25px;
   width: 80%;
 }
-
-.notice_log {
+.notice_log{
   height: 30px;
   width: 30px;
   display: table-cell;
   margin: 0 auto;
 }
-
-.notice_log_span {
-  margin-left: 30px;
+.notice_log_span{
+  margin-left:30px;
 }
 </style>
