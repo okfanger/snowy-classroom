@@ -1,9 +1,9 @@
 server:
-  port: 8082
+  port: 8202
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/snow_classroom?useSSL=false
-    username: root
+    url: jdbc:mysql://127.0.0.1:3306/snow_course?useSSL=false
+    username: snow_course_biz
     password:
     driver-class-name: com.mysql.jdbc.Driver
 
