@@ -1,6 +1,6 @@
 package cn.akfang.snow.user.service;
 
-import cn.akfang.snow.feign.model.entity.UsersMenurouter;
+import cn.akfang.snow.common.model.user.entity.UsersMenurouter;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

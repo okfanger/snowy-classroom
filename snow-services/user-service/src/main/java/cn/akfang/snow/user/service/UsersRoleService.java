@@ -1,6 +1,6 @@
 package cn.akfang.snow.user.service;
 
-import cn.akfang.snow.feign.model.entity.UsersRole;
+import cn.akfang.snow.common.model.user.entity.UsersRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

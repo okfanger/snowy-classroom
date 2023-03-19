@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.akfang.snow.user.mapper.CoreTeacherMapper">
+
+    <resultMap id="BaseResultMap" type="cn.akfang.snow.common.model.entity.CoreTeacher">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="teach_age" column="teach_age" jdbcType="INTEGER"/>
+        <result property="rank" column="rank" jdbcType="VARCHAR"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <result property="user_id" column="user_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,update_time,
+        teach_age,rank,desc,
+        user_id
+    </sql>
+</mapper>

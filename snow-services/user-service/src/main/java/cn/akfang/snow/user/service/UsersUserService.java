@@ -1,6 +1,7 @@
 package cn.akfang.snow.user.service;
 
-import cn.akfang.snow.feign.model.entity.UsersUser;
+import cn.akfang.snow.common.model.user.dto.LoginDto;
+import cn.akfang.snow.common.model.user.entity.UsersUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UsersUserService extends IService<UsersUser> {
 
+    UsersUser getUserByUsernamePassword(LoginDto loginDto);
 }

@@ -10,6 +10,9 @@
         <option value="$PROJECT_DIR$/snow-services/course-service/pom.xml" />
         <option value="$PROJECT_DIR$/snow-services/exam-service/pom.xml" />
         <option value="$PROJECT_DIR$/snow-common/pom.xml" />
+        <option value="$PROJECT_DIR$/snow-services/message-service/pom.xml" />
+        <option value="$PROJECT_DIR$/snow-services/homework-service/pom.xml" />
+        <option value="$PROJECT_DIR$/snow-services/clazz-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

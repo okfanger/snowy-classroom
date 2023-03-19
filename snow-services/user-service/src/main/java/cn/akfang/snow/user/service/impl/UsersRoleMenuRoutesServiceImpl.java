@@ -1,9 +1,9 @@
 package cn.akfang.snow.user.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import cn.akfang.snow.feign.model.entity.UsersRoleMenuRoutes;
-import cn.akfang.snow.user.service.UsersRoleMenuRoutesService;
+import cn.akfang.snow.common.model.user.entity.UsersRoleMenuRoutes;
 import cn.akfang.snow.user.mapper.UsersRoleMenuRoutesMapper;
+import cn.akfang.snow.user.service.UsersRoleMenuRoutesService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

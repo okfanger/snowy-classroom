@@ -1,9 +1,9 @@
 package cn.akfang.snow.user.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import cn.akfang.snow.feign.model.entity.UsersMenuroutermeta;
-import cn.akfang.snow.user.service.UsersMenuroutermetaService;
+import cn.akfang.snow.common.model.user.entity.UsersMenuroutermeta;
 import cn.akfang.snow.user.mapper.UsersMenuroutermetaMapper;
+import cn.akfang.snow.user.service.UsersMenuroutermetaService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

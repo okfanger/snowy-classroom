@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.akfang.snow.course.mapper.CoreStudentCoursesMapper">
+
+    <resultMap id="BaseResultMap" type="cn.akfang.snow.common.model.entity.CoreStudentCourses">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="student_id" column="student_id" jdbcType="BIGINT"/>
+        <result property="course_id" column="course_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,student_id,course_id
+    </sql>
+</mapper>

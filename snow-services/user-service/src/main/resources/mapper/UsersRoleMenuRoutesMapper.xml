@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.akfang.snow.user.mapper.UsersRoleMenuRoutesMapper">
 
-    <resultMap id="BaseResultMap" type="cn.akfang.snow.feign.model.entity.UsersRoleMenuRoutes">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="role_id" column="role_id" jdbcType="BIGINT"/>
-            <result property="menurouter_id" column="menurouter_id" jdbcType="BIGINT"/>
+    <resultMap id="BaseResultMap" type="cn.akfang.snow.common.model.user.entity.UsersRoleMenuRoutes">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="role_id" column="role_id" jdbcType="BIGINT"/>
+        <result property="menurouter_id" column="menurouter_id" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

@@ -4,17 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.akfang.snow.user.mapper.UsersMenurouterMapper">
 
-    <resultMap id="BaseResultMap" type="cn.akfang.snow.feign.model.entity.UsersMenurouter">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="parentId" column="parentId" jdbcType="INTEGER"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="component" column="component" jdbcType="VARCHAR"/>
-            <result property="redirect" column="redirect" jdbcType="VARCHAR"/>
-            <result property="hidden" column="hidden" jdbcType="TINYINT"/>
-            <result property="hideChildrenInMenu" column="hideChildrenInMenu" jdbcType="TINYINT"/>
-            <result property="path" column="path" jdbcType="VARCHAR"/>
+    <resultMap id="BaseResultMap" type="cn.akfang.snow.common.model.user.entity.UsersMenurouter">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="parentId" column="parentId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+        <result property="redirect" column="redirect" jdbcType="VARCHAR"/>
+        <result property="hidden" column="hidden" jdbcType="TINYINT"/>
+        <result property="hideChildrenInMenu" column="hideChildrenInMenu" jdbcType="TINYINT"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
             <result property="meta_id" column="meta_id" jdbcType="BIGINT"/>
     </resultMap>
 

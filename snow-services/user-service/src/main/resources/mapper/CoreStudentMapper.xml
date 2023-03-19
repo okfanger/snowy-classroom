@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.akfang.snow.user.mapper.CoreStudentMapper">
+
+    <resultMap id="BaseResultMap" type="cn.akfang.snow.common.model.entity.CoreStudent">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="attend_date" column="attend_date" jdbcType="TIMESTAMP"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
+        <result property="classroom_id" column="classroom_id" jdbcType="BIGINT"/>
+        <result property="user_id" column="user_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,update_time,
+        attend_date,grade,classroom_id,
+        user_id
+    </sql>
+</mapper>

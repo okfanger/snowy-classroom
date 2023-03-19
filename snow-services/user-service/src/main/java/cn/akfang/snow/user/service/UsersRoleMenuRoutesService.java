@@ -1,6 +1,6 @@
 package cn.akfang.snow.user.service;
 
-import cn.akfang.snow.feign.model.entity.UsersRoleMenuRoutes;
+import cn.akfang.snow.common.model.user.entity.UsersRoleMenuRoutes;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
